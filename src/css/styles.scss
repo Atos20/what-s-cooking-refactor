@@ -1,6 +1,9 @@
+@import 'base';
+@import 'variables';
+
 html {
   background-color: #37515C;
-  border: 2px solid #000;
+  // border: 2px solid #000;
   height: 100vh;
 }
 
@@ -12,12 +15,20 @@ body {
 
 
 .main-header {
-  background-color: #EBF5EE;
-  border: 2px solid #000;
-  display: flex;
-  height: auto;
-  justify-content: space-between;
+  @include displayFlexRow;
+  font-family: $title-font;
+  color: $primary-color;
+  background-color: lighten($secondary-color, 10%);
+  // border: 2px solid #000;
+  // display: flex;
+  flex-direction: row;
+  height: 20vh;
+  // align-items: center;
+  // justify-content: space-between;
   width: 100%;
+  form {
+    @include displayFlexRow;
+  }
 }
 
 .navButton {
