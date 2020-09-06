@@ -1,6 +1,10 @@
 @import 'base';
 @import 'variables';
 
+* {
+  box-sizing: border-box;
+}
+
 html {
   background-color: #37515C;
   // border: 2px solid #000;
@@ -25,45 +29,69 @@ body {
   // align-items: center;
   // justify-content: space-between;
   width: 100%;
+  // justify-content: space-between;
+
+
+  // .app-name{
+  //   display: inline-block;
+  // }
+  .welcome{
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    align-items: center;
+    width: 25vw;
+    padding: 0%;
+    margin: 0%;
+  }
 
   h1 {
     // border-right: 2px solid #000;
+    font-family: $beauty-font;
+    justify-content: center;
+    display: flex;
     font-size: 200%;
     margin: 0% 0% 0% 0%;
     padding: 0% 0% 0% 0%;
     text-align: center;
-    width: 30%;
+    // width: 40%;
+  }
+
+  .user-info {
+    display: flex;
+    flex-direction: row;
+    font-family: "Poiret One", cursive;
+    font-size: 1.2em;
+    margin: 5%;
+    /* text-align: center; */
+    align-self: flex-end;
+  }
+
+  p {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-container{
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-end;
   }
 
   form {
     @include displayFlexRow;
   }
+
+  .search{
+    @include search;
+  }
+
+  .navButton {
+    @include navButton;
+  }
 }
 
-.navButton {
-  background-color: #EBF5EE;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-  font-size: 130%;
-  margin: 1%;
-}
-
-// h1 {
-//   border-right: 2px solid #000;
-//   font-size: 255%;
-//   margin-top: 0;
-//   margin-bottom: 0;
-//   padding-top: 10px;
-//   text-align: center;
-//   width: 30%;
-// }
-
-.user-info {
-  font-size: 180%;
-  margin: auto;
-  text-align: center;
-  width: 40%
-}
 
 .search-bar {
   display: flex;
