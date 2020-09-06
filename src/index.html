@@ -8,21 +8,34 @@
   </head>
   <body>
     <!-- change header to a nav tag for accessibility-->
+    <!-- <div class="line"></div> -->
     <nav class='main-header'>
-      <h1 class='app-name'><i class="fas fa-carrot"></i>Foodamental</h1>
-      <form class='search-bar'>
+      <div class="welcome">
+        <h1 class='app-name'><i class="fas fa-carrot"></i>Foodamental</h1>
+        <p class='user-info'>Welcome, <span class='user-name'> User</span>.</p>
+      </div>
+      <!-- <form class='search-bar'>
         <div class="search-container"></div>
           <label for='search-button' class='hidden'>Click here to search here</label><i class="fas fa-search"></i></button>
         </div>
         <label for='search-input' class='hidden'>Type search query here</label>
         <input id='search-input' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
-      </form>
-      <p class='user-info'>Welcome, <span class='user-name'>User</span>.</p>
-      <label for='home-button' class='hidden'>Homepage button</label>
-      <button id='home-button' class='home navButton'>Home</button>
-      <label for='view-favorites-button' class='hidden'>View favorites</label>
-      <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
-    </nav>
+      </form> -->
+      <div class="cntr">
+        <div class="cntr-innr">
+          <label class="search" for="inpt_search">
+            <i class="fas fa-search"></i>
+            <input id="inpt_search" type="text" />
+          </label>
+        </div>
+      </div>
+      <div class="button-container">
+        <label for='home-button' class='hidden'>Homepage button</label>
+        <button id='home-button' class='home navButton'>Home</button>
+        <label for='view-favorites-button' class='hidden'>View favorites</label>
+        <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
+      </div>
+      </nav>
     <main>
       <script src="https://kit.fontawesome.com/6aa953ce7f.js" crossorigin="anonymous"></script>
       <section class='all-cards'>
