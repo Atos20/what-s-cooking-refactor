@@ -88,88 +88,147 @@ body {
   }
 
   .navButton {
-    @include navButton;
+    @include buttonStyle;
+  }
+
+  .navButton:active {
+    background-color: $primary-color;
   }
 }
 
+header {
 
-.search-bar {
-  display: flex;
+  list-style-type: none;
+  width: 100%;
   height: 100%;
-  margin: 10px 0px 10px 0px;
-  width: 30%;
+  margin: -1% 0% 0% 0%;
+
+  ul{
+    list-style-type: none;
+    background-color: lighten($secondary-color, 10%);
+    @include displayFlexRow;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    // overflow: hidden;
+  }
+  
+  li{
+    @include buttonStyle;
+    // list-style-type: none;
+    // text-decoration-style: none;
+    background-color: lighten($tertinary-color, 15%);
+    margin: 1% .5% 1% .5%;
+    font-size: 10px;
+    color: $secondary-color;
+    // overflow-y: scroll;
+    // padding-right: 17px; /* Increase/decrease this value for cross-browser compatibility */
+    // box-sizing: content-box; /* So the width will be 100% + 17px */
+  }
+
+  li:hover {
+    background-color: $primary-color;
+    // font-size: 13px;
+  }
 }
+// .search-bar {
+//   display: flex;
+//   height: 100%;
+//   margin: 10px 0px 10px 0px;
+//   width: 30%;
+// }
 
-.search-button {
-  background-color: #EBF5EE;
-  border: 1px solid #000;
-  width: 20%;
-  height: 58px;
-  margin-top: 3px;
-}
+// .search-button {
+//   background-color: #EBF5EE;
+//   border: 1px solid #000;
+//   width: 20%;
+//   height: 58px;
+//   margin-top: 3px;
+// }
 
-.search-image:hover,
-.card-button:hover,
-.navButton:hover,
-.search-button:hover {
-  background-color: #cff2da;
-}
+// .search-image:hover,
+// .card-button:hover,
+// .navButton:hover,
+// .search-button:hover {
+//   background-color: $primary-color;
+// }
 
 
-.search-image:active,
-.card-button:active,
-.navButton:active,
-.search-button:active {
-  background-color: #C3C2C6;
-}
+// .search-image:active,
+// .card-button:active,
+// .navButton:active,
+// .search-button:active {
+//   background-color: #C3C2C6;
+// }
 
-.search-input {
-  border: 1px solid #000;
-  font-size: 100%;
-  height: 7vh;
-  margin: 3px 7px 0px 0px;
-  padding-left: 10px;
-  width: 90%;
-}
-
+// .search-input {
+//   border: 1px solid #000;
+//   font-size: 100%;
+//   height: 7vh;
+//   margin: 3px 7px 0px 0px;
+//   padding-left: 10px;
+//   width: 90%;
+// }
 
 .card-button {
-  border: 1px solid #000;
+  // border
+  // border: 1px solid #000;
   height: 27px;
   margin: 3px;
 }
 
-
-
 .add-button {
   background-color: #EBF5EE;
-  display: flex;
-  width: 12%;
+  width: 13%;
+  border-left: none;
+  border-radius: 25px;
+  // border: none;
+  border: .2px;
+  text-decoration :none;
+  background-color:$secondary-color;
+}
+
+.add-button:hover{
+  background-color: $primary-color;
 }
 
 .add {
   width: 100%;
+  position: relative;
 }
 
 .hidden {
   display: none;
 }
 
-
 .favorite {
-  background-color: #EBF5EE;
+  // background-color: #EBF5EE;
   background-image: url(https://image.flaticon.com/icons/svg/149/149222.svg);
   background-repeat: no-repeat;
   background-position: center;
-  width: 13%;
+  width: 35%;
+  border-right: none;
+  border-radius: 25px 0px 0px 25px;
+  background-color: lighten($quaternary-color, 20%);
+  border: .2px;
+  text-decoration :none;
+  font-size: 12px;
+}
+
+button:focus {
+  outline:0;
 }
 
 .all-cards {
   display: grid;
   grid-gap: 30px;
-  grid-template-columns: repeat(4, 1fr);
-  padding: 30px 0 30px 30px;
-  width: 95.5vw;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  padding: 30px 30px 30px 30px;
+  margin: 0% 15% 0% 15%;
+  // width: 1\vw;
+  justify-items: center;
+  align-content: center;
 }
 
 img {
@@ -178,17 +237,41 @@ img {
 
 .card {
   background-color: #D7F2FE;
-  border: 3px solid #000;
-  width: 100%;
+  // border: 3px solid #000;
+  border-radius: 25px;
+  width: 70%;
+  // height: 60vh;
+  // display: flex;
+  // flex-direction: column;
+
+  .card-header { //change tehe name form header to container
+    background-color: lighten($primary-color, 10%);
+    // border-bottom: 1px solid #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 44vh;
+    width: 17vw;
+    border-radius: 20px;
+    box-shadow: 0 10px 6px -6px #777;
+    justify-self: center;
+  }
+
+  .header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 
-.card-header {
-  background-color: #EBF5EE;
-  border-bottom: 1px solid #000;
-  display: flex;
-  justify-content: space-between;
-}
+// .card-header {
+//   background-color: #EBF5EE;
+//   // border-bottom: 1px solid #000;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
 
 .all {
   grid-gap: 0px;
@@ -208,29 +291,34 @@ h3 {
 }
 
 .recipe-name {
-
   display: block;
-  font-size: 150%;
+  // position: absolute;
+  font-size: 100%;
   text-align: center;
+  font-family: $beauty-font;
 }
 
 .card-picture:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .card-picture:active {
-  border: 2px solid #000;
+  // border: 2px solid #000;
 }
 
 .card-picture {
-  border: 1px solid #000;
-  height: 200px;
+  // border: 1px solid #000;
+  // height: 200px;
   margin: 10px 3% 8px 2.6%;
-  width: 94%;
+  width: -webkit-fill-available;
+  position: relative;
+  // filter: contrast(130%);
+  // filter: sepia(20%);
+  filter: contrast(135%);
 }
 
 main {
-  background-color: #37515C;
+  background-color: lighten($secondary-color, 10%);
   height: 100%;
   width: 100%;
 }
