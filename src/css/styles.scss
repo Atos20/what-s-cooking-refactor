@@ -13,7 +13,6 @@ body {
   margin: auto;
 }
 
-
 .main-header {
   @include displayFlexRow;
   font-family: $title-font;
@@ -26,6 +25,16 @@ body {
   // align-items: center;
   // justify-content: space-between;
   width: 100%;
+
+  h1 {
+    // border-right: 2px solid #000;
+    font-size: 200%;
+    margin: 0% 0% 0% 0%;
+    padding: 0% 0% 0% 0%;
+    text-align: center;
+    width: 30%;
+  }
+
   form {
     @include displayFlexRow;
   }
@@ -39,15 +48,15 @@ body {
   margin: 1%;
 }
 
-h1 {
-  border-right: 2px solid #000;
-  font-size: 255%;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 10px;
-  text-align: center;
-  width: 30%;
-}
+// h1 {
+//   border-right: 2px solid #000;
+//   font-size: 255%;
+//   margin-top: 0;
+//   margin-bottom: 0;
+//   padding-top: 10px;
+//   text-align: center;
+//   width: 30%;
+// }
 
 .user-info {
   font-size: 180%;
