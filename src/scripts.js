@@ -46,19 +46,26 @@ function viewFavorites() {
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', 
-      `<div id='${recipe.id}'class='card'>
-        <header id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
-          <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id}' class='add'src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add torecipes to cook'>
-          </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe</label>
-          <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite-active card-button'>
-          </button>
-        </header>
-        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-        <img id='${recipe.id}' tabindex='0' class='card-picture'src='${recipe.image}' alt='Food from recipe'>
-      </div>`)
+      `
+      <div id='${recipe.id}'class='card'>
+      <header id='${recipe.id}' class='card-header'>
+      <div class='header-container'>
+        <label for='add-button' class='hidden'></label>
+        <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
+          <img id='${recipe.id} favorite' class='add'
+          src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+          recipes to cook'>
+        </button>
+        <label for='favorite-button' class='hidden'>Click to favorite recipe
+        </label>
+        <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
+      </div>
+      <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+      <img id='${recipe.id}' tabindex='0' class='card-picture'
+        src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
+      </header>
+  </div>
+      `)
     })
   }
 }
@@ -107,14 +114,17 @@ function displayDirections(event) {
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   cardArea.classList.add('all');
-  cardArea.innerHTML = `<h3>${recipeObject.name}</h3>
-  <p class='all-recipe-info'>
-  <strong>It will cost: </strong><span class='cost recipe-info'>
-  $${costInDollars}</span><br><br>
-  <strong>You will need: </strong><span class='ingredients recipe-info'></span>
-  <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
-  </span></ol>
-  </p>`;
+  cardArea.innerHTML = `
+    <h3>${recipeObject.name}</h3>
+      <p class='all-recipe-info'>
+      <strong>It will cost: </strong><span class='cost recipe-info'>
+      $${costInDollars}</span><br><br>
+      <strong>You will need: </strong><span class='ingredients recipe-info'></span>
+      <strong>Instructions: </strong><ol><span class='instructions recipe-info'>
+      </span></ol>
+    </p>`;
+
+
   let ingredientsSpan = document.querySelector('.ingredients');
   let instructionsSpan = document.querySelector('.instructions');
   recipeObject.ingredients.forEach(ingredient => {
@@ -144,10 +154,11 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
-    cardArea.insertAdjacentHTML('afterbegin', `<div id='${recipe.id}'
-    class='card'>
+    cardArea.insertAdjacentHTML('afterbegin', `
+      <div id='${recipe.id}'class='card'>
         <header id='${recipe.id}' class='card-header'>
-          <label for='add-button' class='hidden'>Click to add recipe</label>
+        <div class='header-container'>
+          <label for='add-button' class='hidden'></label>
           <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
             <img id='${recipe.id} favorite' class='add'
             src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
@@ -156,11 +167,14 @@ function populateCards(recipes) {
           <label for='favorite-button' class='hidden'>Click to favorite recipe
           </label>
           <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-        </header>
-          <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-          <img id='${recipe.id}' tabindex='0' class='card-picture'
+        </div>
+        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+        <img id='${recipe.id}' tabindex='0' class='card-picture'
           src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-    </div>`)
+        </header>
+    </div>
+    `
+    )
   })
   getFavorites();
 };
