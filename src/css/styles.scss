@@ -63,6 +63,7 @@ body {
     font-family: "Poiret One", cursive;
     font-size: 1.2em;
     margin: 5%;
+    font-weight: 600;
     /* text-align: center; */
     align-self: flex-end;
   }
@@ -245,6 +246,7 @@ img {
   // flex-direction: column;
 
   .card-header { //change tehe name form header to container
+    //need to remove justify content and add margin and padding 
     background-color: lighten($primary-color, 10%);
     // border-bottom: 1px solid #000;
     display: flex;
@@ -326,4 +328,31 @@ main {
 .favorite-active {
   background-image: url(https://image.flaticon.com/icons/svg/148/148841.svg);
   background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 700px){
+  
+  h1 {
+    padding: 0% 0% 0% 10%;
+  }
+
+  .main-header{
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    padding: 5% 0% 5% 0%;
+  }
+
+  .button-container {
+    margin-left: 12%;
+}
+
+.welcome{
+  align-self: center;
+}
+  
+.user-info {
+  text-align: right;
+}
+
 }
