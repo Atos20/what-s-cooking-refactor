@@ -72,8 +72,8 @@ function viewFavorites() {
 
 function greetUser() {
   const userName = document.querySelector('.user-name');
-  userName.innerHTML =
-  user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0];
+  userName.innerHTML = `
+  Welcome ${user.name.split(' ')[0] + ' ' + user.name.split(' ')[1][0]}.`;
 }
 
 function favoriteCard(event) {
