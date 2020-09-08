@@ -36,6 +36,12 @@ it('Should be able to check ingredients in User/s pantry for a given recipe', ()
     expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
   });
 
+it('Should be able to calculate cost of the rquired ingredients', () => {
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
+  });
+
+
+
   // it('Should inform User if they lack required ingredients for a given recipe', () => {
   //   expect(pantry.checkPantry(recipeIngredients)).to.eql(missingIngredientsWithPrice);
   // });
