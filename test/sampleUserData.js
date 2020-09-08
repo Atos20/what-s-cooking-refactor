@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+// import { expect } from 'chai';
 let sampleUserData = [
-{
+  {
     "id": 1,
     "name": "Blake D",
     "pantry": [
@@ -30,7 +30,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 4
+        "amount": 0
       },
       {
         "ingredient": 11215,
@@ -170,7 +170,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 2
+        "amount": 0
       },
       {
         "ingredient": 99223,
@@ -334,7 +334,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 1
+        "amount": 0
       },
       {
         "ingredient": 6150,
@@ -450,7 +450,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 4
+        "amount": 0
       },
       {
         "ingredient": 18371,
@@ -678,7 +678,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 5
+        "amount": 0
       },
       {
         "ingredient": 1082047,
