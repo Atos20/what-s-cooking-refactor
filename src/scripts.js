@@ -2,7 +2,7 @@ import './css/base.scss';
 import './css/styles.scss';
 
 import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
+import ingredientsData from './data/ingredients';
 import users from './data/users';
 
 import Pantry from './pantry';
@@ -13,7 +13,9 @@ import Cookbook from './cookbook';
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
+let searchInput = document.querySelector('#inpt_search');
 let cookbook = new Cookbook(recipeData);
+const tagContainer = document.querySelector('.tag-container');
 let user, pantry;
 
 window.onload = onStartup();
@@ -21,6 +23,9 @@ window.onload = onStartup();
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+searchInput.addEventListener('input', updateSearch);
+tagContainer.addEventListener('click', findRecipeBytag);
+
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -46,7 +51,7 @@ function viewFavorites() {
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', 
-      `
+        `
       <div id='${recipe.id}'class='card'>
       <header id='${recipe.id}' class='card-header'>
       <div class='header-container'>
@@ -93,6 +98,7 @@ function favoriteCard(event) {
 }
 
 function cardButtonConditionals(event) {
+  console.log(event.target)
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
   } else if (event.target.classList.contains('card-picture')) {
@@ -110,6 +116,7 @@ function displayDirections(event) {
       return recipe;
     }
   })
+  console.log(newRecipeInfo)
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
@@ -145,7 +152,9 @@ function getFavorites() {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  } else {
+    return
+  }
 }
 
 function populateCards(recipes) {
@@ -176,5 +185,28 @@ function populateCards(recipes) {
     `
     )
   })
-  getFavorites();
-};
+  // getFavorites();
+}
+
+function findRecipeBytag(event) {
+  const tagName = event.target.innerText;
+  const filteredRecipes = user.filterFavoritesByTag(tagName);
+  cardArea.innerHTML = '';
+  if (filteredRecipes.length !== 0) {
+    populateCards(filteredRecipes);
+  }
+  return false;
+}
+
+function updateSearch() {
+  let recipeNames = document.querySelectorAll('.recipe-name');
+  recipeNames.forEach(recipe =>{
+    let lowerCaseRecipe = recipe.innerText.toLowerCase()
+    if (!lowerCaseRecipe.includes(searchInput.value)) {
+      document.getElementById(recipe.id).classList.add("hidden")
+    } else {
+      document.getElementById(recipe.id).classList.remove("hidden");
+    }
+  })
+  
+}

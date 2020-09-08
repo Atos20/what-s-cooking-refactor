@@ -1,10 +1,10 @@
 class User {
-  constructor(id, name, pantry) {
-    this.id = id;
-    this.name = name;
-    this.pantry = pantry;
+  constructor(user) {
+    this.id = user.id;
+    this.name = user.name;
+    this.pantry = user.pantry;
     this.favoriteRecipes = [];
-
+    this.recipesToCook = [];
   }
 
   addToFavorites(recipe) {
@@ -33,6 +33,5 @@ class User {
     });
   }
 }
-
 
 export default User;
