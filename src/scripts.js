@@ -13,6 +13,7 @@ import Cookbook from './cookbook';
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
+let searchInput = document.querySelector('#inpt_search');
 let cookbook = new Cookbook(recipeData);
 let user, pantry;
 
@@ -21,6 +22,8 @@ window.onload = onStartup();
 homeButton.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 cardArea.addEventListener('click', cardButtonConditionals);
+searchInput.addEventListener('input', updateSearch);
+
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -46,7 +49,7 @@ function viewFavorites() {
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', 
-      `
+        `
       <div id='${recipe.id}'class='card'>
       <header id='${recipe.id}' class='card-header'>
       <div class='header-container'>
@@ -178,3 +181,17 @@ function populateCards(recipes) {
   })
   getFavorites();
 };
+
+function updateSearch() {
+  let recipeNames = document.querySelectorAll('.recipe-name');
+  recipeNames.forEach(recipe =>{
+    let lowerCaseRecipe = recipe.innerText.toLowerCase()
+    if(!lowerCaseRecipe.includes(searchInput.value)) {
+      document.getElementById(recipe.id).classList.add("hidden")
+    }
+    else {
+      document.getElementById(recipe.id).classList.remove("hidden");
+    }
+  })
+  
+}

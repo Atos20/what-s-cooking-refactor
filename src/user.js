@@ -4,7 +4,6 @@ class User {
     this.name = name;
     this.pantry = pantry;
     this.favoriteRecipes = [];
-
   }
 
   addToFavorites(recipe) {
@@ -32,7 +31,8 @@ class User {
       });
     });
   }
-}
 
+  
+}
 
 export default User;
