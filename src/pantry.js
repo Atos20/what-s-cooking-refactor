@@ -6,7 +6,7 @@ class Pantry {
 
   consolidateUsersPantry() {
     return this.pantry.reduce((usersPantry, pantryItem) => {
-      if(! usersPantry[pantryItem.ingredient]){
+      if(!usersPantry[pantryItem.ingredient]) {
         usersPantry[pantryItem.ingredient] = 0
       }
       usersPantry[pantryItem.ingredient] += pantryItem.amount;
@@ -16,7 +16,14 @@ class Pantry {
 
   checkPantryForIngredient(recipe) {
     const newPantry = this.consolidateUsersPantry();
-    return recipe.ingredients.map(ingredient => ({[ingredient.id]: newPantry[ingredient.id]}));
+    return recipe.ingredients.map(ingredient => {
+      const newData = {}
+      newData [ingredient.id] = newPantry[ingredient.id]
+      if(!newData[ingredient.id]) {
+        newData[ingredient.id] = 0
+      }
+      return newData
+    });
   }
   
   //this method should know what ar the missing ingredientes
@@ -35,33 +42,42 @@ class Pantry {
         } 
         if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
           let missing = recipeItem.quantity.amount - userIngredient[recipeItem.id]
-          let cost = this.calculateCost(missing, recipe.ingredientsData, recipeItem.id)
-          list[recipeItem.name] = 
-          `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} which will cost $${cost}`
+          `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} `
         }
         if(!list[recipeItem.name]) {
-          // console.log(userIngredient)
           let missing = recipeItem.quantity.amount
-          let cost = this.calculateCost(missing, recipe.ingredientsData, recipeItem.id)
-          list[recipeItem.name] = 
-          `sorry! you need ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} which will cost $${cost}`
+          `sorry! you need ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name}`
         }
       });
       return list 
     }, {});
     return returFeedback;
   }
-  calculateCost(amountMissing, ingredientsData, ingredientID) {
-    let costCounter = 0
-    let ingredientCost = ingredientsData.find(currentIngredient => {
-      return currentIngredient.id === ingredientID
+  calculateIngredientsNeeded(recipe) {
+    let userPantry = this.consolidateUsersPantry();
+    let whatsNeeded =  recipe.ingredients.reduce((neededIng, currentIng) =>{
+      if (!userPantry[currentIng.id]) {
+        userPantry[currentIng.id] = 0
+      }
+      if (currentIng.quantity.amount - userPantry[currentIng.id] > 0) {
+        neededIng.push({id: currentIng.id, amountNeeded: currentIng.quantity.amount - userPantry[currentIng.id]})
+      }
+      return neededIng
+    },[])
+    return whatsNeeded
+  }
+
+  calculateCost(recipe) {
+    let list = this.calculateIngredientsNeeded(recipe)
+    let costCounter = 0;
+    list.forEach(ingredient => {
+      let ingredientData = recipe.ingredientsData.find(recipeIng => { 
+        return recipeIng.id === ingredient.id
+      })
+      costCounter += ingredientData.estimatedCostInCents * ingredient.amountNeeded
     })
-    costCounter += ingredientCost.estimatedCostInCents * amountMissing / 100
-    // console.log(costCounter)
-    return ingredientCost.estimatedCostInCents * amountMissing / 100
-    }
-    
+    return (costCounter / 100).toFixed(2)
+  }
 }
-  
 
 export default Pantry;
