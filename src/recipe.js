@@ -20,7 +20,6 @@ class Recipe {
     });
     return costCounter;
   }
-
 }
 
 export default Recipe;
