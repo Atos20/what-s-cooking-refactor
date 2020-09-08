@@ -4,26 +4,62 @@
     <meta charset='UTF-8'>
     <title>Whats Cookin</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Poiret+One&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header class='main-header'>
-      <h1>What's Cookin'</h1>
-      <p class='user-info'>Welcome, <span class='user-name'>User</span>.</p>
-      <label for='home-button' class='hidden'>Homepage button</label>
-      <button id='home-button' class='home navButton'>Home</button>
-      <label for='view-favorites-button' class='hidden'>View favorites</label>
-      <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
+    <!-- change header to a nav tag for accessibility-->
+    <!-- <div class="line"></div> -->
+    <nav class='main-header'>
+      <div class="welcome">
+        <h1 class='app-name'><i class="fas fa-carrot"></i>Foodamental</h1>
+        <p class='user-info user-name'>Welcome, User.</p>
+      </div>
       <!-- <form class='search-bar'>
-        <label for='search-button' class='hidden'>Click here to search here</label>
-        <button id='search-button' class='search-button'>
-          <img class='search-image' src='https://image.flaticon.com/icons/svg/660/660029.svg' alt='Search button'>
-        </button>
+        <div class="search-container"></div>
+          <label for='search-button' class='hidden'>Click here to search here</label><i class="fas fa-search"></i></button>
+        </div>
         <label for='search-input' class='hidden'>Type search query here</label>
         <input id='search-input' class='search-input' type='text' placeholder='Search recipes by name or ingredients' value=''>
       </form> -->
+      <div class="cntr">
+        <div class="cntr-innr">
+          <label class="search" for="inpt_search">
+            <i class="fas fa-search"></i>
+            <input id="inpt_search" type="text" />
+          </label>
+        </div>
+      </div>
+      <div class="button-container">
+        <label for='home-button' class='hidden'>Homepage button</label>
+        <button id='home-button' class='home navButton'>Home</button>
+        <label for='view-favorites-button' class='hidden'>View favorites</label>
+        <button id='view-favorites-button' class=' view-favorites navButton'>View Favorites</button>
+      </div>
+      </nav>
+    <header class="tags">
+      <ul class="tag-container">
+        <li class="tag1">antipasti</li>
+        <li class="tag1">starter</li>
+        <li class="tag1">snack</li>
+        <li class="tag1">appetizer</li>
+        <li class="tag1">hors d'oeuvre</li>
+        <li class="tag1">lunch</li>
+        <li class="tag1">main</li>
+        <li class="tag1">dinner</li>
+        <li class="tag1">sauce</li>
+        <li class="tag1">side dish</li>
+        <li class="tag1">morning meal</li>
+        <li class="tag1">brunch</li>
+        <li class="tag1">breakfast</li>
+        <li class="tag1">salad</li>
+        <li class="tag1">condiments</li>
+        <li class="tag1">dip</li>
+        <li class="tag1">spread</li>
+      </ul>
     </header>
     <main>
       <section class='all-cards'>
+        <script src="https://kit.fontawesome.com/6aa953ce7f.js" crossorigin="anonymous"></script>
       </section>
     </main>
   </body>
