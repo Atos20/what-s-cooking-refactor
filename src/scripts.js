@@ -9,14 +9,14 @@ import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
+import sampleUserData from '../test/sampleUserData';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
 let cardArea = document.querySelector('.all-cards');
 let searchInput = document.querySelector('#inpt_search');
-let cookbook = new Cookbook(recipeData);
 const tagContainer = document.querySelector('.tag-container');
-let user, pantry;
+let user, pantry, cookbook;
 
 window.onload = onStartup();
 
@@ -27,15 +27,30 @@ searchInput.addEventListener('input', updateSearch);
 tagContainer.addEventListener('click', findRecipeBytag);
 
 
+
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);
   });
-  user = new User(userId, newUser.name, newUser.pantry)
+  user = new User(newUser)
   pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
   greetUser();
+  populateData();
+}
+
+function populateData() {
+  let ingredients, recipes;
+  Recipe.getIngredients()
+    .then(data => ingredients = data)
+  Recipe.getRecipes()
+    .then(data => recipes = data)
+  setTimeout(() =>{
+    cookbook = new Cookbook(recipes, ingredients)
+  }, 2000);
+  setTimeout(() => {
+    populateCards(cookbook.recipes.recipeData)
+}, 2000);
 }
 
 function viewFavorites() {
@@ -116,7 +131,6 @@ function displayDirections(event) {
       return recipe;
     }
   })
-  console.log(newRecipeInfo)
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
@@ -163,6 +177,7 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
+    console.log(recipe)
     cardArea.insertAdjacentHTML('afterbegin', `
       <div id='${recipe.id}'class='card'>
         <header id='${recipe.id}' class='card-header'>
