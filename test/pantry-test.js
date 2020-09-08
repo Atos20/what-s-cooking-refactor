@@ -26,7 +26,7 @@ it('should be able to get the total amount og the user ingredients by id', () =>
   expect(pantry.consolidateUsersPantry()).to.eql({})
 
 })
-it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+it('Should be able to check ingredients in User/s pantry for a given recipe', () => {
     pantry.consolidateUsersPantry()
     pantry.giveFeedbackOnIngredients(recipe1)
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You have the ingredients!');
@@ -36,8 +36,9 @@ it('Should be able to check ingredients in User/s pantry for a given recipe', ()
     expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
   });
 
-it('Should be able to calculate cost of the rquired ingredients', () => {
-    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
+it.only('Should be able to calculate cost of the rquired ingredients', () => {
+  pantry.calculateCost(recipe1)
+    // expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You do not have the ingredients!');
   });
 
 
