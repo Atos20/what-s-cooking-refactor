@@ -7,10 +7,7 @@ import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
-<<<<<<< Updated upstream
-=======
 import domUpdates from './domUpdates';
->>>>>>> Stashed changes
 
 let favButton = document.querySelector('.view-favorites');
 let cardArea = document.querySelector('.all-cards');
@@ -18,11 +15,6 @@ let homeButton = document.querySelector('.home')
 let searchInput = document.querySelector('#inpt_search');
 let cookbook = new Cookbook(recipeData);
 const tagContainer = document.querySelector('.tag-container');
-<<<<<<< Updated upstream
-let user, pantry;
-=======
-
->>>>>>> Stashed changes
 
 window.onload = onStartup();
 
@@ -32,10 +24,6 @@ favButton.addEventListener('click', viewFavorites);
 searchInput.addEventListener('input', updateSearch);
 tagContainer.addEventListener('click', findRecipeBytag);
 
-<<<<<<< Updated upstream
-
-function onStartup() {
-=======
 
 function onStartup() {
   populateCookBook();
@@ -53,7 +41,6 @@ function populateCookBook() {
 }
 
 function populateUserData() {
->>>>>>> Stashed changes
   let userId = (Math.floor(Math.random() * 49) + 1)
   let newUser = users.find(user => {
     return user.id === Number(userId);
