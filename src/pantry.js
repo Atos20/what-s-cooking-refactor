@@ -16,7 +16,6 @@ class Pantry {
 
   checkPantryForIngredient(recipe) {
     const consolidatedPantry = this.consolidateUsersPantry();
-    console.log('nP',consolidatedPantry)
     return recipe.ingredients.map(ingredient => {
       const ingredientsNeeded = {}
       ingredientsNeeded [ingredient.id] = consolidatedPantry[ingredient.id]
@@ -61,7 +60,7 @@ class Pantry {
         userPantry[currentIng.id] = 0
       }
       if (currentIng.quantity.amount - userPantry[currentIng.id] > 0) {
-        neededIng.push({id: currentIng.id, amount: currentIng.quantity.amount - userPantry[currentIng.id]})
+        neededIng.push({ingredient: currentIng.id, amount: currentIng.quantity.amount - userPantry[currentIng.id]})
       }
       return neededIng
     },[])
@@ -70,11 +69,14 @@ class Pantry {
   }
   
   saveItemsToPantry(recipe){
-    // console.log(this.pantry)
-    // const ingredientsNeeded = calculateIngredientsNeeded(recipe);
-    // this.pantry.push(ingredientsNeeded);
-    // console.log()
-    
+    const ingredientsNeeded = this.calculateIngredientsNeeded(recipe);
+    this.pantry.push(...ingredientsNeeded);
+    const updatedPantry = this.consolidateUsersPantry()
+     Object.entries(updatedPantry).map(item => {
+      const data = {ingredient: item[0], amount: item[1]}
+      console.log(data)
+      return data
+    })
   }
 
   calculateCost(recipe) {

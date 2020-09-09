@@ -4,8 +4,8 @@ import sampleUserData from './sampleUserData.js'
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
 import Recipe from '../src/recipe.js';
-import recipeData from '../src/data/recipes.js'
-import ingredientsData from '../src/data/ingredients.js'
+import recipeData from '../src/data/recipes.js';
+import ingredientsData from '../src/data/ingredients.js';
 
 let user1, recipe1, recipe2, pantry, recipeIngredients1, recipeIngredients2;
 
@@ -22,12 +22,12 @@ describe('Pantry', () => {
     expect(pantry).to.have.property('pantry').with.length(20)
     expect(pantry.pantry).to.deep.eql(user1.pantry)
   })
-  it('Should consolidate duplicate ingredients', () => {
+  it.skip('Should consolidate duplicate ingredients', () => {
     let consolidatedPantry = (pantry.consolidateUsersPantry())
     expect(consolidatedPantry[1123]).to.equal(8)
 
   })
-  it.only('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
+  it.skip('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
     pantry.giveFeedbackOnIngredients(recipe1)
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql([
       { '20081': 0 },
@@ -64,19 +64,19 @@ describe('Pantry', () => {
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
     expect(pantry.calculateIngredientsNeeded(recipe1)).to.eql([
-      { id: 20081, amount: 1.5 },
-      { id: 19334, amount: 0.5 },
-      { id: 1012047, amount: 24 },
-      { id: 10019903, amount: 2 },
-      { id: 2050, amount: 0.5 }
+      { ingredient: 20081, amount: 1 },
+      { ingredient: 19334, amount: 0.5 },
+      { ingredient: 1012047, amount: 24 },
+      { ingredient: 10019903, amount: 2 },
+      { ingredient: 2050, amount: 0.5 }
     ])
   });
 
   it.only('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
-    expect(pantry.saveItemsToPantry(recipe1)).to.eql();
+    expect(pantry.saveItemsToPantry(recipe1)).to.eql({});
   });
 
-  it('Should be able to calculate cost of the missing ingredients', () => {
+  it.only('Should be able to calculate cost of the missing ingredients', () => {
     expect(pantry.calculateCost(recipe1)).to.equal(141.34);
   });
 

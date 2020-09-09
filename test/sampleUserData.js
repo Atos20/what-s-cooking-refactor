@@ -30,7 +30,7 @@ let sampleUserData = [
       },
       {
         "ingredient": 20081,
-        "amount": 0
+        "amount": .5
       },
       {
         "ingredient": 11215,
