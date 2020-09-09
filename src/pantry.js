@@ -76,8 +76,24 @@ class Pantry {
       })
       costCounter += ingredientData.estimatedCostInCents * ingredient.amountNeeded
     })
-    return (costCounter / 100).toFixed(2)
+    return Number((costCounter / 100).toFixed(2))
+  }
+
+  cookMeal(recipe) {
+    const reducedRecipeContents = recipe.ingredients.map(ingredient => {
+      return ingredient = {id: ingredient.id, amount: ingredient.quantity.amount}
+    })
+    let updatedContents = this.pantry.reduce((acc, ingredient) => {
+      const reducedRecipeContent = reducedRecipeContents.find(item => item.id === ingredient.ingredient)
+      if (reducedRecipeContent) {
+        ingredient.amount = ingredient.amount - reducedRecipeContent.amount
+      }
+      if (ingredient.amount > 0) {
+        acc.push(ingredient)
+      }
+      return acc;
+    },[])
+    this.pantry = updatedContents
   }
 }
-
 export default Pantry;
