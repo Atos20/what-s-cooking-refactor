@@ -10,12 +10,10 @@ import Cookbook from './cookbook';
 import domUpdates from './domUpdates';
 
 let favButton = document.querySelector('.view-favorites');
-let cardArea = document.querySelector('.all-cards');
 let homeButton = document.querySelector('.home')
 let searchInput = document.querySelector('#inpt_search');
-let cookbook = new Cookbook(recipeData);
 const tagContainer = document.querySelector('.tag-container');
-
+let cardArea = document.querySelector('.all-cards');
 window.onload = onStartup();
 
 homeButton.addEventListener('click', domUpdates.cardButtonConditionals);
@@ -23,7 +21,6 @@ cardArea.addEventListener('click', domUpdates.cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
 searchInput.addEventListener('input', updateSearch);
 tagContainer.addEventListener('click', findRecipeBytag);
-
 
 function onStartup() {
   populateCookBook();
@@ -42,13 +39,12 @@ function populateCookBook() {
 
 function populateUserData() {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry)
-  pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
-  greetUser();
+  let currentUser, userPantry
+  User.getUserData(userId) 
+    .then(data => currentUser = data)
+    .then(() => greetUser(currentUser))
+    .then(() => userPantry = new Pantry(currentUser.pantry))
+    .then(() => console.log(userPantry))
 }
 
 function viewFavorites() {
@@ -88,10 +84,10 @@ function viewFavorites() {
   }
 }
 
-function greetUser() {
+function greetUser(currentUser) {
   const userName = document.querySelector('.user-name');
   userName.innerHTML = `
-  Welcome ${user.name.split(' ')[0]} ${user.name.split(' ')[1][0]}.`;
+  Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
 }
 
 function favoriteCard(event) {
@@ -119,7 +115,6 @@ function displayDirections(event) {
       return recipe;
     }
   })
-  console.log(newRecipeInfo)
   let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)

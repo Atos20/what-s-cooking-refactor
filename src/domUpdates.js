@@ -1,5 +1,6 @@
 let domUpdates = {
   populateCards(recipes) {
+    let cardArea = document.querySelector('.all-cards');
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
