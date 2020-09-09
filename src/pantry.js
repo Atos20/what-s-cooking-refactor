@@ -30,29 +30,31 @@ class Pantry {
   //shpould give feed back about the ingredients
   giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
-    const returFeedback = recipe.ingredients.reduce((list , recipeItem) => {
-      console.log(list)
+    // console.log(userIngredients)
+    const returFeedback = recipe.ingredients.reduce((list, recipeItem) => {
       if(!list[recipeItem.name]) {
-        list[recipeItem.name] = undefined
+        list[recipeItem.name] = undefined;
       }
       userIngredients.forEach(userIngredient => {
         let total = userIngredient[recipeItem.id] - recipeItem.quantity.amount
         if(userIngredient[recipeItem.id] >= recipeItem.quantity.amount) {
           list[recipeItem.name] = `You will have ${total} ${recipeItem.quantity.unit} of ${recipeItem.name} left`
         } 
-        if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
-          let missing = recipeItem.quantity.amount - userIngredient[recipeItem.id]
-          `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} `
+         else if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
+          const missing = recipeItem.quantity.amount - userIngredient[recipeItem.id]
+          list[recipeItem.name] = `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} `
         }
-        if(!list[recipeItem.name]) {
-          let missing = recipeItem.quantity.amount
-          `sorry! you need ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name}`
+        else if(!list[recipeItem.name]) {
+          const missing = recipeItem.quantity.amount
+          list[recipeItem.name] = `sorry! you need ${missing } ${recipeItem.quantity.unit} of ${recipeItem.name}`
         }
       });
       return list 
     }, {});
+    console.log(returFeedback) 
     return returFeedback;
   }
+
   calculateIngredientsNeeded(recipe) {
     let userPantry = this.consolidateUsersPantry();
     let whatsNeeded =  recipe.ingredients.reduce((neededIng, currentIng) =>{
@@ -60,11 +62,20 @@ class Pantry {
         userPantry[currentIng.id] = 0
       }
       if (currentIng.quantity.amount - userPantry[currentIng.id] > 0) {
-        neededIng.push({id: currentIng.id, amountNeeded: currentIng.quantity.amount - userPantry[currentIng.id]})
+        neededIng.push({id: currentIng.id, amount: currentIng.quantity.amount - userPantry[currentIng.id]})
       }
       return neededIng
     },[])
+    // console.log(whatsNeeded)
     return whatsNeeded
+  }
+  
+  saveItemsToPantry(recipe){
+    console.log(this.pantry)
+    // const ingredientsNeeded = calculateIngredientsNeeded(recipe);
+    // this.pantry.push(ingredientsNeeded);
+    // console.log()
+    
   }
 
   calculateCost(recipe) {
@@ -79,7 +90,7 @@ class Pantry {
     return Number((costCounter / 100).toFixed(2))
   }
 
-  cookMeal(recipe) {
+  cookMeal(recipe) { 
     const reducedRecipeContents = recipe.ingredients.map(ingredient => {
       return ingredient = {id: ingredient.id, amount: ingredient.quantity.amount}
     })

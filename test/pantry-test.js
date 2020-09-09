@@ -27,24 +27,42 @@ describe('Pantry', () => {
     expect(consolidatedPantry[1123]).to.equal(8)
 
   })
-  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    pantry.consolidateUsersPantry()
+  it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+   
     pantry.giveFeedbackOnIngredients(recipe1)
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You have the ingredients!');
   });
 
-  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
-    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
+  it('Should be able to check if user does not have ingredients in pantry', () => {
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql([
+      {
+        'all purpose flour': 'sorry! it seems you are missing 1.5 c of all purpose flour ',
+        'baking soda': 'You will have 2.5 tsp of baking soda left',
+        'egg': 'You will have 7 large of egg left',
+        'granulated sugar': 'You will have 1.5 c of granulated sugar left',
+        'instant vanilla pudding mix': 'You will have 0 Tbsp of instant vanilla pudding mix left',
+        'light brown sugar': 'sorry! it seems you are missing 0.5 c of light brown sugar ',
+        'salt': 'You will have 2.5 tsp of salt left',
+        'sea salt': 'sorry! it seems you are missing 24 servings of sea salt ',
+        'semisweet chocolate chips': 'sorry! it seems you are missing 2 c of semisweet chocolate chips ',
+        'unsalted butter': 'You will have 1.5 c of unsalted butter left',
+        'vanilla extract': 'sorry! it seems you are missing 0.5 tsp of vanilla extract '
+      }
+    ]);
   });
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
     expect(pantry.calculateIngredientsNeeded(recipe1)).to.eql([
-      { id: 20081, amountNeeded: 1.5 },
-      { id: 19334, amountNeeded: 0.5 },
-      { id: 1012047, amountNeeded: 24 },
-      { id: 10019903, amountNeeded: 2 },
-      { id: 2050, amountNeeded: 0.5 }
+      { id: 20081, amount: 1.5 },
+      { id: 19334, amount: 0.5 },
+      { id: 1012047, amount: 24 },
+      { id: 10019903, amount: 2 },
+      { id: 2050, amount: 0.5 }
     ])
+  });
+
+  it.only('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
+    expect(pantry.saveItemsToPantry(recipe1)).to.eql();
   });
 
   it('Should be able to calculate cost of the missing ingredients', () => {
