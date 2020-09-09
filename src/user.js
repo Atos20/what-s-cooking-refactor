@@ -32,6 +32,15 @@ class User {
       });
     });
   }
+
+  static getUserData(userId) {
+    const userUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
+    const promise = fetch(userUrl)
+      .then(response => response.json())
+      .then(data => data.wcUsersData.find(user => user.id === userId))
+    return promise; 
+  }
+
 }
 
 export default User;

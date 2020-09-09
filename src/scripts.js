@@ -29,28 +29,28 @@ tagContainer.addEventListener('click', findRecipeBytag);
 
 
 function onStartup() {
-  let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(newUser)
-  pantry = new Pantry(newUser.pantry)
+  // populateCookBook();
+  // populateUserData()
   greetUser();
-  populateData();
+  pantry = new Pantry(newUser.pantry)
 }
 
-function populateData() {
+function populateCookBook() {
   let ingredients, recipes;
-  Recipe.getIngredients()
+  Cookbook.getIngredients()
     .then(data => ingredients = data)
-  Recipe.getRecipes()
+  Cookbook.getRecipes()
     .then(data => recipes = data)
-  setTimeout(() =>{
-    cookbook = new Cookbook(recipes, ingredients)
-  }, 2000);
-  setTimeout(() => {
-    populateCards(cookbook.recipes.recipeData)
-}, 2000);
+    .then(() => new Cookbook(recipes, ingredients))
+    .then(data =>  populateCards(data.recipes.recipeData))
+}
+
+function populateUserData() {
+  let userId = (Math.floor(Math.random() * 49) + 1)
+  let currentUser 
+  User.getUserData(userId) 
+    .then(data => currentUser = data)
+    .then(data => console.log(currentUser))
 }
 
 function viewFavorites() {

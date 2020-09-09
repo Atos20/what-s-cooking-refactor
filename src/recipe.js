@@ -7,21 +7,7 @@ class Recipe {
     this.tags = recipe.tags;
     this.ingredientsData = ingredientsData;
   }
-
-  static getIngredients() {
-    const ingredientsUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData'
-    const promise = fetch(ingredientsUrl)
-      .then(response => response.json());
-    return promise; 
-  }
-
-  static getRecipes() {
-    const recipesUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData'
-    const promise = fetch(recipesUrl) 
-      .then(response => response.json());
-    return promise; 
-  }
-
+  
   calculateCost() {
     let costCounter = 0;
     this.ingredients.forEach(ingredient => {
