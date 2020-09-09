@@ -1,10 +1,10 @@
 class User {
-  constructor(id, name, pantry) {
-    this.id = id;
-    this.name = name;
-    this.pantry = pantry;
+  constructor(user) {
+    this.id = user.id;
+    this.name = user.name;
+    this.pantry = user.pantry;
     this.favoriteRecipes = [];
-
+    this.recipesToCook = [];
   }
 
   addToFavorites(recipe) {
@@ -32,7 +32,15 @@ class User {
       });
     });
   }
-}
 
+  static getUserData(userId) {
+    const userUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
+    const promise = fetch(userUrl)
+      .then(response => response.json())
+      .then(data => data.wcUsersData.find(user => user.id === userId))
+    return promise; 
+  }
+
+}
 
 export default User;

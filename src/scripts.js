@@ -1,36 +1,50 @@
 import './css/base.scss';
 import './css/styles.scss';
 
-import recipeData from './data/recipes';
-import ingredientData from './data/ingredients';
-import users from './data/users';
+import ingredientsData from './data/ingredients';
 
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
+import domUpdates from './domUpdates';
 
 let favButton = document.querySelector('.view-favorites');
 let homeButton = document.querySelector('.home')
+let searchInput = document.querySelector('#inpt_search');
+const tagContainer = document.querySelector('.tag-container');
 let cardArea = document.querySelector('.all-cards');
-let cookbook = new Cookbook(recipeData);
-let user, pantry;
-
 window.onload = onStartup();
 
-homeButton.addEventListener('click', cardButtonConditionals);
+homeButton.addEventListener('click', domUpdates.cardButtonConditionals);
+cardArea.addEventListener('click', domUpdates.cardButtonConditionals);
 favButton.addEventListener('click', viewFavorites);
-cardArea.addEventListener('click', cardButtonConditionals);
+searchInput.addEventListener('input', updateSearch);
+tagContainer.addEventListener('click', findRecipeBytag);
 
 function onStartup() {
+  populateCookBook();
+  populateUserData();
+}
+
+function populateCookBook() {
+  let ingredients, recipes;
+  Cookbook.getIngredients()
+    .then(data => ingredients = data)
+  Cookbook.getRecipes()
+    .then(data => recipes = data)
+    .then(() => new Cookbook(recipes, ingredients))
+    .then(data =>  domUpdates.populateCards(data.recipes.recipeData))
+}
+
+function populateUserData() {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let newUser = users.find(user => {
-    return user.id === Number(userId);
-  });
-  user = new User(userId, newUser.name, newUser.pantry)
-  pantry = new Pantry(newUser.pantry)
-  populateCards(cookbook.recipes);
-  greetUser();
+  let currentUser, userPantry
+  User.getUserData(userId) 
+    .then(data => currentUser = data)
+    .then(() => greetUser(currentUser))
+    .then(() => userPantry = new Pantry(currentUser.pantry))
+    .then(() => console.log(userPantry))
 }
 
 function viewFavorites() {
@@ -46,7 +60,7 @@ function viewFavorites() {
     cardArea.innerHTML = '';
     user.favoriteRecipes.forEach(recipe => {
       cardArea.insertAdjacentHTML('afterbegin', 
-      `
+        `
       <div id='${recipe.id}'class='card'>
       <header id='${recipe.id}' class='card-header'>
       <div class='header-container'>
@@ -70,10 +84,10 @@ function viewFavorites() {
   }
 }
 
-function greetUser() {
+function greetUser(currentUser) {
   const userName = document.querySelector('.user-name');
   userName.innerHTML = `
-  Welcome ${user.name.split(' ')[0]} ${user.name.split(' ')[1][0]}.`;
+  Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
 }
 
 function favoriteCard(event) {
@@ -92,16 +106,7 @@ function favoriteCard(event) {
   }
 }
 
-function cardButtonConditionals(event) {
-  if (event.target.classList.contains('favorite')) {
-    favoriteCard(event);
-  } else if (event.target.classList.contains('card-picture')) {
-    displayDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    favButton.innerHTML = 'View Favorites';
-    populateCards(cookbook.recipes);
-  }
-}
+
 
 
 function displayDirections(event) {
@@ -145,36 +150,32 @@ function getFavorites() {
     user.favoriteRecipes.forEach(recipe => {
       document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
     })
-  } else return
+  } else {
+    return
+  }
 }
 
-function populateCards(recipes) {
+
+
+function findRecipeBytag(event) {
+  const tagName = event.target.innerText;
+  const filteredRecipes = user.filterFavoritesByTag(tagName);
   cardArea.innerHTML = '';
-  if (cardArea.classList.contains('all')) {
-    cardArea.classList.remove('all')
+  if (filteredRecipes.length !== 0) {
+    populateCards(filteredRecipes);
   }
-  recipes.forEach(recipe => {
-    cardArea.insertAdjacentHTML('afterbegin', `
-      <div id='${recipe.id}'class='card'>
-        <header id='${recipe.id}' class='card-header'>
-        <div class='header-container'>
-          <label for='add-button' class='hidden'></label>
-          <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id} favorite' class='add'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
-          </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
-          <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-        </div>
-        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-        <img id='${recipe.id}' tabindex='0' class='card-picture'
-          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-        </header>
-    </div>
-    `
-    )
+  return false;
+}
+
+function updateSearch() {
+  let recipeNames = document.querySelectorAll('.recipe-name');
+  recipeNames.forEach(recipe =>{
+    let lowerCaseRecipe = recipe.innerText.toLowerCase()
+    if (!lowerCaseRecipe.includes(searchInput.value)) {
+      document.getElementById(recipe.id).classList.add("hidden")
+    } else {
+      document.getElementById(recipe.id).classList.remove("hidden");
+    }
   })
-  getFavorites();
-};
+  
+}

@@ -7,7 +7,7 @@ class Recipe {
     this.tags = recipe.tags;
     this.ingredientsData = ingredientsData;
   }
-
+  
   calculateCost() {
     let costCounter = 0;
     this.ingredients.forEach(ingredient => {
@@ -20,7 +20,6 @@ class Recipe {
     });
     return costCounter;
   }
-
 }
 
 export default Recipe;
