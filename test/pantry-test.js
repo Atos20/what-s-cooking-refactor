@@ -28,12 +28,11 @@ describe('Pantry', () => {
 
   })
   it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-   
     pantry.giveFeedbackOnIngredients(recipe1)
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You have the ingredients!');
   });
 
-  it('Should be able to check if user does not have ingredients in pantry', () => {
+  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
     expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql([
       {
         'all purpose flour': 'sorry! it seems you are missing 1.5 c of all purpose flour ',

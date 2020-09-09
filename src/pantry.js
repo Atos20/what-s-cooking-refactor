@@ -15,13 +15,15 @@ class Pantry {
   }
 
   checkPantryForIngredient(recipe) {
-    const newPantry = this.consolidateUsersPantry();
+    const consolidatedPantry = this.consolidateUsersPantry();
+    console.log('nP',consolidatedPantry)
     return recipe.ingredients.map(ingredient => {
       const newData = {}
-      newData [ingredient.id] = newPantry[ingredient.id]
+      newData [ingredient.id] = consolidatedPantry[ingredient.id]
       if(!newData[ingredient.id]) {
         newData[ingredient.id] = 0
       }
+      console.log('nD',newData)
       return newData
     });
   }
@@ -30,7 +32,6 @@ class Pantry {
   //shpould give feed back about the ingredients
   giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
-    // console.log(userIngredients)
     const returFeedback = recipe.ingredients.reduce((list, recipeItem) => {
       if(!list[recipeItem.name]) {
         list[recipeItem.name] = undefined;
