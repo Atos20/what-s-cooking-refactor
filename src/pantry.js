@@ -18,18 +18,16 @@ class Pantry {
     const consolidatedPantry = this.consolidateUsersPantry();
     console.log('nP',consolidatedPantry)
     return recipe.ingredients.map(ingredient => {
-      const newData = {}
-      newData [ingredient.id] = consolidatedPantry[ingredient.id]
-      if(!newData[ingredient.id]) {
-        newData[ingredient.id] = 0
+      const ingredientsNeeded = {}
+      ingredientsNeeded [ingredient.id] = consolidatedPantry[ingredient.id]
+      if(!ingredientsNeeded[ingredient.id]) {
+        ingredientsNeeded[ingredient.id] = 0
       }
-      console.log('nD',newData)
-      return newData
+      console.log(ingredientsNeeded)
+      return ingredientsNeeded
     });
   }
-  
-  //this method should know what ar the missing ingredientes
-  //shpould give feed back about the ingredients
+ 
   giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returFeedback = recipe.ingredients.reduce((list, recipeItem) => {
@@ -52,7 +50,7 @@ class Pantry {
       });
       return list 
     }, {});
-    console.log(returFeedback) 
+    // console.log(returFeedback) 
     return returFeedback;
   }
 
@@ -72,7 +70,7 @@ class Pantry {
   }
   
   saveItemsToPantry(recipe){
-    console.log(this.pantry)
+    // console.log(this.pantry)
     // const ingredientsNeeded = calculateIngredientsNeeded(recipe);
     // this.pantry.push(ingredientsNeeded);
     // console.log()

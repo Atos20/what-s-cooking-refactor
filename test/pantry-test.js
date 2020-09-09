@@ -27,9 +27,21 @@ describe('Pantry', () => {
     expect(consolidatedPantry[1123]).to.equal(8)
 
   })
-  it.only('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+  it.only('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
     pantry.giveFeedbackOnIngredients(recipe1)
-    expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You have the ingredients!');
+    expect(pantry.checkPantryForIngredient(recipe1)).to.eql([
+      { '20081': 0 },
+      { '18372': 3 },
+      { '1123': 8 },
+      { '19335': 2 },
+      { '19206': 3 },
+      { '19334': 0 },
+      { '2047': 3 },
+      { '1012047': 0 },
+      { '10019903': 0 },
+      { '1145': 2 },
+      { '2050': 0 },
+    ]);
   });
 
   it.skip('Should be able to check if user does not have ingredients in pantry', () => {
