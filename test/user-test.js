@@ -54,5 +54,6 @@ describe('User', () => {
     user1.addToFavorites(recipeData[1]);
     expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
   });
+  
 
 });
