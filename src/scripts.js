@@ -26,13 +26,9 @@ cardArea.addEventListener('click', cardButtonConditionals);
 searchInput.addEventListener('input', updateSearch);
 tagContainer.addEventListener('click', findRecipeBytag);
 
-
-
 function onStartup() {
-  // populateCookBook();
-  // populateUserData()
-  greetUser();
-  pantry = new Pantry(newUser.pantry)
+  populateCookBook();
+  populateUserData();
 }
 
 function populateCookBook() {
@@ -47,10 +43,12 @@ function populateCookBook() {
 
 function populateUserData() {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let currentUser 
+  let currentUser, userPantry
   User.getUserData(userId) 
     .then(data => currentUser = data)
-    .then(data => console.log(currentUser))
+    .then(() => greetUser(currentUser))
+    .then(() => userPantry = new Pantry(currentUser.pantry))
+    .then(() => console.log(userPantry))
 }
 
 function viewFavorites() {
@@ -90,10 +88,10 @@ function viewFavorites() {
   }
 }
 
-function greetUser() {
+function greetUser(currentUser) {
   const userName = document.querySelector('.user-name');
   userName.innerHTML = `
-  Welcome ${user.name.split(' ')[0]} ${user.name.split(' ')[1][0]}.`;
+  Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
 }
 
 function favoriteCard(event) {
@@ -177,7 +175,6 @@ function populateCards(recipes) {
     cardArea.classList.remove('all')
   }
   recipes.forEach(recipe => {
-    console.log(recipe)
     cardArea.insertAdjacentHTML('afterbegin', `
       <div id='${recipe.id}'class='card'>
         <header id='${recipe.id}' class='card-header'>
