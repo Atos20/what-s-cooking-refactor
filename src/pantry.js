@@ -1,7 +1,8 @@
 class Pantry {
-  constructor(userIngredients) {
-    //this is the users Pantry
-    this.pantry = userIngredients;
+  constructor(user) {
+    this.userId = user.id
+    this.pantry = user.pantry;
+    this.ingredientsNeeded;
   }
 
   consolidateUsersPantry() {
@@ -22,14 +23,13 @@ class Pantry {
       if(!ingredientsNeeded[ingredient.id]) {
         ingredientsNeeded[ingredient.id] = 0
       }
-      console.log(ingredientsNeeded)
       return ingredientsNeeded
     });
   }
  
   giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
-    const returFeedback = recipe.ingredients.reduce((list, recipeItem) => {
+    const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
       if(!list[recipeItem.name]) {
         list[recipeItem.name] = undefined;
       }
@@ -49,13 +49,12 @@ class Pantry {
       });
       return list 
     }, {});
-    // console.log(returFeedback) 
-    return returFeedback;
+    return returnFeedback;
   }
 
   calculateIngredientsNeeded(recipe) {
-    let userPantry = this.consolidateUsersPantry();
-    let whatsNeeded =  recipe.ingredients.reduce((neededIng, currentIng) =>{
+    const userPantry = this.consolidateUsersPantry();
+    const whatsNeeded =  recipe.ingredients.reduce((neededIng, currentIng) =>{
       if (!userPantry[currentIng.id]) {
         userPantry[currentIng.id] = 0
       }
@@ -64,29 +63,60 @@ class Pantry {
       }
       return neededIng
     },[])
-    // console.log(whatsNeeded)
+    this.ingredientsNeeded = whatsNeeded;
     return whatsNeeded
   }
-  
-  saveItemsToPantry(recipe){
-    const ingredientsNeeded = this.calculateIngredientsNeeded(recipe);
-    this.pantry.push(...ingredientsNeeded);
-    const updatedPantry = this.consolidateUsersPantry()
-     Object.entries(updatedPantry).map(item => {
-      const data = {ingredient: item[0], amount: item[1]}
-      console.log(data)
-      return data
-    })
-  }
+  //i am not sure why this methosis breaking the calculate cost method.
+  // saveItemsToPantry(recipe) { 
+  //   const itemsNeeded = this.calculateIngredientsNeeded(recipe);
+  //   this.pantry.push(...itemsNeeded);
+  //   const entries = Object.entries(this.consolidateUsersPantry())
+  //   const reorganizedData = entries.map(item => {
+  //     return {ingredient: item[0], amount: item[1]}
+  //   })
+  //   return reorganizedData
+  // }
 
+  saveItemsInPantry(recipe) {
+    const shoppingToPantry = recipe.ingredients.map(item => {
+      return {
+        ingredient: item.id, 
+        ingredientModification: item.quantity.amount
+      }
+    })
+    return shoppingToPantry
+  } 
+
+  ingredientsToPantry(recipe){
+    const requisition = recipe.ingredients.map(item => {
+      return {
+        userID: this.userId, 
+        ingredientID: item.id, 
+        ingredientModification: item.quantity.amount
+      }
+    })
+    return requisition
+  }
+   
+  removeIngredientsFromPantry(recipe){
+    const requisition = recipe.ingredients.map(item => {
+      return  {
+        userID: this.userId, 
+        ingredientID: item.id, 
+        ingredientModification: -item.quantity.amount
+      }
+    })
+    return requisition
+  }
+  
   calculateCost(recipe) {
-    let list = this.calculateIngredientsNeeded(recipe)
+    const list = this.calculateIngredientsNeeded(recipe);
     let costCounter = 0;
     list.forEach(ingredient => {
-      let ingredientData = recipe.ingredientsData.find(recipeIng => { 
-        return recipeIng.id === ingredient.id
+      const ingredientData = recipe.ingredientsData.find(recipeIng => { 
+        return recipeIng.id === ingredient.ingredient
       })
-      costCounter += ingredientData.estimatedCostInCents * ingredient.amountNeeded
+      costCounter += ingredientData.estimatedCostInCents * ingredient.amount
     })
     return Number((costCounter / 100).toFixed(2))
   }
@@ -107,6 +137,8 @@ class Pantry {
     },[])
     this.pantry = updatedContents
   }
+
+  
 }
 
 export default Pantry;

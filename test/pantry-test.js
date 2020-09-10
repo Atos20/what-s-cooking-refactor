@@ -1,5 +1,6 @@
+const spies = require('chai-spies');
 import { expect } from 'chai';
-
+// import { spies } from 'chai-spies'
 import sampleUserData from './sampleUserData.js'
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
@@ -7,28 +8,28 @@ import Recipe from '../src/recipe.js';
 import recipeData from '../src/data/recipes.js';
 import ingredientsData from '../src/data/ingredients.js';
 
-let user1, recipe1, recipe2, pantry, recipeIngredients1, recipeIngredients2;
+let user1, recipe1, recipe2, pantry, recipeIngredients1, recipeIngredients2, data;
 
 describe('Pantry', () => {
   beforeEach(() => {
+    data = sampleUserData;
     recipeIngredients1 = recipeData[0];
     recipeIngredients2 = recipeData[1];
     recipe1 = new Recipe(recipeIngredients1, ingredientsData);
     recipe2 = new Recipe(recipeIngredients2, ingredientsData);
     user1 = new User(sampleUserData[0]);
-    pantry = new Pantry(user1.pantry);
+    pantry = new Pantry(user1);
   });
   it('Should be able to keep track of the user\'s pantry', () => {
     expect(pantry).to.have.property('pantry').with.length(20)
     expect(pantry.pantry).to.deep.eql(user1.pantry)
   })
-  it.skip('Should consolidate duplicate ingredients', () => {
+  it('Should consolidate duplicate ingredients', () => {
     let consolidatedPantry = (pantry.consolidateUsersPantry())
     expect(consolidatedPantry[1123]).to.equal(8)
 
   })
-  it.skip('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
-    pantry.giveFeedbackOnIngredients(recipe1)
+  it('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql([
       { '20081': 0 },
       { '18372': 3 },
@@ -43,9 +44,9 @@ describe('Pantry', () => {
       { '2050': 0 },
     ]);
   });
-
-  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
-    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql([
+//I am not sure what will be better, to target each proeprty 
+  it('Should be able to to return a message about the current status of each ingredient for a given recipe', () => {
+    expect(pantry. giveFeedbackOnIngredients(recipe1)).to.eql(
       {
         'all purpose flour': 'sorry! it seems you are missing 1.5 c of all purpose flour ',
         'baking soda': 'You will have 2.5 tsp of baking soda left',
@@ -59,12 +60,12 @@ describe('Pantry', () => {
         'unsalted butter': 'You will have 1.5 c of unsalted butter left',
         'vanilla extract': 'sorry! it seems you are missing 0.5 tsp of vanilla extract '
       }
-    ]);
+    );
   });
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
     expect(pantry.calculateIngredientsNeeded(recipe1)).to.eql([
-      { ingredient: 20081, amount: 1 },
+      { ingredient: 20081, amount: 1.5 },
       { ingredient: 19334, amount: 0.5 },
       { ingredient: 1012047, amount: 24 },
       { ingredient: 10019903, amount: 2 },
@@ -72,17 +73,39 @@ describe('Pantry', () => {
     ])
   });
 
-  it.only('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
-    expect(pantry.saveItemsToPantry(recipe1)).to.eql({});
+  it('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
+    expect(pantry.saveItemsInPantry(recipe1)).to.have.a.lengthOf(11);
+  });
+  
+  it('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
+    expect(pantry.removeIngredientsFromPantry(recipe1)).to.have.a.lengthOf(11);
   });
 
-  it.only('Should be able to calculate cost of the missing ingredients', () => {
+  it('should be able to return a new object with the information needed to save items remotely', () => {
+    expect(pantry.ingredientsToPantry(recipe1)).to.eql(
+      [
+        { userID: 1, ingredientID: 20081, ingredientModification: 1.5 },
+        { userID: 1, ingredientID: 18372, ingredientModification: 0.5 },
+        { userID: 1, ingredientID: 1123, ingredientModification: 1 },
+        { userID: 1, ingredientID: 19335, ingredientModification: 0.5 },
+        { userID: 1, ingredientID: 19206, ingredientModification: 3 },
+        { userID: 1, ingredientID: 19334, ingredientModification: 0.5 },
+        { userID: 1, ingredientID: 2047, ingredientModification: 0.5 },
+        { userID: 1, ingredientID: 1012047, ingredientModification: 24 },
+        { userID: 1, ingredientID: 10019903, ingredientModification: 2 },
+        { userID: 1, ingredientID: 1145, ingredientModification: 0.5 },
+        { userID: 1, ingredientID: 2050, ingredientModification: 0.5 }
+      ]
+    )
+  })
+  it('Should be able to calculate cost of the missing ingredients', () => {
     expect(pantry.calculateCost(recipe1)).to.equal(141.34);
   });
 
   it('Should be able to update the pantry after a meal has been cooked', () => {
-    pantry.cookMeal(recipe1)
-    expect(pantry.pantry).to.deep.equal([
+    pantry.cookMeal(recipe1);
+    expect(pantry.pantry).to.deep.equal(
+    [
       { ingredient: 11477, amount: 1 },
       { ingredient: 93820, amount: 1 },
       { ingredient: 11297, amount: 3 },
@@ -102,4 +125,5 @@ describe('Pantry', () => {
       { ingredient: 2047, amount: 0.5 }
     ]);
   });
+
 });
