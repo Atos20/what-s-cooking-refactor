@@ -19,33 +19,25 @@ const cardArea = document.querySelector('.all-cards');
 
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
-favButton.addEventListener('click', domUpdates.viewFavorites);
+favButton.addEventListener('click', determineFavorites);
 searchInput.addEventListener('input', domUpdates.updateSearch);
-tagContainer.addEventListener('click', domUpdates.findRecipeBytag);
+tagContainer.addEventListener('click', tagHandler);
 
 
 function onStartup() {
-  populateCookBook();
-  populateUserData();
-}
-
-function populateCookBook() {
-  let ingredients, recipes;
-  Cookbook.getIngredients()
-    .then(data => ingredients = data.ingredientsData)
-  Cookbook.getRecipes()
-    .then(data => recipes = data.recipeData)
-    .then(() => cookbook = new Cookbook(recipes, ingredients))
-    .then(data =>  domUpdates.populateCards(data.recipes))
-}
-
-function populateUserData() {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  User.getUserData(userId) 
-    .then(data => currentUser = new User(data))
-    .then(() => domUpdates.greetUser(currentUser))
-    .then(() => userPantry = new Pantry(currentUser.pantry))
+  let promise1 = Cookbook.getIngredients()
+  let promise2 = Cookbook.getRecipes()
+  let promise3 = User.getUserData(userId) 
+  Promise.all([promise1, promise2, promise3])
+    .then(values => {
+      cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
+      currentUser = new User(values[2])
+      domUpdates.greetUser(currentUser)
+      domUpdates.populateCards(cookbook.recipes, currentUser)
+    })
 }
+
 function favoriteCard(event) {
   console.log(cookbook)
   let specificRecipe = cookbook.recipes.find(recipe => {
@@ -63,6 +55,14 @@ function findDirections() {
   domUpdates.displayDirections(cardArea, recipeObject, costInDollars)
 }
 
+function determineFavorites() {
+  domUpdates.viewFavorites(cardArea, currentUser, favButton)
+}
+
+function tagHandler(event) {
+  domUpdates.findRecipeByTag(event, currentUser, cardArea)
+}
+
 function cardButtonConditionals(event) {
   console.log(event.target)
   if (event.target.classList.contains('favorite')) {
@@ -71,7 +71,7 @@ function cardButtonConditionals(event) {
     findDirections(event);
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
-    domUpdates.populateCards(cookbook.recipes);
+    domUpdates.populateCards(cookbook.recipes, currentUser);
   }
 }
 

@@ -1,7 +1,7 @@
 import scripts from './domUpdates';
 
 let domUpdates = {
-  populateCards(recipes) {
+  populateCards(recipes, user) {
     let cardArea = document.querySelector('.all-cards');
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
@@ -30,9 +30,9 @@ let domUpdates = {
           `
       )
     })
-    // getFavorites();
+    this.getFavorites(user)
   },
-  viewFavorites() {
+  viewFavorites(cardArea, user, favButton) {
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
     }
@@ -66,13 +66,9 @@ let domUpdates = {
     </div>
         `)
       })
+      this.getFavorites(user)
     }
   },
-  // favoriteCard(event) {
-  //   let specificRecipe = cookbook.recipes.find(recipe => {
-  //     if (recipe.id  === Number(event.target.id)) {
-  //       return recipe;
-  //     }
   displayFavorite(specificRecipe, event, favButton) {
     if (!event.target.classList.contains('favorite-active')) {
       event.target.classList.add('favorite-active');
@@ -108,12 +104,12 @@ let domUpdates = {
       `)
     })
   },
-  findRecipeBytag(event) {
+  findRecipeByTag(event, user, cardArea) {
     const tagName = event.target.innerText;
-    const filteredRecipes = user.filterFavoritesByTag(tagName);
+    const filteredRecipes = user.filterFavorites(tagName);
     cardArea.innerHTML = '';
     if (filteredRecipes.length !== 0) {
-      populateCards(filteredRecipes);
+      this.populateCards(filteredRecipes, user);
     }
     return false;
   },
@@ -133,8 +129,9 @@ let domUpdates = {
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   },
-  getFavorites() {
-    if (user.favoriteRecipes.length) {
+  getFavorites(user) {
+    
+    if (user.favoriteRecipes) {
       user.favoriteRecipes.forEach(recipe => {
         document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
       })
