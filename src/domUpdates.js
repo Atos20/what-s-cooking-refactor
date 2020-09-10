@@ -83,15 +83,7 @@ let domUpdates = {
       return false
     }
   },
-  displayDirections(event) {
-    let newRecipeInfo = cookbook.recipes.find(recipe => {
-      if (recipe.id === Number(event.target.id)) {
-        return recipe;
-      }
-    })
-    let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
-    let cost = recipeObject.calculateCost()
-    let costInDollars = (cost / 100).toFixed(2)
+  displayDirections(cardArea, recipeObject, costInDollars) {
     cardArea.classList.add('all');
     cardArea.innerHTML = `
       <h3>${recipeObject.name}</h3>

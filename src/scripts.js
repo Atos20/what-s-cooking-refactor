@@ -8,7 +8,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import domUpdates from './domUpdates';
-let cookbook, user;
+let cookbook, currentUser, userPantry;
 
 window.onload = onStartup();
 const favButton = document.querySelector('.view-favorites');
@@ -41,12 +41,10 @@ function populateCookBook() {
 
 function populateUserData() {
   let userId = (Math.floor(Math.random() * 49) + 1)
-  let currentUser, userPantry
   User.getUserData(userId) 
-    .then(data => currentUser = data)
+    .then(data => currentUser = new User(data))
     .then(() => domUpdates.greetUser(currentUser))
     .then(() => userPantry = new Pantry(currentUser.pantry))
-    .then(() => console.log(userPantry))
 }
 function favoriteCard(event) {
   console.log(cookbook)
@@ -54,7 +52,15 @@ function favoriteCard(event) {
     return recipe.id  === Number(event.target.id)
   })
   let favoriteStatus = domUpdates.displayFavorite(specificRecipe, event, favButton)
-  favoriteStatus ? user.addToFavorites(specificRecipe) :user.removeFromFavorites(specificRecipe)
+  favoriteStatus ? currentUser.addToFavorites(specificRecipe) : currentUser.removeFromFavorites(specificRecipe)
+}
+
+function findDirections() {
+  let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === Number(event.target.id))
+  let recipeObject = new Recipe(newRecipeInfo, ingredientsData);
+  let cost = recipeObject.calculateCost()
+  let costInDollars = (cost / 100).toFixed(2)
+  domUpdates.displayDirections(cardArea, recipeObject, costInDollars)
 }
 
 function cardButtonConditionals(event) {
@@ -62,7 +68,7 @@ function cardButtonConditionals(event) {
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
   } else if (event.target.classList.contains('card-picture')) {
-    domUpdates.displayDirections(event);
+    findDirections(event);
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
     domUpdates.populateCards(cookbook.recipes);
