@@ -82,4 +82,18 @@ describe('User', () => {
   it('Should have a property of recipesToCook with a default value', () => {
     expect(user1.recipesToCook).to.eql([]);
   });
+
+  it('Should be able to add recipes to recipesToCook', () => {
+    user1.addToCook(recipeData[0]);
+    user1.addToCook(recipeData[1]);
+    expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
+  });
+
+  it('Should be able to remove recipes from recipesToCook', () => {
+   user1.addToCook(recipeData[0]);
+   user1.addToCook(recipeData[1]);
+   user1.removeFromRecipesToCook(recipeData[0]);
+   expect(user1.recipesToCook).to.eql([recipeData[1]]);
+ });
+
 });

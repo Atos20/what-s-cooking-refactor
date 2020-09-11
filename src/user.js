@@ -54,6 +54,11 @@ class User {
     }
   }
 
+  removeFromRecipesToCook(recipe) {
+    let cooked = this.recipesToCook.indexOf(recipe);
+    this.recipesToCook.splice(cooked, 1)
+  }
+
   static getUserData(userId) {
     const userUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
     const promise = fetch(userUrl)
