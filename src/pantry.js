@@ -110,8 +110,7 @@ class Pantry {
   }
   
   calculateCost(recipe) {
-
-    let list = this.calculateIngredientsNeeded(recipe)
+    const list = this.calculateIngredientsNeeded(recipe);
     let costCounter = 0;
     list.forEach(ingredient => {
       const ingredientData = recipe.ingredientsData.find(recipeIng => { 

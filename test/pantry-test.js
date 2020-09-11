@@ -21,14 +21,15 @@ describe('Pantry', () => {
     pantry = new Pantry(user1);
   });
   it('Should be able to keep track of the user\'s pantry', () => {
-    expect(pantry).to.have.property('pantry').with.length(20)
+    expect(pantry).to.have.property('pantry').with.lengthOf(20)
     expect(pantry.pantry).to.deep.eql(user1.pantry)
-  })
+  });
+  
   it('Should consolidate duplicate ingredients', () => {
     let consolidatedPantry = (pantry.consolidateUsersPantry())
     expect(consolidatedPantry[1123]).to.equal(8)
+  }); 
 
-  })
   it('Should be able to check and list ingredients from the user/s pantry for a given recipe', () => {
     expect(pantry.checkPantryForIngredient(recipe1)).to.eql([
       { '20081': 0 },
