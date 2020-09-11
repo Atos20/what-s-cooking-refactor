@@ -16,6 +16,9 @@ const homeButton = document.querySelector('.home')
 const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
+const toCookLaterButton = document.querySelector('.fa-clock');
+const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
+
 const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', homeHandler);
 cardArea.addEventListener('click', cardButtonConditionals);
