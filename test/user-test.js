@@ -23,6 +23,14 @@ describe('User', () => {
     );
   });
 
+  it('Should be a function', () => {
+    expect(User).to.be.a('function');
+  });
+
+  it('Should be an instance of User', () => {
+    expect(user1).to.be.an.instanceof(User);
+  });
+
   it('Should be able to validate data types', () => {
     let recipeInfo = recipeData[0].id;
     expect(user1.validateDataType(recipeInfo, 'number')).to.equal(recipeInfo);
@@ -34,7 +42,7 @@ describe('User', () => {
   });
 
   it('Should be able to add recipes to favoriteRecipes', () =>{
-    user1.addToFavorites(recipeData[0])
+    user1.addToFavorites(recipeData[0]);
     expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
   });
 
