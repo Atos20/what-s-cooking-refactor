@@ -65,10 +65,11 @@ function determineFavorites() {
 function tagHandler(event) {
   let filteredRecipes;
   const tagName = event.target.innerText;
-  if (document.querySelectorAll('.favorite-active').length) {
-    filteredRecipes = currentUser.filterFavorites(tagName)
-  }else {
+  if (!currentUser.favoriteRecipes.length) {
     filteredRecipes = cookbook.filterRecipesByTag(tagName)
+    console.log(currentUser.favoriteRecipes)
+  }else {
+    filteredRecipes = currentUser.filterFavorites(tagName)
   }
   domUpdates.populateCards(filteredRecipes, cardArea, currentFavs())
 }
