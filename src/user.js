@@ -59,6 +59,13 @@ class User {
     this.recipesToCook.splice(cooked, 1)
   }
 
+  filterRecipesToCook(tag) {
+    return this.recipesToCook.filter(recipe => {
+      return recipe.tags.includes(tag);
+    })
+  }
+
+
   static getUserData(userId) {
     const userUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
     const promise = fetch(userUrl)

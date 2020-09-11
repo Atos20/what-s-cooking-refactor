@@ -48,7 +48,7 @@ describe('User', () => {
   it('Should be able to add recipes to favoriteRecipes', () =>{
     user1.addToFavorites(recipeData[0]);
     user1.addToFavorites(recipeData[1]);
-    expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
+    expect(user1.favoriteRecipes.includes(recipeData[0])).to.equal(true);
   });
 
   it('Should not add recipes to favoriteRecipes if it is undefined', () => {
@@ -57,8 +57,10 @@ describe('User', () => {
   });
 
   it('Should be able to remove recipes from favoriteRecipes', () =>{
-    user1.removeFromFavorites(recipeData);
-    expect(user1.favoriteRecipes).to.eql([]);
+    user1.addToFavorites(recipeData[0]);
+    user1.addToFavorites(recipeData[1]);
+    user1.removeFromFavorites(recipeData[1]);    
+    expect(user1.favoriteRecipes).to.eql([recipeData[0]]);
   });
 
   it('Should be able to filter through favoriteRecipes by tag', () => {
@@ -86,7 +88,7 @@ describe('User', () => {
   it('Should be able to add recipes to recipesToCook', () => {
     user1.addToCook(recipeData[0]);
     user1.addToCook(recipeData[1]);
-    expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
+    expect(user1.recipesToCook.includes(recipeData[0])).to.equal(true);
   });
 
   it('Should not add recipes to recipesToCook if it is undefined', () => {
@@ -95,9 +97,15 @@ describe('User', () => {
   });
 
   it('Should be able to remove recipes from recipesToCook', () => {
-  user1.addToCook(recipeData[0]);
-  user1.addToCook(recipeData[1]);
-  user1.removeFromRecipesToCook(recipeData[0]);
-  expect(user1.recipesToCook).to.eql([recipeData[1]]);
- });
+    user1.addToCook(recipeData[0]);
+    user1.addToCook(recipeData[1]);
+    user1.removeFromRecipesToCook(recipeData[0]);
+    expect(user1.recipesToCook).to.eql([recipeData[1]]);
+  });
+
+  it('Should be able to filter through recipesToCook by tag', () => {
+    user1.addToCook(recipeData[0]);
+    user1.addToCook(recipeData[1]);
+    expect(user1.filterRecipesToCook('antipasti')).to.eql([recipeData[0]]);
+  });
 });
