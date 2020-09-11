@@ -1,7 +1,12 @@
-import scripts from './domUpdates';
+// import scripts from './DomUpdates';
 
-let domUpdates = {
-  populateCards(recipes, cardArea, userFavorites) {
+class DomUpdates {
+  constructor() {
+    this.name = 'Dom'
+  }
+
+  populateCards(recipes, cardArea, userFavorites){
+    let cardArea = document.querySelector('.all-cards');
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
       let buttonStatus;
@@ -30,7 +35,7 @@ let domUpdates = {
           `
       )
     })
-  },
+  }
   viewFavorites(cardArea, user, favButton, currentFavs,) {
     if (!user.favoriteRecipes.length) {
       favButton.innerHTML = 'You have no favorites!';
@@ -40,7 +45,7 @@ let domUpdates = {
       cardArea.innerHTML = '';
       this.populateCards(user.favoriteRecipes, cardArea, currentFavs)
     }
-  },
+  }
   displayFavorite(event, favButton) {
     if (!event.target.classList.contains('favorite-active')) {
       event.target.classList.add('favorite-active');
@@ -50,7 +55,8 @@ let domUpdates = {
       event.target.classList.remove('favorite-active');
       return false
     }
-  },
+  }
+
   displayDirections(cardArea, recipeObject, costInDollars) {
     cardArea.classList.add('all');
     cardArea.innerHTML = `
@@ -75,7 +81,18 @@ let domUpdates = {
       ${instruction.instruction}</li>
       `)
     })
-  },
+  }
+
+  findRecipeByTag(event, user, cardArea) {
+    const tagName = event.target.innerText;
+    const filteredRecipes = user.filterFavorites(tagName);
+    cardArea.innerHTML = '';
+    if (filteredRecipes.length !== 0) {
+      this.populateCards(filteredRecipes, user);
+    }
+    return false;
+  }
+
   updateSearch() {
     let recipeNames = document.querySelectorAll('.recipe-name');
     recipeNames.forEach(recipe =>{
@@ -86,12 +103,14 @@ let domUpdates = {
         document.getElementById(recipe.id).classList.remove("hidden");
       }
     })
-  },
+  }
+
   greetUser(currentUser) {
     const userName = document.querySelector('.user-name');
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   },
 }
-export default domUpdates;
+
+export default DomUpdates;
 
