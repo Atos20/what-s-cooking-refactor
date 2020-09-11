@@ -7,7 +7,7 @@ import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
-import domUpdates from './domUpdates';
+import DomUpdates from './DomUpdates';
 let cookbook, currentUser, userPantry;
 
 window.onload = onStartup();
@@ -16,7 +16,7 @@ const homeButton = document.querySelector('.home')
 const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
-
+const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', cardButtonConditionals);
 cardArea.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', determineFavorites);
