@@ -7,6 +7,11 @@ class User {
     this.recipesToCook = [];
   }
 
+  validateDataType(attribute, dataType) {
+    return typeof attribute === dataType ? attribute : this.giveDefaultValue(dataType);
+  }
+
+
   addToFavorites(recipe) {
     if (!this.favoriteRecipes.includes(recipe)) {
       this.favoriteRecipes.push(recipe)
@@ -38,7 +43,7 @@ class User {
     const promise = fetch(userUrl)
       .then(response => response.json())
       .then(data => data.wcUsersData.find(user => user.id === userId))
-    return promise; 
+    return promise;
   }
 
 }

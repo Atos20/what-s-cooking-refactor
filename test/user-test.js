@@ -23,6 +23,12 @@ describe('User', () => {
     );
   });
 
+  it('Should be able to validate data types', () => {
+    let recipeInfo = recipeData[0].id;
+    expect(user1.validateDataType(recipeInfo, 'number')).to.equal(recipeInfo);
+    expect(user1.validateDataType(recipeInfo, 'string')).to.equal('Invalid value given');
+  });
+
   it('Should have a property of favoriteRecipes with a default value', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });
@@ -54,6 +60,6 @@ describe('User', () => {
     user1.addToFavorites(recipeData[1]);
     expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
   });
-  
+
 
 });
