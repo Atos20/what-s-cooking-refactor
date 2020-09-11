@@ -40,7 +40,7 @@ class User {
       .then(data => data.wcUsersData.find(user => user.id === userId))
     return promise; 
   }
-
+  
 }
 
 export default User;
