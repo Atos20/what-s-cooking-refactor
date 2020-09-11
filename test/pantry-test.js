@@ -18,23 +18,33 @@ describe('Pantry', () => {
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1.pantry);
   });
-  it('Should be able to keep track of the user\'s pantry', () => {
-    expect(pantry).to.have.property('pantry').with.length(20)
-    expect(pantry.pantry).to.deep.eql(user1.pantry)
-  })
-  it('Should consolidate duplicate ingredients', () => {
-    let consolidatedPantry = (pantry.consolidateUsersPantry())
-    expect(consolidatedPantry[1123]).to.equal(8)
 
-  })
+  it('Should be a function', () => {
+   expect(Pantry).to.be.a('function');
+  });
+
+  it('Should be a instance of Pantry', () => {
+   expect(pantry).to.be.an.instanceof(Pantry);
+  });
+
+  it('Should be able to keep track of the user\'s pantry', () => {
+    expect(pantry).to.have.property('pantry').with.length(20);
+    expect(pantry.pantry).to.deep.eql(user1.pantry);
+  });
+
+  it('Should consolidate duplicate ingredients', () => {
+    let consolidatedPantry = (pantry.consolidateUsersPantry());
+    expect(consolidatedPantry[1123]).to.equal(8);
+  });
+
   it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    pantry.consolidateUsersPantry()
-    pantry.giveFeedbackOnIngredients(recipe1)
-    expect(pantry.checkPantryForIngredient(recipe1)).to.eql('You have the ingredients!');
+    pantry.consolidateUsersPantry();
+    pantry.giveFeedbackOnIngredients(recipe1);
+    expect(pantry.checkPantryForIngredient(recipe1)).to.equal('You have the ingredients!');
   });
 
   it.skip('Should be able to check if user does not have ingredients in pantry', () => {
-    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.eql('You do not have the ingredients!');
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.equal('You do not have the ingredients!');
   });
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
@@ -44,7 +54,7 @@ describe('Pantry', () => {
       { id: 1012047, amountNeeded: 24 },
       { id: 10019903, amountNeeded: 2 },
       { id: 2050, amountNeeded: 0.5 }
-    ])
+    ]);
   });
 
   it('Should be able to calculate cost of the missing ingredients', () => {
