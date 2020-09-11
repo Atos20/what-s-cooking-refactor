@@ -34,7 +34,7 @@ function onStartup() {
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
-      domUpdates.populateCards(cookbook.recipes, currentUser)
+      domUpdates.populateCards(cookbook.recipes, cardArea)
     })
 }
 
@@ -42,7 +42,7 @@ function favoriteCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe => {
     return recipe.id  === Number(event.target.id)
   })
-  let favoriteStatus = domUpdates.displayFavorite(specificRecipe, event, favButton)
+  let favoriteStatus = domUpdates.displayFavorite(event, favButton)
   favoriteStatus ? currentUser.addToFavorites(specificRecipe) : currentUser.removeFromFavorites(specificRecipe)
 }
 
@@ -54,19 +54,28 @@ function findDirections() {
   domUpdates.displayDirections(cardArea, recipeObject, costInDollars)
 }
 
+function currentFavs() {
+  return currentUser.favoriteRecipes.map(recipe => recipe.id)
+}
+
 function determineFavorites() {
-  let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
-  domUpdates.viewFavorites(cardArea, currentUser, favButton, currentFavs)
+  domUpdates.viewFavorites(cardArea, currentUser, favButton, currentFavs())
 }
 
 function tagHandler(event) {
-  domUpdates.findRecipeByTag(event, currentUser, cardArea)
+  let filteredRecipes;
+  const tagName = event.target.innerText;
+  if (document.querySelectorAll('.favorite-active').length) {
+    filteredRecipes = currentUser.filterFavorites(tagName)
+  }else {
+    filteredRecipes = cookbook.filterRecipesByTag(tagName)
+  }
+  domUpdates.populateCards(filteredRecipes, cardArea, currentFavs())
 }
-
+  
 function homeHandler() {
   favButton.innerHTML = 'View Favorites';
-  let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
-  domUpdates.populateCards(cookbook.recipes, currentUser,  currentFavs);
+  domUpdates.populateCards(cookbook.recipes, cardArea, currentFavs());
 }
 
 function cardButtonConditionals(event) {

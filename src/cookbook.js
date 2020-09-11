@@ -13,6 +13,12 @@ class Cookbook {
     })
   }
 
+  filterRecipesByTag(tag) {
+    return this.recipes.filter(recipe => {
+      return recipe.tags.includes(tag);
+    });
+  }
+
   static getIngredients() {
     const ingredientsUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/ingredients/ingredientsData'
     const promise = fetch(ingredientsUrl)

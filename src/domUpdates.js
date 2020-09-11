@@ -1,8 +1,7 @@
 import scripts from './domUpdates';
 
 let domUpdates = {
-  populateCards(recipes, user, userFavorites) {
-    let cardArea = document.querySelector('.all-cards');
+  populateCards(recipes, cardArea, userFavorites) {
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
       let buttonStatus;
@@ -32,17 +31,17 @@ let domUpdates = {
       )
     })
   },
-  viewFavorites(cardArea, user, favButton, currentFavs) {
+  viewFavorites(cardArea, user, favButton, currentFavs,) {
     if (!user.favoriteRecipes.length) {
       favButton.innerHTML = 'You have no favorites!';
       return
     } else {
       favButton.innerHTML = 'Refresh Favorites'
       cardArea.innerHTML = '';
-      this.populateCards(user.favoriteRecipes, null, currentFavs)
+      this.populateCards(user.favoriteRecipes, cardArea, currentFavs)
     }
   },
-  displayFavorite(specificRecipe, event, favButton) {
+  displayFavorite(event, favButton) {
     if (!event.target.classList.contains('favorite-active')) {
       event.target.classList.add('favorite-active');
       favButton.innerHTML = 'View Favorites';
@@ -77,15 +76,6 @@ let domUpdates = {
       `)
     })
   },
-  findRecipeByTag(event, user, cardArea) {
-    const tagName = event.target.innerText;
-    const filteredRecipes = user.filterFavorites(tagName);
-    cardArea.innerHTML = '';
-    if (filteredRecipes.length !== 0) {
-      this.populateCards(filteredRecipes, user);
-    }
-    return false;
-  },
   updateSearch() {
     let recipeNames = document.querySelectorAll('.recipe-name');
     recipeNames.forEach(recipe =>{
@@ -102,17 +92,6 @@ let domUpdates = {
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   },
-  getFavorites(user) {
-    if (user.favoriteRecipes) {
-      user.favoriteRecipes.forEach(recipe => {
-        console.log(recipe)
-        
-      })
-    } else {
-      return
-    }
-  },
-  
 }
 export default domUpdates;
 
