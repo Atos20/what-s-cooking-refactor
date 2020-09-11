@@ -47,7 +47,13 @@ describe('User', () => {
 
   it('Should be able to add recipes to favoriteRecipes', () =>{
     user1.addToFavorites(recipeData[0]);
+    user1.addToFavorites(recipeData[1]);
     expect(user1.favoriteRecipes.includes(recipeData[0])).to.eql(true);
+  });
+
+  it('Should not add recipes to favoriteRecipes if it is undefined', () => {
+    user1.addToFavorites(undefined);
+    expect(user1.favoriteRecipes.length).to.equal(0);
   });
 
   it('Should be able to remove recipes from favoriteRecipes', () =>{
@@ -73,5 +79,7 @@ describe('User', () => {
     expect(user1.findFavorites('egg')).to.eql([recipeData[0]]);
   });
 
-
+  it('Should have a property of recipesToCook with a default value', () => {
+    expect(user1.recipesToCook).to.eql([]);
+  });
 });

@@ -23,7 +23,7 @@ class User {
   }
 
   addToFavorites(recipe) {
-    if (!this.favoriteRecipes.includes(recipe)) {
+    if(typeof recipe === 'object') {
       this.favoriteRecipes.push(recipe)
     }
   }
@@ -46,6 +46,12 @@ class User {
         return ingredient.name.includes(strgToSrch)
       });
     });
+  }
+
+  addToCook(recipe) {
+    if (typeof recipe === 'object') {
+      this.recipesToCook.push(recipe)
+    }
   }
 
   static getUserData(userId) {
