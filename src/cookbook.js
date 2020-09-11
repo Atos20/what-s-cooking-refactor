@@ -9,8 +9,14 @@ class Cookbook {
       return recipe.ingredients.find(ingredient => {
         return (ingredient.name.includes(searchText)) ||
         (recipe.name.includes(searchText))
-      });
+      });x
     })
+  }
+
+  filterRecipesByTag(tag) {
+    return this.recipes.filter(recipe => {
+      return recipe.tags.includes(tag);
+    });
   }
 
   static getIngredients() {
