@@ -18,7 +18,7 @@ class DomUpdates {
               <div class='header-container'>
                 <label for='add-button' class='hidden'></label>
                 <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-                <i class="far fa-clock"></i>
+                <i class="far fa-clock add-button" id='${recipe.id}'></i>
                 <!-- <img id='${recipe.id} favorite' class='add'
                   src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
                   recipes to cook'>  -->
@@ -36,25 +36,41 @@ class DomUpdates {
       )
     })
   }
+
   viewFavorites(cardArea, user, favButton, currentFavs) {
     if (!user.favoriteRecipes.length) {
       favButton.innerHTML = 'You have no favorites!';
       return
     } else {
-      favButton.innerHTML = 'Refresh Favorites'
+      favButton.innerHTML = 'Refresh Favorites';
       cardArea.innerHTML = '';
       this.populateCards(user.favoriteRecipes, cardArea, currentFavs)
     }
   }
-  displayFavorite(event, favButton) {
-    if (!event.target.classList.contains('favorite-active')) {
-      event.target.classList.add('favorite-active');
-      favButton.innerHTML = 'View Favorites';
+
+  // displayFavorite(event, favButton) {
+  //   if (!event.target.classList.contains('favorite-active')) {
+  //     event.target.classList.add('favorite-active');
+  //     favButton.innerHTML = 'View Favorites';
+  //     return  true
+  //   } else if (event.target.classList.contains('favorite-active')) {
+  //     event.target.classList.remove('favorite-active');
+  //     return false
+  //   }
+  // }
+  displaySelectedCards(event, button, nameClass) {
+    if (!event.target.classList.contains(`${nameClass}`)) {
+      event.target.classList.add(`${nameClass}`);
+      button.innerHTML = 'View Favorites';
       return  true
-    } else if (event.target.classList.contains('favorite-active')) {
-      event.target.classList.remove('favorite-active');
+    } else if (event.target.classList.contains(`${nameClass}`)) {
+      event.target.classList.remove(`${nameClass}`);
       return false
     }
+  }
+  
+  addToRecipesToCook(event) {
+
   }
 
   displayDirections(cardArea, recipeObject, costInDollars) {
@@ -100,6 +116,8 @@ class DomUpdates {
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   }
+
+
 }
 
 export default DomUpdates;
