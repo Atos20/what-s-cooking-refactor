@@ -18,9 +18,10 @@ class DomUpdates {
               <div class='header-container'>
                 <label for='add-button' class='hidden'></label>
                 <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-                  <img id='${recipe.id} favorite' class='add'
+                <i class="far fa-clock"></i>
+                <!-- <img id='${recipe.id} favorite' class='add'
                   src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-                  recipes to cook'>
+                  recipes to cook'>  -->
                 </button>
                 <label for='favorite-button' class='hidden'>Click to favorite recipe
                 </label>
