@@ -89,11 +89,15 @@ describe('User', () => {
     expect(user1.recipesToCook.includes(recipeData[0])).to.eql(true);
   });
 
-  it('Should be able to remove recipes from recipesToCook', () => {
-   user1.addToCook(recipeData[0]);
-   user1.addToCook(recipeData[1]);
-   user1.removeFromRecipesToCook(recipeData[0]);
-   expect(user1.recipesToCook).to.eql([recipeData[1]]);
- });
+  it('Should not add recipes to recipesToCook if it is undefined', () => {
+    user1.addToCook(undefined);
+    expect(user1.recipesToCook.length).to.equal(0);
+  });
 
+  it('Should be able to remove recipes from recipesToCook', () => {
+  user1.addToCook(recipeData[0]);
+  user1.addToCook(recipeData[1]);
+  user1.removeFromRecipesToCook(recipeData[0]);
+  expect(user1.recipesToCook).to.eql([recipeData[1]]);
+ });
 });
