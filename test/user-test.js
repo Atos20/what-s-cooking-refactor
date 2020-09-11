@@ -37,6 +37,10 @@ describe('User', () => {
     expect(user1.validateDataType(recipeInfo, 'string')).to.equal('Invalid value given');
   });
 
+  it('Should be able to assign a default value of the correct type if none is given', () => {
+    expect(user1.giveDefaultValue('string')).to.equal('Invalid value given');
+  });
+
   it('Should have a property of favoriteRecipes with a default value', () => {
     expect(user1.favoriteRecipes).to.eql([]);
   });

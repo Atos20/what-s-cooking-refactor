@@ -11,6 +11,16 @@ class User {
     return typeof attribute === dataType ? attribute : this.giveDefaultValue(dataType);
   }
 
+  giveDefaultValue(dataType) {
+    switch (dataType) {
+      case 'string':
+        return 'Invalid value given';
+        break;
+      case 'number':
+        return 0;
+        break;
+    }
+  }
 
   addToFavorites(recipe) {
     if (!this.favoriteRecipes.includes(recipe)) {
