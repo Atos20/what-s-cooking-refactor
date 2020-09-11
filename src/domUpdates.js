@@ -1,13 +1,17 @@
 import scripts from './domUpdates';
 
 let domUpdates = {
-  populateCards(recipes, user) {
+  populateCards(recipes, user, userFavorites) {
     let cardArea = document.querySelector('.all-cards');
     cardArea.innerHTML = '';
     if (cardArea.classList.contains('all')) {
       cardArea.classList.remove('all')
     }
     recipes.forEach(recipe => {
+      let buttonStatus;
+      if (userFavorites && userFavorites.includes(recipe.id)) {
+        buttonStatus = `favorite-active`
+      }
       cardArea.insertAdjacentHTML('afterbegin', `
             <div id='${recipe.id}'class='card'>
               <header id='${recipe.id}' class='card-header'>
@@ -20,7 +24,7 @@ let domUpdates = {
                 </button>
                 <label for='favorite-button' class='hidden'>Click to favorite recipe
                 </label>
-                <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
+                <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} ${buttonStatus} card-button'></button>
               </div>
               <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
               <img id='${recipe.id}' tabindex='0' class='card-picture'
@@ -30,43 +34,15 @@ let domUpdates = {
           `
       )
     })
-    this.getFavorites(user)
   },
-  viewFavorites(cardArea, user, favButton) {
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
-    }
+  viewFavorites(cardArea, user, favButton, currentFavs) {
     if (!user.favoriteRecipes.length) {
       favButton.innerHTML = 'You have no favorites!';
-      populateCards(cookbook.recipes);
       return
     } else {
       favButton.innerHTML = 'Refresh Favorites'
       cardArea.innerHTML = '';
-      user.favoriteRecipes.forEach(recipe => {
-        cardArea.insertAdjacentHTML('afterbegin', 
-          `
-        <div id='${recipe.id}'class='card'>
-        <header id='${recipe.id}' class='card-header'>
-        <div class='header-container'>
-          <label for='add-button' class='hidden'></label>
-          <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-            <img id='${recipe.id} favorite' class='add'
-            src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-            recipes to cook'>
-          </button>
-          <label for='favorite-button' class='hidden'>Click to favorite recipe
-          </label>
-          <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} card-button'></button>
-        </div>
-        <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-        <img id='${recipe.id}' tabindex='0' class='card-picture'
-          src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-        </header>
-    </div>
-        `)
-      })
-      this.getFavorites(user)
+      this.populateCards(user.favoriteRecipes, null, currentFavs)
     }
   },
   displayFavorite(specificRecipe, event, favButton) {
@@ -130,10 +106,10 @@ let domUpdates = {
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   },
   getFavorites(user) {
-    
     if (user.favoriteRecipes) {
       user.favoriteRecipes.forEach(recipe => {
-        document.querySelector(`.favorite${recipe.id}`).classList.add('favorite-active')
+        console.log(recipe)
+        
       })
     } else {
       return

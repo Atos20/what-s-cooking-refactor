@@ -39,7 +39,6 @@ function onStartup() {
 }
 
 function favoriteCard(event) {
-  console.log(cookbook)
   let specificRecipe = cookbook.recipes.find(recipe => {
     return recipe.id  === Number(event.target.id)
   })
@@ -56,7 +55,8 @@ function findDirections() {
 }
 
 function determineFavorites() {
-  domUpdates.viewFavorites(cardArea, currentUser, favButton)
+  let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
+  domUpdates.viewFavorites(cardArea, currentUser, favButton, currentFavs)
 }
 
 function tagHandler(event) {
@@ -64,14 +64,14 @@ function tagHandler(event) {
 }
 
 function cardButtonConditionals(event) {
-  console.log(event.target)
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
   } else if (event.target.classList.contains('card-picture')) {
     findDirections(event);
   } else if (event.target.classList.contains('home')) {
     favButton.innerHTML = 'View Favorites';
-    domUpdates.populateCards(cookbook.recipes, currentUser);
+    let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
+    domUpdates.populateCards(cookbook.recipes, currentUser,  currentFavs);
   }
 }
 
