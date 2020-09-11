@@ -4,9 +4,6 @@ let domUpdates = {
   populateCards(recipes, user, userFavorites) {
     let cardArea = document.querySelector('.all-cards');
     cardArea.innerHTML = '';
-    if (cardArea.classList.contains('all')) {
-      cardArea.classList.remove('all')
-    }
     recipes.forEach(recipe => {
       let buttonStatus;
       if (userFavorites && userFavorites.includes(recipe.id)) {

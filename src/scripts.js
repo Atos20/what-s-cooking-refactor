@@ -17,7 +17,7 @@ const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
 
-homeButton.addEventListener('click', cardButtonConditionals);
+homeButton.addEventListener('click', homeHandler);
 cardArea.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', determineFavorites);
 searchInput.addEventListener('input', domUpdates.updateSearch);
@@ -63,16 +63,18 @@ function tagHandler(event) {
   domUpdates.findRecipeByTag(event, currentUser, cardArea)
 }
 
+function homeHandler() {
+  favButton.innerHTML = 'View Favorites';
+  let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
+  domUpdates.populateCards(cookbook.recipes, currentUser,  currentFavs);
+}
+
 function cardButtonConditionals(event) {
   if (event.target.classList.contains('favorite')) {
     favoriteCard(event);
   } else if (event.target.classList.contains('card-picture')) {
     findDirections(event);
-  } else if (event.target.classList.contains('home')) {
-    favButton.innerHTML = 'View Favorites';
-    let currentFavs = currentUser.favoriteRecipes.map(x => x.id)
-    domUpdates.populateCards(cookbook.recipes, currentUser,  currentFavs);
-  }
+  } 
 }
 
 
