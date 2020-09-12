@@ -6,7 +6,7 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
-
+//need to change addto favorite to just add and remove elements
   addToFavorites(property, recipe) {
     if (!this[property].includes(recipe)) {
       this[property].push(recipe)

@@ -4,24 +4,32 @@ class DomUpdates {
   constructor() {
     this.name = 'Dom'
   }
-
-  populateCards(recipes, cardArea, userFavorites){
+  
+  populateCards(recipes, cardArea, selectedIds, button, propertyName){
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
-      let buttonStatus;
-      if (userFavorites && userFavorites.includes(recipe.id)) {
-        buttonStatus = `favorite-active`
+      let buttonStatus, message, icon;
+      if (selectedIds && selectedIds.includes(recipe.id) && propertyName === 'favoriteRecipes') {
+        // if(propertyName === 'favoriteRecipes'){
+          buttonStatus = `favorite-active`
+          message = 'Favorited'
+          icon = `<i class="fas fa-utensil-spoon"></i>`
+        } else {
+        // if(propertyName === 'recipesToCook'){
+          message = 'Bon apetite!'
+          icon = `<i class="fas fa-utensils"></i>`
       }
       cardArea.insertAdjacentHTML('afterbegin', `
             <div id='${recipe.id}'class='card'>
+              <h1>${message || 'Recipe Card'}</h1>
               <header id='${recipe.id}' class='card-header'>
+              ${icon || `<i class="fas fa-utensil-spoon"></i>`}
               <div class='header-container'>
-                <label for='add-button' class='hidden'></label>
+                <label id='' for='add-button' class='hidden '></label>
                 <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
-                <i class="far fa-clock add-button" id='${recipe.id}'></i>
-                <!-- <img id='${recipe.id} favorite' class='add'
-                  src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
-                  recipes to cook'>  -->
+                <img id='${recipe.id}' class="add add-button"
+                src='https://image.flaticon.com/icons/svg/32/32339.svg' alt='Add to
+                recipes to cook'>
                 </button>
                 <label for='favorite-button' class='hidden'>Click to favorite recipe
                 </label>
@@ -34,34 +42,25 @@ class DomUpdates {
           </div>
           `
       )
-    })
+    }) 
   }
 
-  viewFavorites(cardArea, user, favButton, currentFavs) {
-    if (!user.favoriteRecipes.length) {
-      favButton.innerHTML = 'You have no favorites!';
+  viewSelectedCards(cardArea, user, button, recipeIds, propertyName) {
+    if (!user[propertyName].length) {
+      button.innerHTML = 'You have no recipes!';
       return
     } else {
-      favButton.innerHTML = 'Refresh Favorites';
+      button.innerHTML = 'recipes';
       cardArea.innerHTML = '';
-      this.populateCards(user.favoriteRecipes, cardArea, currentFavs)
+      this.populateCards(user[propertyName], cardArea, recipeIds, button, propertyName)
     }
   }
 
-  // displayFavorite(event, favButton) {
-  //   if (!event.target.classList.contains('favorite-active')) {
-  //     event.target.classList.add('favorite-active');
-  //     favButton.innerHTML = 'View Favorites';
-  //     return  true
-  //   } else if (event.target.classList.contains('favorite-active')) {
-  //     event.target.classList.remove('favorite-active');
-  //     return false
-  //   }
-  // }
-  displaySelectedCards(event, button, nameClass) {
+  //👇🏽 changed the name 
+  toggleNameClass(event, button, nameClass) {
     if (!event.target.classList.contains(`${nameClass}`)) {
       event.target.classList.add(`${nameClass}`);
-      button.innerHTML = 'View Favorites';
+      button.style.backgroundColor = 'orange';
       return  true
     } else if (event.target.classList.contains(`${nameClass}`)) {
       event.target.classList.remove(`${nameClass}`);
@@ -69,10 +68,6 @@ class DomUpdates {
     }
   }
   
-  addToRecipesToCook(event) {
-
-  }
-
   displayDirections(cardArea, recipeObject, costInDollars) {
     cardArea.classList.add('all');
     cardArea.innerHTML = `
@@ -116,8 +111,6 @@ class DomUpdates {
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
   }
-
-
 }
 
 export default DomUpdates;
