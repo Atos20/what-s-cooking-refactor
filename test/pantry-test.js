@@ -20,7 +20,17 @@ describe('Pantry', () => {
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1);
   });
+
+  it('Should be a function', () => {
+   expect(Pantry).to.be.a('function');
+  });
+
+  it('Should be a instance of Pantry', () => {
+   expect(pantry).to.be.an.instanceof(Pantry);
+  });
+
   it('Should be able to keep track of the user\'s pantry', () => {
+<<<<<<< HEAD
     expect(pantry).to.have.property('pantry').with.lengthOf(20)
     expect(pantry.pantry).to.deep.eql(user1.pantry)
   });
@@ -62,16 +72,44 @@ describe('Pantry', () => {
         'vanilla extract': 'sorry! it seems you are missing 0.5 tsp of vanilla extract '
       }
     );
+=======
+    expect(pantry).to.have.property('pantry').with.length(20);
+    expect(pantry.pantry).to.deep.eql(user1.pantry);
+  });
+
+  it('Should consolidate duplicate ingredients', () => {
+    let consolidatedPantry = (pantry.consolidateUsersPantry());
+    expect(consolidatedPantry[1123]).to.equal(8);
+  });
+
+  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+    pantry.consolidateUsersPantry();
+    pantry.giveFeedbackOnIngredients(recipe1);
+    expect(pantry.checkPantryForIngredient(recipe1)).to.equal('You have the ingredients!');
+  });
+
+  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.equal('You do not have the ingredients!');
+>>>>>>> 628f7c04424c37d5f9b9903f8a3ae8f43fff4aea
   });
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
     expect(pantry.calculateIngredientsNeeded(recipe1)).to.eql([
+<<<<<<< HEAD
       { ingredient: 20081, amount: 1.5 },
       { ingredient: 19334, amount: 0.5 },
       { ingredient: 1012047, amount: 24 },
       { ingredient: 10019903, amount: 2 },
       { ingredient: 2050, amount: 0.5 }
     ])
+=======
+      { id: 20081, amountNeeded: 1.5 },
+      { id: 19334, amountNeeded: 0.5 },
+      { id: 1012047, amountNeeded: 24 },
+      { id: 10019903, amountNeeded: 2 },
+      { id: 2050, amountNeeded: 0.5 }
+    ]);
+>>>>>>> 628f7c04424c37d5f9b9903f8a3ae8f43fff4aea
   });
 
   it('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
@@ -126,5 +164,9 @@ describe('Pantry', () => {
       { ingredient: 2047, amount: 0.5 }
     ]);
   });
+<<<<<<< HEAD
 
 });
+=======
+});
+>>>>>>> 628f7c04424c37d5f9b9903f8a3ae8f43fff4aea
