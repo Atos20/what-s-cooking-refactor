@@ -20,7 +20,17 @@ describe('Pantry', () => {
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1);
   });
+
+  it('Should be a function', () => {
+   expect(Pantry).to.be.a('function');
+  });
+
+  it('Should be a instance of Pantry', () => {
+   expect(pantry).to.be.an.instanceof(Pantry);
+  });
+
   it('Should be able to keep track of the user\'s pantry', () => {
+
     expect(pantry).to.have.property('pantry').with.lengthOf(20)
     expect(pantry.pantry).to.deep.eql(user1.pantry)
   });
@@ -62,6 +72,25 @@ describe('Pantry', () => {
         'vanilla extract': 'sorry! it seems you are missing 0.5 tsp of vanilla extract '
       }
     );
+
+    expect(pantry).to.have.property('pantry').with.length(20);
+    expect(pantry.pantry).to.deep.eql(user1.pantry);
+  });
+
+  it('Should consolidate duplicate ingredients', () => {
+    let consolidatedPantry = (pantry.consolidateUsersPantry());
+    expect(consolidatedPantry[1123]).to.equal(8);
+  });
+
+  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+    pantry.consolidateUsersPantry();
+    pantry.giveFeedbackOnIngredients(recipe1);
+    expect(pantry.checkPantryForIngredient(recipe1)).to.equal('You have the ingredients!');
+  });
+
+  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.equal('You do not have the ingredients!');
+
   });
 
   it('Should be able to determine what ingredients a user is missing from their pantry ', () => {
@@ -126,5 +155,4 @@ describe('Pantry', () => {
       { ingredient: 2047, amount: 0.5 }
     ]);
   });
-
 });
