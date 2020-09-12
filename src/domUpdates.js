@@ -5,19 +5,19 @@ class DomUpdates {
     this.name = 'Dom'
   }
   
-  populateCards(recipes, cardArea, selectedIds, button, propertyName){
+  populateCards(recipes, cardArea, selectedIds, button, propertyName) {
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
       let buttonStatus, message, icon;
       if (selectedIds && selectedIds.includes(recipe.id) && propertyName === 'favoriteRecipes') {
         // if(propertyName === 'favoriteRecipes'){
-          buttonStatus = `favorite-active`
-          message = 'Favorited'
-          icon = `<i class="fas fa-utensil-spoon"></i>`
-        } else {
+        buttonStatus = `favorite-active`
+        message = 'Favorited'
+        icon = `<i class="fas fa-utensil-spoon"></i>`
+      } else {
         // if(propertyName === 'recipesToCook'){
-          message = 'Bon apetite!'
-          icon = `<i class="fas fa-utensils"></i>`
+        message = 'Bon apetite!'
+        icon = `<i class="fas fa-utensils"></i>`
       }
       cardArea.insertAdjacentHTML('afterbegin', `
             <div id='${recipe.id}'class='card'>

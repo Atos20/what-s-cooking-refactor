@@ -11,6 +11,8 @@ import DomUpdates from './DomUpdates';
 let cookbook, currentUser, userPantry;
 
 window.onload = onStartup();
+// window.addEventListener('onLoad', onStartup);
+
 const favButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home')
 const searchInput = document.querySelector('#inpt_search');
@@ -21,6 +23,7 @@ const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
 
 const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', homeHandler);
+
 cardArea.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', locateFavorites);
 searchInput.addEventListener('input', domUpdates.updateSearch);
@@ -31,7 +34,7 @@ function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
   let promise1 = Cookbook.getIngredients()
   let promise2 = Cookbook.getRecipes()
-  let promise3 = User.getUserData(userId) 
+  let promise3 = User.getUserData(1) 
   Promise.all([promise1, promise2, promise3])
     .then(values => {
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
@@ -74,13 +77,13 @@ function postIngredients(recipeObject) {
   let ingredientToUpdate = userPantry.ingredientsToPantry(recipeObject)
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
+    console.log('ingredientsUpdated')
     return returnValues
   },[])
   Promise.all(promisesReturned)
-    .then(values =>{
-      values.forEach(x => console.log(x.status))
-    })
-
+    .then(values => values.map(x => x.json()))
+    .then(values => Promise.all(values))
+    .then(values => values.forEach(value => console.log(value)))
 }
 
 function currentFavs() {

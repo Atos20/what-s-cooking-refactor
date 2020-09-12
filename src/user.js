@@ -75,8 +75,8 @@ class User {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(someDataToSend),
-    })
+      body: JSON.stringify(someDataToSend),// chane this to something with implici return?
+    })                                                                // have an iterable that return value at every iteration?
     return promise; 
   }
 }
