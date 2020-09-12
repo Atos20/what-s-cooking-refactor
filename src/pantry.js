@@ -87,7 +87,7 @@ class Pantry {
     return shoppingToPantry
   } 
 
-  ingredientsToPantry(recipe){
+  ingredientsToPantry(recipe) {
     const requisition = recipe.ingredients.map(item => {
       return {
         userID: this.userId, 
@@ -98,7 +98,7 @@ class Pantry {
     return requisition
   }
    
-  removeIngredientsFromPantry(recipe){
+  removeIngredientsFromPantry(recipe) {
     const requisition = recipe.ingredients.map(item => {
       return  {
         userID: this.userId, 

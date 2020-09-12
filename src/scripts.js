@@ -38,6 +38,7 @@ function onStartup() {
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
       domUpdates.populateCards(cookbook.recipes, cardArea)
+      userPantry = new Pantry(currentUser)
     })
 }
 
@@ -46,12 +47,12 @@ function addToCookLater(event) {
   let cookingStatus = domUpdates.toggleNameClass(event, recipesToCookButton, 'cook-active')
   cookingStatus ? currentUser.addToFavorites('recipesToCook', targetRecipe) : currentUser.removeFromFavorites('recipesToCook', targetRecipe);
   console.log(currentUser.recipesToCook)
- }
+}
 
- function findRecipesToCook(){
-   const recipeIds = currentUser.recipesToCook.map(recipe => recipe.id)
-   domUpdates.viewSelectedCards(cardArea, currentUser, recipesToCookButton, recipeIds, 'recipesToCook');
- }
+function findRecipesToCook() {
+  const recipeIds = currentUser.recipesToCook.map(recipe => recipe.id)
+  domUpdates.viewSelectedCards(cardArea, currentUser, recipesToCookButton, recipeIds, 'recipesToCook');
+}
 
 function favoriteCard(event) {
   let specificRecipe = cookbook.recipes.find(recipe =>recipe.id  === +event.target.id);
@@ -66,6 +67,16 @@ function findDirections(event) {
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   domUpdates.displayDirections(cardArea, recipeObject, costInDollars)
+  let ingredientToUpdate = userPantry.ingredientsToPantry(recipeObject)
+  let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
+    returnValues.push(User.updateUserPantry(ingredient))
+    return returnValues
+  },[])
+  Promise.all(promisesReturned)
+    .then(values =>{
+      values.forEach(x => console.log(x.status))
+    })
+    .catch(err => console.log('error', err.message))
 }
 
 function currentFavs() {
@@ -103,7 +114,7 @@ function cardButtonConditionals(event) {
     // console.log(typeof event.target.id)
     addToCookLater(event);
   }
- }
+}
 
 
 
