@@ -7,6 +7,13 @@ class User {
     this.recipesToCook = [];
   }
 
+//need to change addto favorite to just add and 
+  elements
+  addToFavorites(property, recipe) {
+    if (!this[property].includes(recipe) && typeof recipe === 'object') {
+      this[property].push(recipe)
+
+
   validateDataType(attribute, dataType) {
     return typeof attribute === dataType ? attribute : this.giveDefaultValue(dataType);
   }
@@ -22,15 +29,10 @@ class User {
     }
   }
 
-  addToFavorites(recipe) {
-    if(typeof recipe === 'object') {
-      this.favoriteRecipes.push(recipe)
-    }
-  }
 
-  removeFromFavorites(recipe) {
-    const i = this.favoriteRecipes.indexOf(recipe);
-    this.favoriteRecipes.splice(i, 1)
+  removeFromFavorites(property, recipe) {
+    const i = this[property].indexOf(recipe);
+    this[property].splice(i, 1)
   }
 
   filterFavorites(tag) {
@@ -48,16 +50,6 @@ class User {
     });
   }
 
-  addToCook(recipe) {
-    if (typeof recipe === 'object') {
-      this.recipesToCook.push(recipe)
-    }
-  }
-
-  removeFromRecipesToCook(recipe) {
-    let cooked = this.recipesToCook.indexOf(recipe);
-    this.recipesToCook.splice(cooked, 1)
-  }
 
   filterRecipesToCook(tag) {
     return this.recipesToCook.filter(recipe => {
