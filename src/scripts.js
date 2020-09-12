@@ -67,6 +67,10 @@ function findDirections(event) {
   let cost = recipeObject.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   domUpdates.displayDirections(cardArea, recipeObject, costInDollars)
+  postIngredients(recipeObject)
+}
+
+function postIngredients(recipeObject) {
   let ingredientToUpdate = userPantry.ingredientsToPantry(recipeObject)
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
@@ -76,7 +80,7 @@ function findDirections(event) {
     .then(values =>{
       values.forEach(x => console.log(x.status))
     })
-    .catch(err => console.log('error', err.message))
+
 }
 
 function currentFavs() {

@@ -69,7 +69,6 @@ class User {
   }
 
   static updateUserPantry(someDataToSend) {
-    console.log(someDataToSend)
     const recipesUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
     const promise = fetch(recipesUrl, {
       method: 'POST',
