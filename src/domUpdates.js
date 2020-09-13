@@ -134,9 +134,8 @@ class DomUpdates {
     card.innerHTML = ``;
     values.forEach(message => card.innerHTML +=`<ul><li>${message}</li></ul>`)
     card.insertAdjacentHTML('beforeend', `
-    <i class="fas fa-chevron-left back-button"></i>`)
+    <i class="fas fa-arrow-circle-left back-button"></i>`)
  }
 }
 
 export default DomUpdates;
-
