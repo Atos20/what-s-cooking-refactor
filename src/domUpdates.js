@@ -4,6 +4,7 @@ class DomUpdates {
   constructor() {
     this.name = 'Dom'
   }
+
   populateCards(recipes, cardArea, selectedIds, button, propertyName) {
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
@@ -33,11 +34,12 @@ class DomUpdates {
                 <label for='favorite-button' class='hidden'>Click to favorite recipe
                 </label>
                 <button id='${recipe.id}' aria-label='favorite-button' class='favorite favorite${recipe.id} ${buttonStatus} card-button'></button>
-              </div>
-              <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
-              <img id='${recipe.id}' tabindex='0' class='card-picture'
+                </div>
+                <span id='${recipe.id}' class='recipe-name'>${recipe.name}</span>
+                <img id='${recipe.id}' tabindex='0' class='card-picture'
                 src='${recipe.image}' alt='click to view recipe for ${recipe.name}'>
-              </header>
+                <button id='${recipe.id}' class="instruction">Instructions</button>
+                </header>
           </div>
           `
       )
@@ -55,7 +57,7 @@ class DomUpdates {
     }
   }
 
-  //👇🏽 changed the name 
+
   toggleNameClass(event, button, nameClass) {
     if (!event.target.classList.contains(`${nameClass}`)) {
       event.target.classList.add(`${nameClass}`);
@@ -70,6 +72,7 @@ class DomUpdates {
   displayDirections(cardArea, recipeObject, costInDollars) {
     cardArea.classList.add('all');
     cardArea.innerHTML = `
+    
       <h3>${recipeObject.name}</h3>
         <p class='all-recipe-info'>
         <strong>It will cost: </strong><span class='cost recipe-info'>
@@ -108,21 +111,31 @@ class DomUpdates {
   greetUser(currentUser) {
     const userName = document.querySelector('.user-name');
     userName.innerHTML = `
-    Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
+    Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.
+    `
   }
+//should update the dom
+  //after the user has clicked on the images the message should change
   displayIngredientFeedback(feedback, id) {
+    console.log(id)
     let card = document.getElementById(id)
     let name = document.getElementById(`${id} name`)
-    name.insertAdjacentHTML('beforeend',
-      `<h4>Click On The Picture to Purchase ingredients</h4>`
-    )
-    feedback.forEach(ingredient => {
-      card.insertAdjacentHTML('beforeend',
-        `<ul>
-      <li>${ingredient}</li>
-      </ul>`)
-    })
+    card.innerHTML = ``;
+    card.insertAdjacentHTML('beforeend', `
+    <button class="back-button">No Thanks</button>
+    <button id="${id}" class="purchase-button">Add Ingredients</button>
+    `)
+    feedback.forEach(ingredient => card.innerHTML += `<ul><li>${ingredient}</li></ul>`)
   }
+
+  updatePurchase(messages, id){
+    let card = document.getElementById(id)
+    const values = messages.map( message => message.message)
+    card.innerHTML = ``;
+    values.forEach(message => card.innerHTML +=`<ul><li>${message}</li></ul>`)
+    card.insertAdjacentHTML('beforeend', `
+    <i class="fas fa-chevron-left back-button"></i>`)
+ }
 }
 
 export default DomUpdates;
