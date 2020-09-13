@@ -19,8 +19,9 @@ const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
 const toCookLaterIcon = document.querySelector('.add-button');
+const utensils = document.querySelector('.fa-utensils');
 const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
-
+console.log(utensils)
 const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', homeHandler);
 
@@ -29,6 +30,7 @@ favButton.addEventListener('click', locateFavorites);
 searchInput.addEventListener('input', domUpdates.updateSearch);
 tagContainer.addEventListener('click', tagHandler);
 recipesToCookButton.addEventListener('click', findRecipesToCook)
+// utensils.addEventListener('click', ingredientsFeedback)
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -37,12 +39,20 @@ function onStartup() {
   let promise3 = User.getUserData(userId) 
   Promise.all([promise1, promise2, promise3])
     .then(values => {
+      
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
+      console.log(cookbook)
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
       domUpdates.populateCards(cookbook.recipes, cardArea)
       userPantry = new Pantry(currentUser)  
     })
+}
+
+function ingredientsFeedback(event) {
+  console.log(userPantry)
+  userPantry.giveFeedbackOnIngredients()
+  console.log()
 }
 
 function addToCookLater(event) {
@@ -117,11 +127,20 @@ function cardButtonConditionals(event) {
   if (event.target.classList.contains('card-picture')) {
     findDirections(event);
   } 
-  if(event.target.classList.contains('add-button')){
+  if(event.target.classList.contains('add-button')) {
+    console.log(event)
     // console.log(typeof event.target.id)
     addToCookLater(event);
   }
+  if(event.target.classList.contains('icon')) {
+    let currentRecipe = cookbook.recipes.find(x => x.id === +event.target.id)
+    console.log(currentRecipe)
+    console.log(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
+   
+  }
 }
+
+
 
 
 

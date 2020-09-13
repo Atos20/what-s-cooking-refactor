@@ -13,17 +13,17 @@ class DomUpdates {
         // if(propertyName === 'favoriteRecipes'){
         buttonStatus = `favorite-active`
         message = 'Favorited'
-        icon = `<i class="fas fa-utensil-spoon"></i>`
+        icon = `<i class="fas fa-utensil-spoon icon" id = "${recipe.id}"></i>`
       } else {
         // if(propertyName === 'recipesToCook'){
         message = 'Bon apetite!'
-        icon = `<i class="fas fa-utensils"></i>`
+        icon = `<i class="fas fa-utensils icon" id = "${recipe.id}"></i>`
       }
       cardArea.insertAdjacentHTML('afterbegin', `
             <div id='${recipe.id}'class='card'>
               <h1>${message || 'Recipe Card'}</h1>
               <header id='${recipe.id}' class='card-header'>
-              ${icon || `<i class="fas fa-utensil-spoon"></i>`}
+              ${icon || `<i class="fas fa-utensil-spoon icon" id = "${recipe.id}"></i>`}
               <div class='header-container'>
                 <label id='' for='add-button' class='hidden '></label>
                 <button id='${recipe.id}' aria-label='add-button' class='add-button card-button'>
