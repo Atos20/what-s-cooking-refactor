@@ -19,9 +19,7 @@ const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
 const toCookLaterIcon = document.querySelector('.add-button');
-const utensils = document.querySelector('.fa-utensils');
 const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
-console.log(utensils)
 const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', homeHandler);
 
@@ -30,7 +28,7 @@ favButton.addEventListener('click', locateFavorites);
 searchInput.addEventListener('input', domUpdates.updateSearch);
 tagContainer.addEventListener('click', tagHandler);
 recipesToCookButton.addEventListener('click', findRecipesToCook)
-// utensils.addEventListener('click', ingredientsFeedback)
+
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
@@ -47,12 +45,6 @@ function onStartup() {
       domUpdates.populateCards(cookbook.recipes, cardArea)
       userPantry = new Pantry(currentUser)  
     })
-}
-
-function ingredientsFeedback(event) {
-  console.log(userPantry)
-  userPantry.giveFeedbackOnIngredients()
-  console.log()
 }
 
 function addToCookLater(event) {
@@ -133,10 +125,10 @@ function cardButtonConditionals(event) {
     addToCookLater(event);
   }
   if(event.target.classList.contains('icon')) {
-    let currentRecipe = cookbook.recipes.find(x => x.id === +event.target.id)
-    console.log(currentRecipe)
-    console.log(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
-   
+    let id = event.target.id
+    let currentRecipe = cookbook.recipes.find(x => x.id === +id)
+    let ingredientFeedback = Object.values(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
+    domUpdates.displayIngredientFeedback(ingredientFeedback, id)
   }
 }
 

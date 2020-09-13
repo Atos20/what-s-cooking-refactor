@@ -4,7 +4,6 @@ class DomUpdates {
   constructor() {
     this.name = 'Dom'
   }
-  
   populateCards(recipes, cardArea, selectedIds, button, propertyName) {
     cardArea.innerHTML = '';
     recipes.forEach(recipe => {
@@ -22,7 +21,7 @@ class DomUpdates {
       cardArea.insertAdjacentHTML('afterbegin', `
             <div id='${recipe.id}'class='card'>
               <h1>${message || 'Recipe Card'}</h1>
-              <header id='${recipe.id}' class='card-header'>
+              <header id='${recipe.id} name' class='card-header'>
               ${icon || `<i class="fas fa-utensil-spoon icon" id = "${recipe.id}"></i>`}
               <div class='header-container'>
                 <label id='' for='add-button' class='hidden '></label>
@@ -110,6 +109,19 @@ class DomUpdates {
     const userName = document.querySelector('.user-name');
     userName.innerHTML = `
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.`;
+  }
+  displayIngredientFeedback(feedback, id) {
+    let card = document.getElementById(id)
+    let name = document.getElementById(`${id} name`)
+    name.insertAdjacentHTML('beforeend',
+      `<h4>Click On The Picture to Purchase ingredients</h4>`
+    )
+    feedback.forEach(ingredient => {
+      card.insertAdjacentHTML('beforeend',
+        `<ul>
+      <li>${ingredient}</li>
+      </ul>`)
+    })
   }
 }
 
