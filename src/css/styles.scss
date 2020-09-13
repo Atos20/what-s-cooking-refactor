@@ -179,7 +179,7 @@ header {
 }
 
 .add-button {
-  background-color: #EBF5EE;
+  background-color: $quinary-color;
   width: 13%;
   border-left: none;
   border-radius: 25px;
@@ -220,16 +220,18 @@ button:focus {
   outline:0;
 }
 
-.all-cards {
+.all-cards, .all {
   display: grid;
   grid-gap: 30px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, auto);
+  // grid-auto-flow: dense;
   padding: 30px 30px 30px 30px;
   margin: 0% 15% 0% 15%;
   // width: 1\vw;
   justify-items: center;
   align-content: center;
+  background-color: $quaternary-color;
 }
 
 img {
@@ -240,10 +242,16 @@ img {
   background-color: #D7F2FE;
   // border: 3px solid #000;
   border-radius: 25px;
-  width: 70%;
-  // height: 60vh;
+  width: 100%;
+  height: 43vh;
+  overflow: scroll;
   // display: flex;
   // flex-direction: column;
+  display: flex;
+    flex-direction: column-reverse;
+    font-family: emoji;
+    align-items: center;
+    padding: 14% 3% 0% 0%;
 
   .card-header { //change tehe name form header to container
     //need to remove justify content and add margin and padding 
@@ -252,11 +260,12 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    height: 44vh;
-    width: 17vw;
+    height: 35vh;
+    width: 80%;
     border-radius: 20px;
     box-shadow: 0 10px 6px -6px #777;
     justify-self: center;
+    align-items: center;
   }
 
   .header-container{
@@ -275,10 +284,11 @@ img {
 //   justify-content: space-between;
 // }
 
-.all {
-  grid-gap: 0px;
-  grid-template-columns: repeat(1, 1fr);
-}
+// .all {
+//   grid-gap: 0px;
+//   grid-template-columns: repeat(1, 1fr);
+//   background-color: #5c8686;
+// }
 
 .all-recipe-info,
 ol {
@@ -320,7 +330,7 @@ h3 {
 }
 
 main {
-  background-color: lighten($secondary-color, 10%);
+  background-color: $quinary-color;
   height: 100%;
   width: 100%;
 }
