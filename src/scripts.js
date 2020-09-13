@@ -34,14 +34,14 @@ function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
   let promise1 = Cookbook.getIngredients()
   let promise2 = Cookbook.getRecipes()
-  let promise3 = User.getUserData(1) 
+  let promise3 = User.getUserData(userId) 
   Promise.all([promise1, promise2, promise3])
     .then(values => {
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
       domUpdates.populateCards(cookbook.recipes, cardArea)
-      userPantry = new Pantry(currentUser)
+      userPantry = new Pantry(currentUser)  
     })
 }
 
@@ -77,13 +77,13 @@ function postIngredients(recipeObject) {
   let ingredientToUpdate = userPantry.ingredientsToPantry(recipeObject)
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
-    console.log('ingredientsUpdated')
     return returnValues
   },[])
   Promise.all(promisesReturned)
     .then(values => values.map(x => x.json()))
     .then(values => Promise.all(values))
     .then(values => values.forEach(value => console.log(value)))
+    .catch(err => alert('you gave me bad data'))
 }
 
 function currentFavs() {
