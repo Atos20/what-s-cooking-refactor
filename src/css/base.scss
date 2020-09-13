@@ -5,8 +5,6 @@
 @mixin displayFlexRow{
   display: flex;
   align-items: center;
-  // flex-direction: row;
-  // justify-content: space-around;
 }
 
 @mixin buttonStyle {
@@ -21,10 +19,7 @@
   font-weight: 400;
   font-size: 1em;
   color: $secondary-color;
-  // text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
   text-align: center;
-  // transition: all .4s;
-  // position: relative;
 }
 
 @mixin search{
@@ -52,12 +47,13 @@
 		margin-left: 5%;
 		margin-bottom: 2%;
   }
-// }
+
+
 //inheritance
+//we need to make use of inheritance
+// %btn {
 
-%btn {
-
-}
+// }
 
 
  
