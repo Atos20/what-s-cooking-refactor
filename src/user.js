@@ -8,11 +8,13 @@ class User {
   }
 
 //need to change addto favorite to just add and 
-  elements
+  // elements
   addToFavorites(property, recipe) {
     if (!this[property].includes(recipe) && typeof recipe === 'object') {
       this[property].push(recipe)
 
+    }
+  }
 
   validateDataType(attribute, dataType) {
     return typeof attribute === dataType ? attribute : this.giveDefaultValue(dataType);
@@ -65,7 +67,18 @@ class User {
       .then(data => data.wcUsersData.find(user => user.id === userId))
     return promise;
   }
-  
+
+  static updateUserPantry(someDataToSend) {
+    const recipesUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
+    const promise = fetch(recipesUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(someDataToSend),// chane this to something with implici return?
+    })                                                                // have an iterable that return value at every iteration?
+    return promise; 
+  }
 }
 
 export default User;

@@ -32,6 +32,8 @@ class Cookbook {
       .then(response => response.json());
     return promise; 
   }
+  
 }
+  
 
 export default Cookbook;

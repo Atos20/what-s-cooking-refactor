@@ -27,24 +27,25 @@ class Pantry {
     });
   }
  
-  giveFeedbackOnIngredients(recipe) { 
+  giveFeedbackOnIngredients(recipe, cookbook) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
-      if(!list[recipeItem.name]) {
-        list[recipeItem.name] = undefined;
+      let name = cookbook.ingredients.find(ingredient => ingredient.id === recipeItem.id)
+      if(!list[recipeItem.id]) {
+        list[recipeItem.id] = undefined;
       }
       userIngredients.forEach(userIngredient => {
         let total = userIngredient[recipeItem.id] - recipeItem.quantity.amount
         if(userIngredient[recipeItem.id] >= recipeItem.quantity.amount) {
-          list[recipeItem.name] = `You will have ${total} ${recipeItem.quantity.unit} of ${recipeItem.name} left`
+          list[recipeItem.id] = `You will have ${total} ${recipeItem.quantity.unit} of ${name.name} left`
         } 
          else if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
           const missing = recipeItem.quantity.amount - userIngredient[recipeItem.id]
-          list[recipeItem.name] = `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${recipeItem.name} `
+          list[recipeItem.id] = `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${name.name} `
         }
-        else if(!list[recipeItem.name]) {
+        else if(!list[recipeItem.id]) {
           const missing = recipeItem.quantity.amount
-          list[recipeItem.name] = `sorry! you need ${missing } ${recipeItem.quantity.unit} of ${recipeItem.name}`
+          list[recipeItem.id] = `sorry! you need ${missing } ${recipeItem.quantity.unit} of ${name.name}`
         }
       });
       return list 
@@ -87,7 +88,7 @@ class Pantry {
     return shoppingToPantry
   } 
 
-  ingredientsToPantry(recipe){
+  ingredientsToPantry(recipe) {
     const requisition = recipe.ingredients.map(item => {
       return {
         userID: this.userId, 
@@ -98,7 +99,7 @@ class Pantry {
     return requisition
   }
    
-  removeIngredientsFromPantry(recipe){
+  removeIngredientsFromPantry(recipe) {
     const requisition = recipe.ingredients.map(item => {
       return  {
         userID: this.userId, 
