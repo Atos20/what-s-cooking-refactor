@@ -1,0 +1,45 @@
+
+@mixin at1200px{
+  .all-cards, .all {
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    padding: 20px 20px 30px 20px;
+    margin: 0% 10% 0% 10%;
+    background-color: $quaternary-color;
+    width: 75vw;
+    justify-content: center;
+    }
+}
+
+@mixin at700px{
+  h1 {
+    padding: 0% 0% 0% 10%;
+  }
+
+  .main-header{
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    padding: 5% 0% 5% 0%;
+  }
+
+  .button-container {
+    margin-left: 12%;
+  }
+
+  .welcome{
+    align-self: center;
+  }
+    
+  .user-info {
+    text-align: right;
+  }
+
+}
+
+@mixin at500px{
+  body {
+    width: 500px;
+  }
+}

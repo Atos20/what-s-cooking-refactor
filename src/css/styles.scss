@@ -1,5 +1,6 @@
 @import 'base';
 @import 'variables';
+@import 'queries';
 
 * {
   box-sizing: border-box;
@@ -147,7 +148,6 @@ header {
   border-right: none;
   border-radius: 25px 0px 0px 25px;
   background-color: lighten($quaternary-color, 10%);
-  // border: .2px;
   text-decoration :none;
   font-size: 12px;
 }
@@ -287,34 +287,20 @@ main {
   background-repeat: no-repeat;
 }
 
+@media only screen and (max-width: 1200px){
+  body{
+    @include at1200px;
+  }
+}
+
 @media only screen and (max-width: 700px){
-  h1 {
-    padding: 0% 0% 0% 10%;
+  body{
+  @include at700px;
   }
-
-  .main-header{
-    display: flex;
-    flex-direction: column;
-    height: 30vh;
-    padding: 5% 0% 5% 0%;
-  }
-
-  .button-container {
-    margin-left: 12%;
-  }
-
-  .welcome{
-    align-self: center;
-  }
-    
-  .user-info {
-    text-align: right;
-  }
-
 }
 
 @media only screen and (max-width: 500px){
-  body {
-    width: 500px;
+  body{
+  @include at500px;
   }
 }
