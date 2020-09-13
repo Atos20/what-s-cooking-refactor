@@ -119,13 +119,17 @@ header {
 // }
 
 .add-button, .card-button, .icon {
-  width: 13%;
+  background-color: lighten($card-background, 10%);
   border-left: none;
-  border-radius: 25px;
+  border-radius: 0px 25px 25px ;
   border: .2px;
   text-decoration :none;
   text-align: center;
-  // background-color:$secondary-color;
+  width: 17%;
+}
+
+.add-button{
+  border-radius: 0px 25px 25px 0px;
 }
 
 .add-button:active{
@@ -148,15 +152,11 @@ header {
   width: 35%;
   border-right: none;
   border-radius: 25px 0px 0px 25px;
-  background-color: lighten($quaternary-color, 20%);
-  border: .2px;
+  background-color: lighten($quaternary-color, 10%);
+  // border: .2px;
   text-decoration :none;
   font-size: 12px;
 }
-
-// button:focus {
-//   outline:0;
-// }
 
 .all-cards, .all {
   display: grid;
@@ -235,11 +235,12 @@ h3 {
 }
 
 .recipe-name {
-  // display: block;
-  font-size: 100%;
-  text-align: center;
+  font-size: 1.3em;
+  color: $quaternary-color;
+  text-align: right;
+  letter-spacing: 1px;
   font-family: $recipe-title;
-  margin: .5em 1em .5em 1em;
+  margin: 0em .3em 0.5em 0.5em;
   padding: 0% 0% 0% 0%;
 }
 
