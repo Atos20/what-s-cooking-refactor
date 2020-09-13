@@ -113,11 +113,6 @@ header {
   }
 }
 
-// .card-button {
-//   height: 27px;
-//   margin: 3px;
-// }
-
 .add-button, .card-button, .icon {
   background-color: lighten($card-background, 10%);
   border-left: none;
@@ -173,20 +168,15 @@ header {
 }
 
 .card {
+  align-items: center;
   background-color: lighten($card-background, 10%);
   border-radius: 25px;
-  width: 15vw;
-  height: 43vh;
-  overflow: scroll;
   display: flex;
   flex-direction: column-reverse;
+  height: 43vh;
+  overflow: scroll;
   font-family: emoji;
-  align-items: center;
-  // padding: 14% 3% 0% 0%;
-
-  .back-button, .purchase-button{
-    background-color: $primary-color;
-  }
+  width: 15vw;
 
   .card-header {
     background-color: lighten($primary-color, 9%);
@@ -204,14 +194,51 @@ header {
       font-size: 1.5em;
       color: $quinary-color;
       background-color: $quaternary-color;
-      margin: .5em 1em .5em 1em;
-      padding: 4% 0% 3% 0%;
+      border-radius: 0px 0px 20px 20px;
+      padding: 4% 0% 4% 0%;
     }
 
     .instruction{
       @include buttonStyle;
-      padding: 0em 2em 0em 2em;
-      background-color:$quinary-color;
+      background-color: $quaternary-color;
+      border-radius: 0px;
+      color: $quinary-color;
+      font-weight: 500;
+      padding: .5em 0em .5em 0em;
+      margin: 0px 0em 0em 0em;
+      width: 125%;
+    }
+  }
+
+  .user-options{
+    display: flex;
+    flex-direction: row;
+
+    .back-button, .purchase-button{
+      @include buttonStyle;
+      background-color: $primary-color;
+      font-size: 10px;
+      margin: 0%;
+      border-radius: 0px;
+      border-left: 1px white solid;
+    }
+
+    .back-button:hover, .purchase-button:hover{
+      background-color: darken($primary-color, 10%);
+      color: $secondary-color;
+    }
+  }
+
+  .feedback{
+    list-style-type: none;
+    margin: 2%;
+    padding: 2%;
+
+    li{
+      color: $tertinary-color;
+      font-size: 1em;
+      font-family: $beauty-font;
+      
     }
   }
 
@@ -263,7 +290,6 @@ main {
 }
 
 @media only screen and (max-width: 700px){
-  
   h1 {
     padding: 0% 0% 0% 10%;
   }
