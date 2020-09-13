@@ -122,19 +122,30 @@ class DomUpdates {
     let name = document.getElementById(`${id} name`)
     card.innerHTML = ``;
     card.insertAdjacentHTML('beforeend', `
-    <button class="back-button">No Thanks</button>
-    <button id="${id}" class="purchase-button">Add Ingredients</button>
+    <div class="user-options">
+      <button class="back-button">No Thanks</button>
+      <button id="${id}" class="purchase-button">Add Ingredients</button>
+    </div>
     `)
-    feedback.forEach(ingredient => card.innerHTML += `<ul><li>${ingredient}</li></ul>`)
+    feedback.forEach(ingredient => card.innerHTML += `
+    <ul class="feedback">
+      <li>${ingredient}</li>
+    </ul>
+    `)
   }
 
   updatePurchase(messages, id){
     let card = document.getElementById(id)
     const values = messages.map( message => message.message)
     card.innerHTML = ``;
-    values.forEach(message => card.innerHTML +=`<ul><li>${message}</li></ul>`)
+    values.forEach(message => card.innerHTML +=`
+    <ul class="feedback">
+      <li>${message}</li>
+    </ul>
+    `)
     card.insertAdjacentHTML('beforeend', `
-    <i class="fas fa-arrow-circle-left back-button"></i>`)
+    <i class="fas fa-arrow-circle-left back-button"></i>
+    `)
  }
 }
 
