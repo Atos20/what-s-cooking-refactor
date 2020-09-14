@@ -1,6 +1,5 @@
 const spies = require('chai-spies');
 import { expect } from 'chai';
-// import { spies } from 'chai-spies'
 import sampleUserData from './sampleUserData.js'
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
@@ -8,15 +7,12 @@ import Recipe from '../src/recipe.js';
 import recipeData from '../src/data/recipes.js';
 import ingredientsData from '../src/data/ingredients.js';
 
-let user1, recipe1, recipe2, pantry, recipeIngredients1, recipeIngredients2, data;
+let user1, recipe1, pantry, recipeIngredients1;
 
 describe('Pantry', () => {
   beforeEach(() => {
-    data = sampleUserData;
     recipeIngredients1 = recipeData[0];
-    recipeIngredients2 = recipeData[1];
     recipe1 = new Recipe(recipeIngredients1, ingredientsData);
-    recipe2 = new Recipe(recipeIngredients2, ingredientsData);
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1);
   });
@@ -55,26 +51,25 @@ describe('Pantry', () => {
       { '2050': 0 },
     ]);
   });
-//I am not sure what will be better, to target each proeprty 
+
   it('Should be able to to return a message about the current status of each ingredient for a given recipe', () => {
+    expect(pantry).to.have.property('pantry').with.lengthOf(20);
+    expect(pantry.pantry).to.deep.eql(user1.pantry);
     expect(pantry. giveFeedbackOnIngredients(recipe1)).to.eql(
       {
-        'all purpose flour': 'sorry! it seems you are missing 1.5 c of all purpose flour ',
-        'baking soda': 'You will have 2.5 tsp of baking soda left',
-        'egg': 'You will have 7 large of egg left',
-        'granulated sugar': 'You will have 1.5 c of granulated sugar left',
-        'instant vanilla pudding mix': 'You will have 0 Tbsp of instant vanilla pudding mix left',
-        'light brown sugar': 'sorry! it seems you are missing 0.5 c of light brown sugar ',
-        'salt': 'You will have 2.5 tsp of salt left',
-        'sea salt': 'sorry! it seems you are missing 24 servings of sea salt ',
-        'semisweet chocolate chips': 'sorry! it seems you are missing 2 c of semisweet chocolate chips ',
-        'unsalted butter': 'You will have 1.5 c of unsalted butter left',
-        'vanilla extract': 'sorry! it seems you are missing 0.5 tsp of vanilla extract '
+        "1123": "You will have 7 large of egg left",
+        "1145": "You will have 1.5 c of unsalted butter left",
+        "2047": "You will have 2.5 tsp of salt left",
+        "2050": "sorry! it seems you are missing 0.5 tsp of vanilla extract ",
+        "18372": "You will have 2.5 tsp of baking soda left",
+        "19206": "You will have 0 Tbsp of instant vanilla pudding mix left",
+        "19334": "sorry! it seems you are missing 0.5 c of light brown sugar ",
+        "19335": "You will have 1.5 c of granulated sugar left",
+        "20081": "sorry! it seems you are missing 1.5 c of all purpose flour ",
+        "1012047": "sorry! it seems you are missing 24 servings of sea salt ",
+        "10019903": "sorry! it seems you are missing 2 c of semisweet chocolate chips "
       }
     );
-
-    expect(pantry).to.have.property('pantry').with.length(20);
-    expect(pantry.pantry).to.deep.eql(user1.pantry);
   });
 
   it('Should consolidate duplicate ingredients', () => {
