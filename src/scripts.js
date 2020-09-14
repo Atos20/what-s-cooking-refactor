@@ -8,7 +8,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import DomUpdates from './DomUpdates';
-let cookbook, currentUser, userPantry, globalMessages;
+let cookbook, currentUser, userPantry;
 
 window.onload = onStartup();
 // window.addEventListener('onLoad', onStartup);
@@ -18,6 +18,7 @@ const homeButton = document.querySelector('.home')
 const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
+const searchIcon = document.querySelector('.fa-search');
 // const toCookLaterIcon = document.querySelector('.add-button');
 const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
 const domUpdates = new DomUpdates()
@@ -25,9 +26,19 @@ const domUpdates = new DomUpdates()
 homeButton.addEventListener('click', homeHandler);
 cardArea.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', locateFavorites);
-searchInput.addEventListener('input', domUpdates.updateSearch);
+searchInput.addEventListener('input', displaySearch);
+// searchIcon.addEventListener('click', searchFor);
 tagContainer.addEventListener('click', tagHandler);
 recipesToCookButton.addEventListener('click', findRecipesToCook)
+
+function displaySearch(){
+  const inputByUser = searchInput.value
+  const searchParent = document.querySelector('.cntr')
+  const recipeNames = cookbook.recipes.map(recipe => recipe.name)
+  // console.log(cookbook.recipes)
+  domUpdates.updateSearch(inputByUser, recipeNames)
+ 
+}
 
 function onStartup() {
   let userId = (Math.floor(Math.random() * 49) + 1)
