@@ -57,17 +57,8 @@ const findDirections = (event) => {
   domUpdates.displayDirections(cardArea, currentRecipe, costInDollars, cookbook)
 }
 
-const postRemoveIngredients = (currentRecipe) => {
-  let ingredientToUpdate = userPantry.ingredientsToPantryRemote(currentRecipe, 'add')
-  let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
-    returnValues.push(User.updateUserPantry(ingredient))
-    return returnValues
-  },[])
-  return Promise.all(promisesReturned)
-}
-
-const postIngredients = (currentRecipe) => {
-  let ingredientToUpdate = userPantry.ingredientsToPantryRemote(currentRecipe, 'add')
+const postIngredients = (currentRecipe, condition) => {
+  let ingredientToUpdate = userPantry.ingredientsToPantryRemote(currentRecipe, condition)
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
     return returnValues
@@ -121,7 +112,7 @@ const cardButtonConditionals = (event) => {
   if(event.target.classList.contains('purchase-button')){
     let id = event.target.id
     const recipe = declareRecipe(event)
-    const post = postIngredients(recipe) 
+    const post = postIngredients(recipe, 'add') 
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
@@ -131,12 +122,13 @@ const cardButtonConditionals = (event) => {
   if(event.target.classList.contains('cooked')){
     let id = event.target.id
     const recipe = declareRecipe(event)
-    const post = postRemoveIngredients(recipe) 
-    // post.then(values => Promise.all(values))
-    // .then(data => data.map(response => response.json()))
-    // .then(promises => Promise.all(promises))
-    // .then(messages => domUpdates.updatePurchase(messages, id))
-    // .catch(err => alert(err))
+    const post = postIngredients(recipe, 'remove') 
+    post.then(values => Promise.all(values))
+    .then(data => data.map(response => response.json()))
+    .then(promises => Promise.all(promises))
+    // .then(value => console.log(value))
+    .then(messages => domUpdates.updatePurchase(messages, id))
+    .catch(err => alert(err))
   }
 }
 
