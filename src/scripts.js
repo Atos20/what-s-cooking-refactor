@@ -84,7 +84,7 @@ function findDirections(event) {
 }
 
 function postIngredients(currentRecipe) {
-  let ingredientToUpdate = userPantry.ingredientsToPantry(currentRecipe)
+  let ingredientToUpdate = userPantry.ingredientsToPantryRemote(currentRecipe, 'add')
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
     return returnValues
