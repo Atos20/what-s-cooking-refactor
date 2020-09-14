@@ -14,13 +14,13 @@ window.onload = onStartup();
 // window.addEventListener('onLoad', onStartup);
 
 const favButton = document.querySelector('.view-favorites');
-const homeButton = document.querySelector('.home')
+const homeButton = document.querySelector('.home');
 const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
-const searchIcon = document.querySelector('.fa-search');
-const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
-const domUpdates = new DomUpdates()
+// const searchIcon = document.querySelector('.fa-search');
+const recipesToCookButton = document.querySelector('#recipes-to-cook-button');
+const domUpdates = new DomUpdates();
 
 homeButton.addEventListener('click', homeHandler);
 cardArea.addEventListener('click', cardButtonConditionals);
@@ -80,7 +80,7 @@ function findDirections(event) {
   const currentRecipe = declareRecipe(event)
   let cost = currentRecipe.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
-  domUpdates.displayDirections(cardArea, currentRecipe, costInDollars)
+  domUpdates.displayDirections(cardArea, currentRecipe, costInDollars, cookbook)
 }
 
 function postIngredients(currentRecipe) {

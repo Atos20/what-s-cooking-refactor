@@ -71,6 +71,7 @@ class DomUpdates {
   
   displayDirections(cardArea, recipeObject, costInDollars) {
     const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
+    
     const currentRecipe = ingredientsIds.map(id => recipeObject.ingredientsData.find(ing => ing.id === id))
     const amounts = recipeObject.ingredients.map(ingredient => ({id: ingredient.id, amount : ingredient.quantity.amount, unit: ingredient.quantity.unit}))
     const data = currentRecipe.map(ingredient => ({id: ingredient.id, name: ingredient.name}))
@@ -79,6 +80,7 @@ class DomUpdates {
         return Object.assign({},amount,data[i])
       }
     })
+    console.log(mergedData)
     cardArea.classList.add('all');
     cardArea.innerHTML = `
       <h3>${recipeObject.name}</h3>
@@ -91,7 +93,7 @@ class DomUpdates {
       </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
     let instructionsSpan = document.querySelector('.instructions');
-    console.log(recipeObject.ingredients)
+    // console.log(recipeObject.ingredients)
     mergedData.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
       ${ingredient.amount.toFixed(2)} ${ingredient.unit}
@@ -118,8 +120,9 @@ class DomUpdates {
       })
   }
 
-  updateSearchByTagName(inputByUser, cookbook){
+  updateSearchByIngredientName(inputByUser, cookbook){
     const lowerCaseInput = inputByUser.toLowerCase()
+    
     //by iterating through the cookbook.ingredients => ing names || ing.name 
     //when the user types milk => i should me able to find the ing id
     //iterating through the coobkbook.recipes[]/map(e => e.ingredient.includes(ing.id)find the recipe the recipe)
