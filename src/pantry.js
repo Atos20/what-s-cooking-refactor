@@ -68,35 +68,38 @@ class Pantry {
     return whatsNeeded
   }
 
-  saveItemsInPantry(recipe) {
-    const shoppingToPantry = recipe.ingredients.map(item => {
-      return {
-        ingredient: item.id, 
-        ingredientModification: item.quantity.amount
-      }
-    })
-    return shoppingToPantry
-  } 
-
-  ingredientsToPantry(recipe, condition) {
-
+  itemsToPantryLocal(recipe, condition) {
     const requisition = recipe.ingredients.map(item => {
-      return {
-        userID: this.userId, 
-        ingredientID: item.id, 
-        ingredientModification: item.quantity.amount
+      const request = {
+        ingredient: item.id, 
+        ingredientModification: 0
       }
+      if(condition === 'add'){
+        request.ingredientModification = item.quantity.amount
+      }
+      if(condition === 'remove'){
+        request.ingredientModification = -item.quantity.amount
+      }
+      return request
     })
     return requisition
-  }
-   
-  removeIngredientsFromPantry(recipe) {
+  } 
+
+  ingredientsToPantryRemote(recipe, condition) {
+
     const requisition = recipe.ingredients.map(item => {
-      return  {
+      const request = {
         userID: this.userId, 
         ingredientID: item.id, 
-        ingredientModification: -item.quantity.amount
+        ingredientModification: 0
       }
+      if(condition === 'add'){
+        request.ingredientModification = item.quantity.amount
+      }
+      if(condition === 'remove'){
+        request.ingredientModification = -item.quantity.amount
+      }
+      return request
     })
     return requisition
   }
