@@ -147,6 +147,9 @@ function cardButtonConditionals(event) {
     .then(messages => domUpdates.updatePurchase(messages, id))
     .catch(err => alert(err))
   }
+  if(event.target.classList.contains('cooked')){
+
+  }
 }
 
 
