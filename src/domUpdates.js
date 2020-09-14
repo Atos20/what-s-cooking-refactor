@@ -96,16 +96,34 @@ class DomUpdates {
     })
   }
 
-  updateSearch() {
-    let recipeNames = document.querySelectorAll('.recipe-name');
-    recipeNames.forEach(recipe =>{
+  updateSearch(inputByUser, recipeNames) {
+    const recipeCards = document.querySelectorAll('.recipe-name')
+    const lowerInput = inputByUser.toLowerCase()
+    // const lowerCaseRecipe = recipeNames.map(recipes => recipes.toLowerCase())\]
+    recipeCards.forEach(recipe => {
       let lowerCaseRecipe = recipe.innerText.toLowerCase()
-      if (!lowerCaseRecipe.includes(searchInput.value)) {
+      if (!lowerCaseRecipe.includes(lowerInput)) {
+        console.log(document.getElementById(recipe.id))
         document.getElementById(recipe.id).classList.add("hidden")
-      } else {
-        document.getElementById(recipe.id).classList.remove("hidden");
-      }
-    })
+        // console.log(lowerCaseRecipe)
+        } else {
+          document.getElementById(recipe.id).classList.remove("hidden");
+        }
+      })
+    
+    // recipeNames.forEach(recipe => {
+    //   recipe.includes(inputByUser)
+    
+    // })
+    // let recipeNames = document.querySelectorAll('.recipe-name');
+    // recipeNames.forEach(recipe =>{
+    //   let lowerCaseRecipe = recipe.innerText.toLowerCase()
+    //   if (!lowerCaseRecipe.includes(searchInput.value)) {
+    //     document.getElementById(recipe.id).classList.add("hidden")
+    //   } else {
+    //     document.getElementById(recipe.id).classList.remove("hidden");
+    //   }
+    // })
   }
 
   greetUser(currentUser) {
