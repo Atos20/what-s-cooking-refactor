@@ -70,8 +70,6 @@ function favoriteCard(event) {
   favoriteStatus ? currentUser.addToFavorites('favoriteRecipes', specificRecipe) : currentUser.removeFromFavorites('favoriteRecipes', specificRecipe);
 }
 
-// start here
-
 function declareRecipe(event) {
   let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === +event.target.id)
   const currentRecipe = new Recipe(newRecipeInfo, ingredientsData);

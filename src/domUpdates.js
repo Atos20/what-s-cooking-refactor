@@ -70,8 +70,6 @@ class DomUpdates {
   }
   
   displayDirections(cardArea, recipeObject, costInDollars) {
-    console.log(cookbook)
-    console.log(recipeObject)
     const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
     const currentRecipe = ingredientsIds.map(id => recipeObject.ingredientsData.find(ing => ing.id === id))
     const amounts = recipeObject.ingredients.map(ingredient => ({id: ingredient.id, amount : ingredient.quantity.amount, unit: ingredient.quantity.unit}))
@@ -130,6 +128,7 @@ class DomUpdates {
     //find the id of the ingredient input by the user
     // console.log(cookbook.ingredients)
 
+    //if I am able to returnt the id I should be able to target the recipes and do the add and remove hidden
 }
 
 
