@@ -47,7 +47,7 @@ function onStartup() {
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
-      domUpdates.populateCards(cookbook.recipes, cardArea)
+      domUpdates.populateCards(cookbook.recipes, cardArea);
       userPantry = new Pantry(currentUser)  
     })
   }

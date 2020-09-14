@@ -71,7 +71,6 @@ class DomUpdates {
   
   displayDirections(cardArea, recipeObject, costInDollars) {
     const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
-    
     const currentRecipe = ingredientsIds.map(id => recipeObject.ingredientsData.find(ing => ing.id === id))
     const amounts = recipeObject.ingredients.map(ingredient => ({id: ingredient.id, amount : ingredient.quantity.amount, unit: ingredient.quantity.unit}))
     const data = currentRecipe.map(ingredient => ({id: ingredient.id, name: ingredient.name}))
