@@ -27,10 +27,10 @@ class Pantry {
     });
   }
  
-  giveFeedbackOnIngredients(recipe, cookbook) { 
+  giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
-      let name = cookbook.ingredients.find(ingredient => ingredient.id === recipeItem.id)
+      let name = recipe.ingredients.find(ingredient => ingredient.id === recipeItem.id)
       if(!list[recipeItem.id]) {
         list[recipeItem.id] = undefined;
       }
