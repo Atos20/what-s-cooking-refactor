@@ -167,7 +167,7 @@ class DomUpdates {
     </ul>
     `)
     card.insertAdjacentHTML('beforeend', `
-    <button class='cooked'>Check when cooked</button>
+    <button class='cooked ' id='${id}'>Check when cooked</button>
     <i class="fas fa-arrow-circle-left back-button"></i>
     `)
  }
