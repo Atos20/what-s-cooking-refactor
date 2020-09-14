@@ -57,7 +57,6 @@ class DomUpdates {
     }
   }
 
-
   toggleNameClass(event, button, nameClass) {
     if (!event.target.classList.contains(`${nameClass}`)) {
       event.target.classList.add(`${nameClass}`);
