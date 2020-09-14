@@ -98,31 +98,26 @@ describe('Pantry', () => {
     ])
   });
 
-  it('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
-    expect(pantry.saveItemsInPantry(recipe1)).to.have.a.lengthOf(11);
+  it('Should be able to update the user\'s pantry locally with the ingredients needed to cook a given recipe', () => {
+    expect(pantry.itemsToPantryLocal(recipe1, 'add')).to.have.a.lengthOf(11);
+    expect(pantry.itemsToPantryLocal(recipe1, 'add')[0].ingredientModification).to.eql(1.5)
   });
   
-  it('Should be able to update the user\'s pantry with the ingredients needed to cook a given recipe', () => {
-    expect(pantry.removeIngredientsFromPantry(recipe1)).to.have.a.lengthOf(11);
+  it('Should be able to remove the user\'s pantry locally after a recipe has been cooked', () => {
+    expect(pantry.itemsToPantryLocal(recipe1, 'remove')).to.have.a.lengthOf(11);
+    expect(pantry.itemsToPantryLocal(recipe1, 'remove')[0].ingredientModification).to.eql(-1.5)
   });
 
   it('should be able to return a new object with the information needed to save items remotely', () => {
-    expect(pantry.ingredientsToPantry(recipe1)).to.eql(
-      [
-        { userID: 1, ingredientID: 20081, ingredientModification: 1.5 },
-        { userID: 1, ingredientID: 18372, ingredientModification: 0.5 },
-        { userID: 1, ingredientID: 1123, ingredientModification: 1 },
-        { userID: 1, ingredientID: 19335, ingredientModification: 0.5 },
-        { userID: 1, ingredientID: 19206, ingredientModification: 3 },
-        { userID: 1, ingredientID: 19334, ingredientModification: 0.5 },
-        { userID: 1, ingredientID: 2047, ingredientModification: 0.5 },
-        { userID: 1, ingredientID: 1012047, ingredientModification: 24 },
-        { userID: 1, ingredientID: 10019903, ingredientModification: 2 },
-        { userID: 1, ingredientID: 1145, ingredientModification: 0.5 },
-        { userID: 1, ingredientID: 2050, ingredientModification: 0.5 }
-      ]
-    )
-  })
+    expect(pantry.ingredientsToPantryRemote(recipe1, 'add')).to.have.a.lengthOf(11);
+    expect(pantry.ingredientsToPantryRemote(recipe1, 'add')[0].ingredientModification).to.eql(1.5)
+  });
+
+  it('should be able to return to create a request of the ingredients that will be removed after the user cooks a meal', () => {
+    expect(pantry.ingredientsToPantryRemote(recipe1, 'remove')).to.have.a.lengthOf(11);
+    expect(pantry.ingredientsToPantryRemote(recipe1, 'remove')[0].ingredientModification).to.eql(-1.5)
+  });
+
   it('Should be able to calculate cost of the missing ingredients', () => {
     expect(pantry.calculateCost(recipe1)).to.equal(141.34);
   });
