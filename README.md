@@ -11,8 +11,6 @@
 
 ## Context
 
-This project was built on top of somebody else's code. As a team we encounter the use of new dependencies such as *webpack*, *chai-spies*, *node-sass*, *sass-loader*, *css-loader*. 
-
 ### Set up
 * On the top right corner of this page, click the **Fork** button.
 - Clone the repository to your computer `git clone <URL>`
@@ -40,6 +38,9 @@ This project was built on top of somebody else's code. As a team we encounter th
 
 ## Challenges
 
+    - API's
+    - manipulation of nested data types
+    - use of chai-spies to spy on DOM related methods
 
 ## Wins
 
@@ -61,19 +62,22 @@ This project was built on top of somebody else's code. As a team we encounter th
 
 #### Take 1
 
-* When the user clicks on the `favorite start` the recipes get added to the user's favorites. The user can click on the favorite button
-  <img src="" height=auto width=75%/>
+- When the user clicks on the `favorite start` the recipes get added to the user's favorites. 
+- Whe user can click on the favorite button the user can see the recipes saved
+- By clicking on the `home button` the user can go back and see all the recipe cards
+  <img src="https://media.giphy.com/media/jqwbXFNrzwcf4eVfjl/giphy.gif" height=auto width=75%/>
 
 #### Take 2
 
-* 
+- When the user clicks on the `instructions button` the user is directed to a different view where the cost, ingredients needed and instructions for the recipe are displayed.
 
-   Activity Hydration, sleep, friends list and friends goals
-  <img src="" alt="" height=auto width=75%/>
+  <img src="https://media.giphy.com/media/KBDXI5aB0xVXU1Nu6p/giphy.gif" alt="When the user click on the instructions button the user is directed to a different view where the cost, ingredients needed and instructions for the recipe are displayed" height=100% width=80%/>
 
 #### Take 3
-* Responsivess was built by using media queries
-  <img src="" alt="" height=auto width=75%/>
+- When the user click on the `cookMeal button` the recipe card that was targeted hides and then a list of the status of each ingredinet form the user's pantry displays in the same place of the recipe card.
+- After the `cookMeal` button is clicked, the user is presented with two other buttons that appear at the button of where the recipe card was. 
+- The `No thanks` and `Add ingredients` button let the user decide to add the ingredients needed for the recipe to the user's pantry and the `No thanks` button let's the user go back to the previous vew to keep searching for recipes.
+  <img src="https://media.giphy.com/media/KeVtEUgnfl4zdABJjS/giphy.gif" alt=" After the `cookMeal` button is clicked, the user is presented with two other buttons that appear at the button of where the recipe card was. The `No thanks` and `Add ingredients` button let the user decide to add the ingredients needed for the recipe to the user's pantry and the `No thanks` button let's the user go back to the previous vew to keep searching for recipes." height=auto width=75%/>
 
 ## Project Directions
 [whats-cooking-refactor specifications](https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html)
