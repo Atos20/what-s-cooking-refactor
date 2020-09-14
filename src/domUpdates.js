@@ -69,10 +69,22 @@ class DomUpdates {
     }
   }
   
-  displayDirections(cardArea, recipeObject, costInDollars) {
+  displayDirections(cardArea, recipeObject, costInDollars, cookbook) {
+    console.log(cookbook)
+    console.log(recipeObject)
+    const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
+    const currentRecipe = ingredientsIds.map(id => recipeObject.ingredientsData.find(ing => ing.id === id))
+    const amounts = recipeObject.ingredients.map(ingredient => ({id: ingredient.id, amount : ingredient.quantity.amount, unit: ingredient.quantity.unit}))
+    const data = currentRecipe.map(ingredient => ({id: ingredient.id, name: ingredient.name}))
+    const mergedData = amounts.map((amount, i) => {
+      if(amount.id === data[i].id){
+        return Object.assign({},amount,data[i])
+      }
+    })
+    console.log(mergedData)
+
     cardArea.classList.add('all');
     cardArea.innerHTML = `
-    
       <h3>${recipeObject.name}</h3>
         <p class='all-recipe-info'>
         <strong>It will cost: </strong><span class='cost recipe-info'>
@@ -83,9 +95,10 @@ class DomUpdates {
       </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
     let instructionsSpan = document.querySelector('.instructions');
-    recipeObject.ingredients.forEach(ingredient => {
+    console.log(recipeObject.ingredients)
+    mergedData.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
-      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+      ${ingredient.amount.toFixed(2)} ${ingredient.unit}
       ${ingredient.name}</li></ul>
       `)
     })
@@ -96,35 +109,31 @@ class DomUpdates {
     })
   }
 
-  updateSearch(inputByUser, recipeNames) {
+  updateSearchByRecipeName(inputByUser) {
     const recipeCards = document.querySelectorAll('.recipe-name')
     const lowerInput = inputByUser.toLowerCase()
-    // const lowerCaseRecipe = recipeNames.map(recipes => recipes.toLowerCase())\]
     recipeCards.forEach(recipe => {
       let lowerCaseRecipe = recipe.innerText.toLowerCase()
-      if (!lowerCaseRecipe.includes(lowerInput)) {
-        console.log(document.getElementById(recipe.id))
-        document.getElementById(recipe.id).classList.add("hidden")
-        // console.log(lowerCaseRecipe)
-        } else {
-          document.getElementById(recipe.id).classList.remove("hidden");
-        }
+        if (!lowerCaseRecipe.includes(lowerInput)) {
+          document.getElementById(recipe.id).classList.add("hidden")
+          } else {
+            document.getElementById(recipe.id).classList.remove("hidden");
+          }
       })
-    
-    // recipeNames.forEach(recipe => {
-    //   recipe.includes(inputByUser)
-    
-    // })
-    // let recipeNames = document.querySelectorAll('.recipe-name');
-    // recipeNames.forEach(recipe =>{
-    //   let lowerCaseRecipe = recipe.innerText.toLowerCase()
-    //   if (!lowerCaseRecipe.includes(searchInput.value)) {
-    //     document.getElementById(recipe.id).classList.add("hidden")
-    //   } else {
-    //     document.getElementById(recipe.id).classList.remove("hidden");
-    //   }
-    // })
   }
+
+  updateSearchByTagName(inputByUser, cookbook){
+    const lowerCaseInput = inputByUser.toLowerCase()
+    //by iterating through the cookbook.ingredients => ing names || ing.name 
+    //when the user types milk => i should me able to find the ing id
+    //iterating through the coobkbook.recipes[]/map(e => e.ingredient.includes(ing.id)find the recipe the recipe)
+    const ingredientsNames = cookbook.ingredients.map(ingredient => ingredient.name) //array of names
+    const ingredientsIds = cookbook.ingredients.map(ingredient => ingredient.id) //array of ids
+    //find the id of the ingredient input by the user
+    // console.log(cookbook.ingredients)
+
+}
+
 
   greetUser(currentUser) {
     const userName = document.querySelector('.user-name');
@@ -132,12 +141,10 @@ class DomUpdates {
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.
     `
   }
-//should update the dom
-  //after the user has clicked on the images the message should change
+
   displayIngredientFeedback(feedback, id) {
-    console.log(id)
     let card = document.getElementById(id)
-    let name = document.getElementById(`${id} name`)
+    // let name = document.getElementById(`${id} name`)
     card.innerHTML = ``;
     card.insertAdjacentHTML('beforeend', `
     <div class="user-options">
