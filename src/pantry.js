@@ -67,16 +67,6 @@ class Pantry {
     this.ingredientsNeeded = whatsNeeded;
     return whatsNeeded
   }
-  //i am not sure why this methosis breaking the calculate cost method.
-  // saveItemsToPantry(recipe) { 
-  //   const itemsNeeded = this.calculateIngredientsNeeded(recipe);
-  //   this.pantry.push(...itemsNeeded);
-  //   const entries = Object.entries(this.consolidateUsersPantry())
-  //   const reorganizedData = entries.map(item => {
-  //     return {ingredient: item[0], amount: item[1]}
-  //   })
-  //   return reorganizedData
-  // }
 
   saveItemsInPantry(recipe) {
     const shoppingToPantry = recipe.ingredients.map(item => {
@@ -88,7 +78,8 @@ class Pantry {
     return shoppingToPantry
   } 
 
-  ingredientsToPantry(recipe) {
+  ingredientsToPantry(recipe, condition) {
+
     const requisition = recipe.ingredients.map(item => {
       return {
         userID: this.userId, 
