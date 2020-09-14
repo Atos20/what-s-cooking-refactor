@@ -79,7 +79,6 @@ class DomUpdates {
         return Object.assign({},amount,data[i])
       }
     })
-    console.log(mergedData)
     cardArea.classList.add('all');
     cardArea.innerHTML = `
       <h3>${recipeObject.name}</h3>
@@ -168,7 +167,7 @@ class DomUpdates {
     </ul>
     `)
     card.insertAdjacentHTML('beforeend', `
-    <button class='cooked'>Prepared</button>
+    <button class='cooked'>Check when cooked</button>
     <i class="fas fa-arrow-circle-left back-button"></i>
     `)
  }
