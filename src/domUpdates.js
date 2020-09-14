@@ -69,7 +69,7 @@ class DomUpdates {
     }
   }
   
-  displayDirections(cardArea, recipeObject, costInDollars, cookbook) {
+  displayDirections(cardArea, recipeObject, costInDollars) {
     console.log(cookbook)
     console.log(recipeObject)
     const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
@@ -81,8 +81,6 @@ class DomUpdates {
         return Object.assign({},amount,data[i])
       }
     })
-    console.log(mergedData)
-
     cardArea.classList.add('all');
     cardArea.innerHTML = `
       <h3>${recipeObject.name}</h3>

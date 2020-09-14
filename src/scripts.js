@@ -19,7 +19,6 @@ const searchInput = document.querySelector('#inpt_search');
 const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
 const searchIcon = document.querySelector('.fa-search');
-// const toCookLaterIcon = document.querySelector('.add-button');
 const recipesToCookButton = document.querySelector('#recipes-to-cook-button')
 const domUpdates = new DomUpdates()
 
@@ -27,17 +26,15 @@ homeButton.addEventListener('click', homeHandler);
 cardArea.addEventListener('click', cardButtonConditionals);
 favButton.addEventListener('click', locateFavorites);
 searchInput.addEventListener('input', displaySearch);
-// searchIcon.addEventListener('click', searchFor);
 tagContainer.addEventListener('click', tagHandler);
 recipesToCookButton.addEventListener('click', findRecipesToCook)
 
 function displaySearch(){
   const inputByUser = searchInput.value
   const searchParent = document.querySelector('.cntr')
-  const recipeNames = cookbook.recipes.map(recipe => recipe.name)
-  // console.log(cookbook.recipes)
-  domUpdates.updateSearch(inputByUser, recipeNames)
- 
+  // const recipeNames = cookbook.recipes.map(recipe => recipe.name)
+  domUpdates.updateSearchByRecipeName(inputByUser)
+  domUpdates.updateSearchByTagName(inputByUser, cookbook)
 }
 
 function onStartup() {
@@ -48,7 +45,6 @@ function onStartup() {
   Promise.all([promise1, promise2, promise3])
     .then(values => {
       cookbook = new Cookbook(values[1].recipeData, values[0].ingredientsData)
-      // console.log(cookbook)
       currentUser = new User(values[2])
       domUpdates.greetUser(currentUser)
       domUpdates.populateCards(cookbook.recipes, cardArea)
@@ -79,18 +75,14 @@ function favoriteCard(event) {
 function declareRecipe(event) {
   let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === +event.target.id)
   const currentRecipe = new Recipe(newRecipeInfo, ingredientsData);
-  // postIngredients(currentRecipe)
   return currentRecipe
 }
 
 function findDirections(event) {
-  // let newRecipeInfo = cookbook.recipes.find(recipe => recipe.id === +event.target.id)
-  // let currentRecipe = new Recipe(newRecipeInfo, ingredientsData);
   const currentRecipe = declareRecipe(event)
   let cost = currentRecipe.calculateCost()
   let costInDollars = (cost / 100).toFixed(2)
   domUpdates.displayDirections(cardArea, currentRecipe, costInDollars)
-  // postIngredients(currentRecipe)
 }
 
 function postIngredients(currentRecipe) {
@@ -100,12 +92,6 @@ function postIngredients(currentRecipe) {
     return returnValues
   },[])
   return Promise.all(promisesReturned)
-    // .then(values => values.map(x => x.json()))
-    // .then(values => Promise.all(values))
-    // .then(values => values.map(value => value))
-    // .then((value => globalMessages = value))
-    // .then(() => console.log(globalMessages))
-    // .catch(err => alert(err))
 }
 
 function currentFavs() {
