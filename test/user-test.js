@@ -5,7 +5,7 @@ import recipeData from '../src/data/recipes.js'
 
 let user1
 
-describe.only('User', () => {
+describe('User', () => {
   beforeEach(() => {
     user1 = new User(1, 'Boba', [
       {
