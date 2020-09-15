@@ -1,7 +1,3 @@
-// const chai = require('chai')
-// const spies = require('chai-spies')
-// chai.use(require('chai-dom'))
-
 import chai from 'chai';
 import spies from 'chai-spies';
 import { expect } from 'chai';
@@ -9,10 +5,6 @@ chai.use(spies)
 import DomUpdates from '../src/DomUpdates.js'
 import sampleUserData from '../src/data/test-data/dummy-user-data.js'
 import User from '../src/user.js';
-import Pantry from '../src/pantry.js';
-import Recipe from '../src/recipe.js';
-import recipeData from '../src/data/recipes.js';
-import ingredientsData from '../src/data/ingredients.js';
 
 describe('DomUpdates', () => {
     let recipe, user, domUpdates, cardArea, favButton, event, specificRecipe;

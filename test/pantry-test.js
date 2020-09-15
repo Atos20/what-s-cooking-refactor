@@ -5,14 +5,14 @@ import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
 import Recipe from '../src/recipe.js';
 import recipeSample from '../src/data/test-data/dummy-recipe.js';
-import ingredientsData from '../src/data/ingredients.js';
+import ingredientsSample from '../src/data/test-data/dummy-ingredients.js';
 
 let user1, recipe1, pantry, recipeIngredients1;
 
 describe('Pantry', () => {
   beforeEach(() => {
     recipeIngredients1 = recipeSample[0];
-    recipe1 = new Recipe(recipeIngredients1, ingredientsData);
+    recipe1 = new Recipe(recipeIngredients1, ingredientsSample);
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1);
   });
