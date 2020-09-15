@@ -124,7 +124,7 @@ class DomUpdates {
   }
 
   displayIngredientFeedback(feedback, id) {
-    console.log(feedback)
+    // console.log(feedback)
     let card = document.getElementById(id)
     // let name = document.getElementById(`${id} name`)
     card.innerHTML = ``;
