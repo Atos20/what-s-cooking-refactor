@@ -1,4 +1,3 @@
-import './css/base.scss';
 import './css/styles.scss';
 
 import ingredientsData from './data/ingredients';
@@ -8,7 +7,7 @@ import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import DomUpdates from './DomUpdates';
-let cookbook, currentUser, userPantry;
+let cookbook, currentUser, userPantry, currentRecipe;
 
 const favButton = document.querySelector('.view-favorites');
 const homeButton = document.querySelector('.home');
@@ -17,7 +16,6 @@ const tagContainer = document.querySelector('.tag-container');
 const cardArea = document.querySelector('.all-cards');
 const recipesToCookButton = document.querySelector('#recipes-to-cook-button');
 const domUpdates = new DomUpdates();
-
 
 const displaySearch = () => {
   const inputByUser = searchInput.value
@@ -102,7 +100,6 @@ const cardButtonConditionals = (event) => {
   if(event.target.classList.contains('icon')) {
     let id = event.target.id
     let currentRecipe = cookbook.recipes.find(x => x.id === +id)
-    console.log(currentRecipe)
     let ingredientFeedback = Object.values(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
     domUpdates.displayIngredientFeedback(ingredientFeedback, id)
   }
@@ -126,7 +123,6 @@ const cardButtonConditionals = (event) => {
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
-    // .then(value => console.log(value))
     .then(messages => domUpdates.updatePurchase(messages, id))
     .catch(err => alert(err))
   }
