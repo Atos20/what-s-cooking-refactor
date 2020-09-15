@@ -17,7 +17,7 @@ class Pantry {
 
   checkPantryForIngredient(recipe) {
     const consolidatedPantry = this.consolidateUsersPantry();
-    return recipe.ingredients.map(ingredient => {
+    const result = recipe.ingredients.map(ingredient => {
       const ingredientsNeeded = {}
       ingredientsNeeded [ingredient.id] = consolidatedPantry[ingredient.id]
       if(!ingredientsNeeded[ingredient.id]) {
@@ -25,32 +25,33 @@ class Pantry {
       }
       return ingredientsNeeded
     });
+    return result
   }
  
-  giveFeedbackOnIngredients(recipe) { 
-    console.log(recipe)
+  giveFeedbackOnIngredients(recipe, cookbook) { 
+
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
-      let name = recipe.ingredients.find(ingredient => ingredient.id === recipeItem.id)
+      let name = cookbook.ingredients.find(ingredient => ingredient.id === recipeItem.id)
       if(!list[recipeItem.id]) {
         list[recipeItem.id] = undefined;
       }
       userIngredients.forEach(userIngredient => {
         let total = userIngredient[recipeItem.id] - recipeItem.quantity.amount
+
         if(userIngredient[recipeItem.id] >= recipeItem.quantity.amount) {
           list[recipeItem.id] = `You will have ${total} ${recipeItem.quantity.unit} of ${name.name} left`
         } 
-         else if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
+        else if(userIngredient[recipeItem.id] < recipeItem.quantity.amount) {
           const missing = recipeItem.quantity.amount - userIngredient[recipeItem.id]
           list[recipeItem.id] = `sorry! it seems you are missing ${missing} ${recipeItem.quantity.unit} of ${name.name} `
         }
         else if(!list[recipeItem.id]) {
-          const missing = recipeItem.quantity.amount
+          const missing = recipeItem.quantity.amount;
           list[recipeItem.id] = `sorry! you need ${missing } ${recipeItem.quantity.unit} of ${name.name}`
         }
       });
-      console.log(recipe)
-      return list 
+      return list ;
     }, {});
     return returnFeedback;
   }
