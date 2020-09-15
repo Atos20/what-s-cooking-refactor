@@ -69,9 +69,17 @@ class DomUpdates {
   }
   
   displayDirections(cardArea, recipeObject, costInDollars) {
+    const ingredientsIds = recipeObject.ingredients.map(ingredient => ingredient.id)
+    const currentRecipe = ingredientsIds.map(id => recipeObject.ingredientsData.find(ing => ing.id === id))
+    const amounts = recipeObject.ingredients.map(ingredient => ({id: ingredient.id, amount : ingredient.quantity.amount, unit: ingredient.quantity.unit}))
+    const data = currentRecipe.map(ingredient => ({id: ingredient.id, name: ingredient.name}))
+    const mergedData = amounts.map((amount, i) => {
+      if(amount.id === data[i].id){
+        return Object.assign({},amount,data[i])
+      }
+    })
     cardArea.classList.add('all');
     cardArea.innerHTML = `
-    
       <h3>${recipeObject.name}</h3>
         <p class='all-recipe-info'>
         <strong>It will cost: </strong><span class='cost recipe-info'>
@@ -82,9 +90,10 @@ class DomUpdates {
       </p>`;
     let ingredientsSpan = document.querySelector('.ingredients');
     let instructionsSpan = document.querySelector('.instructions');
-    recipeObject.ingredients.forEach(ingredient => {
+    // console.log(recipeObject.ingredients)
+    mergedData.forEach(ingredient => {
       ingredientsSpan.insertAdjacentHTML('afterbegin', `<ul><li>
-      ${ingredient.quantity.amount.toFixed(2)} ${ingredient.quantity.unit}
+      ${ingredient.amount.toFixed(2)} ${ingredient.unit}
       ${ingredient.name}</li></ul>
       `)
     })
@@ -95,17 +104,33 @@ class DomUpdates {
     })
   }
 
-  updateSearch() {
-    let recipeNames = document.querySelectorAll('.recipe-name');
-    recipeNames.forEach(recipe =>{
+  updateSearchByRecipeName(inputByUser) {
+    const recipeCards = document.querySelectorAll('.recipe-name')
+    const lowerInput = inputByUser.toLowerCase()
+    recipeCards.forEach(recipe => {
       let lowerCaseRecipe = recipe.innerText.toLowerCase()
-      if (!lowerCaseRecipe.includes(searchInput.value)) {
-        document.getElementById(recipe.id).classList.add("hidden")
-      } else {
-        document.getElementById(recipe.id).classList.remove("hidden");
-      }
-    })
+        if (!lowerCaseRecipe.includes(lowerInput)) {
+          document.getElementById(recipe.id).classList.add("hidden")
+          } else {
+            document.getElementById(recipe.id).classList.remove("hidden");
+          }
+      })
   }
+
+  updateSearchByIngredientName(inputByUser, cookbook){
+    const lowerCaseInput = inputByUser.toLowerCase()
+    
+    //by iterating through the cookbook.ingredients => ing names || ing.name 
+    //when the user types milk => i should me able to find the ing id
+    //iterating through the coobkbook.recipes[]/map(e => e.ingredient.includes(ing.id)find the recipe the recipe)
+    const ingredientsNames = cookbook.ingredients.map(ingredient => ingredient.name) //array of names
+    const ingredientsIds = cookbook.ingredients.map(ingredient => ingredient.id) //array of ids
+    //find the id of the ingredient input by the user
+    // console.log(cookbook.ingredients)
+
+    //if I am able to returnt the id I should be able to target the recipes and do the add and remove hidden
+}
+
 
   greetUser(currentUser) {
     const userName = document.querySelector('.user-name');
@@ -113,12 +138,10 @@ class DomUpdates {
     Welcome ${currentUser.name.split(' ')[0]} ${currentUser.name.split(' ')[1][0]}.
     `
   }
-//should update the dom
-  //after the user has clicked on the images the message should change
+
   displayIngredientFeedback(feedback, id) {
-    console.log(id)
     let card = document.getElementById(id)
-    let name = document.getElementById(`${id} name`)
+    // let name = document.getElementById(`${id} name`)
     card.innerHTML = ``;
     card.insertAdjacentHTML('beforeend', `
     <div class="user-options">
@@ -143,6 +166,7 @@ class DomUpdates {
     </ul>
     `)
     card.insertAdjacentHTML('beforeend', `
+    <button class='cooked ' id='${id}'>Check when cooked</button>
     <i class="fas fa-arrow-circle-left back-button"></i>
     `)
  }

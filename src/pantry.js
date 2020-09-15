@@ -27,10 +27,10 @@ class Pantry {
     });
   }
  
-  giveFeedbackOnIngredients(recipe, cookbook) { 
+  giveFeedbackOnIngredients(recipe) { 
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
-      let name = cookbook.ingredients.find(ingredient => ingredient.id === recipeItem.id)
+      let name = recipe.ingredients.find(ingredient => ingredient.id === recipeItem.id)
       if(!list[recipeItem.id]) {
         list[recipeItem.id] = undefined;
       }
@@ -67,45 +67,39 @@ class Pantry {
     this.ingredientsNeeded = whatsNeeded;
     return whatsNeeded
   }
-  //i am not sure why this methosis breaking the calculate cost method.
-  // saveItemsToPantry(recipe) { 
-  //   const itemsNeeded = this.calculateIngredientsNeeded(recipe);
-  //   this.pantry.push(...itemsNeeded);
-  //   const entries = Object.entries(this.consolidateUsersPantry())
-  //   const reorganizedData = entries.map(item => {
-  //     return {ingredient: item[0], amount: item[1]}
-  //   })
-  //   return reorganizedData
-  // }
 
-  saveItemsInPantry(recipe) {
-    const shoppingToPantry = recipe.ingredients.map(item => {
-      return {
-        ingredient: item.id, 
-        ingredientModification: item.quantity.amount
-      }
-    })
-    return shoppingToPantry
-  } 
-
-  ingredientsToPantry(recipe) {
+  itemsToPantryLocal(recipe, condition) {
     const requisition = recipe.ingredients.map(item => {
-      return {
-        userID: this.userId, 
-        ingredientID: item.id, 
-        ingredientModification: item.quantity.amount
+      const request = {
+        ingredient: item.id, 
+        ingredientModification: 0
       }
+      if(condition === 'add'){
+        request.ingredientModification = item.quantity.amount
+      }
+      if(condition === 'remove'){
+        request.ingredientModification = -item.quantity.amount
+      }
+      return request
     })
     return requisition
-  }
-   
-  removeIngredientsFromPantry(recipe) {
+  } 
+
+  ingredientsToPantryRemote(recipe, condition) {
+
     const requisition = recipe.ingredients.map(item => {
-      return  {
+      const request = {
         userID: this.userId, 
         ingredientID: item.id, 
-        ingredientModification: -item.quantity.amount
+        ingredientModification: 0
       }
+      if(condition === 'add'){
+        request.ingredientModification = item.quantity.amount
+      }
+      if(condition === 'remove'){
+        request.ingredientModification = -item.quantity.amount
+      }
+      return request
     })
     return requisition
   }
