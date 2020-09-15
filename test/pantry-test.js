@@ -1,17 +1,17 @@
 const spies = require('chai-spies');
 import { expect } from 'chai';
-import sampleUserData from './sampleUserData.js'
+import sampleUserData from '../src/data/test-data/dummy-user-data.js'
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
 import Recipe from '../src/recipe.js';
-import recipeData from '../src/data/recipes.js';
+import recipeSample from '../src/data/test-data/dummy-recipe.js';
 import ingredientsData from '../src/data/ingredients.js';
 
 let user1, recipe1, pantry, recipeIngredients1;
 
 describe('Pantry', () => {
   beforeEach(() => {
-    recipeIngredients1 = recipeData[0];
+    recipeIngredients1 = recipeSample[0];
     recipe1 = new Recipe(recipeIngredients1, ingredientsData);
     user1 = new User(sampleUserData[0]);
     pantry = new Pantry(user1);
@@ -52,6 +52,15 @@ describe('Pantry', () => {
     ]);
   });
 
+  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
+    pantry.consolidateUsersPantry();
+    pantry.giveFeedbackOnIngredients(recipe1);
+    expect(pantry.checkPantryForIngredient(recipe1)).to.equal('You have the ingredients!');
+  });
+
+  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
+    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.equal('You do not have the ingredients!');
+
   it('Should be able to to return a message about the current status of each ingredient for a given recipe', () => {
     expect(pantry).to.have.property('pantry').with.lengthOf(20);
     expect(pantry.pantry).to.deep.eql(user1.pantry);
@@ -76,15 +85,6 @@ describe('Pantry', () => {
     let consolidatedPantry = (pantry.consolidateUsersPantry());
     expect(consolidatedPantry[1123]).to.equal(8);
   });
-
-  it.skip('Should be able to check ingredients in User/s pantry for a given recipe', () => {
-    pantry.consolidateUsersPantry();
-    pantry.giveFeedbackOnIngredients(recipe1);
-    expect(pantry.checkPantryForIngredient(recipe1)).to.equal('You have the ingredients!');
-  });
-
-  it.skip('Should be able to check if user does not have ingredients in pantry', () => {
-    expect(pantry.checkPantryForIngredient(recipeIngredients1)).to.equal('You do not have the ingredients!');
 
   });
 

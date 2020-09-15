@@ -7,7 +7,7 @@ import spies from 'chai-spies';
 import { expect } from 'chai';
 chai.use(spies)
 import DomUpdates from '../src/DomUpdates.js'
-import sampleUserData from './sampleUserData.js'
+import sampleUserData from '../src/data/test-data/dummy-user-data.js'
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
 import Recipe from '../src/recipe.js';

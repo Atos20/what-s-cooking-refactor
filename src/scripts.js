@@ -102,6 +102,7 @@ const cardButtonConditionals = (event) => {
   if(event.target.classList.contains('icon')) {
     let id = event.target.id
     let currentRecipe = cookbook.recipes.find(x => x.id === +id)
+    console.log(currentRecipe)
     let ingredientFeedback = Object.values(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
     domUpdates.displayIngredientFeedback(ingredientFeedback, id)
   }

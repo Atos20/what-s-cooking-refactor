@@ -8,8 +8,7 @@ class Cookbook {
     let filteredRecipes = this.ingredients.filter(x => x.name).filter(x => x.name.includes(searchText)).map(x => x.id)
     return this.recipes.filter(recipe => {
       return recipe.ingredients.find(ingredient => {
-        return (filteredRecipes.includes(ingredient.id)) ||
-      (recipe.name.includes(searchText))
+        return (filteredRecipes.includes(ingredient.id)) || (recipe.name.includes(searchText))
       });
     })
   }

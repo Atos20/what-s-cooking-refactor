@@ -28,6 +28,7 @@ class Pantry {
   }
  
   giveFeedbackOnIngredients(recipe) { 
+    console.log(recipe)
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
       let name = recipe.ingredients.find(ingredient => ingredient.id === recipeItem.id)
@@ -48,6 +49,7 @@ class Pantry {
           list[recipeItem.id] = `sorry! you need ${missing } ${recipeItem.quantity.unit} of ${name.name}`
         }
       });
+      console.log(recipe)
       return list 
     }, {});
     return returnFeedback;
