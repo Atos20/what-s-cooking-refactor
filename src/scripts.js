@@ -24,7 +24,6 @@ const displaySearch = () => {
   let results = cookbook.findRecipe(inputByUser).map(recipe => recipe.id)
   console.log(results)
   domUpdates.updateSearchByRecipeName(results)
-  // domUpdates.updateSearchByTagName(inputByUser, cookbook)
 }
 
 const addToCookLater = (event) => {
