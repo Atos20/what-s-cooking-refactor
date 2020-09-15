@@ -1,10 +1,10 @@
 import chai from 'chai';
 import spies from 'chai-spies';
 import { expect } from 'chai';
-chai.use(spies)
 import DomUpdates from '../src/DomUpdates.js'
 import sampleUserData from '../src/data/test-data/dummy-user-data.js'
 import User from '../src/user.js';
+chai.use(spies)
 
 describe('DomUpdates', () => {
     let recipe, user, domUpdates, cardArea, favButton, event, specificRecipe;
