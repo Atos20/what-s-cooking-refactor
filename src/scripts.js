@@ -22,7 +22,6 @@ const domUpdates = new DomUpdates();
 const displaySearch = () => {
   const inputByUser = searchInput.value
   let results = cookbook.findRecipe(inputByUser).map(recipe => recipe.id)
-  console.log(results)
   domUpdates.updateSearchByRecipeName(results)
 }
 

@@ -112,22 +112,7 @@ class DomUpdates {
       } else {
         document.getElementById(recipe.id).classList.remove("hidden");
       }
-  })
-}
-
-
-  updateSearchByIngredientName(inputByUser, cookbook){
-    const lowerCaseInput = inputByUser.toLowerCase()
-    
-    //by iterating through the cookbook.ingredients => ing names || ing.name 
-    //when the user types milk => i should me able to find the ing id
-    //iterating through the coobkbook.recipes[]/map(e => e.ingredient.includes(ing.id)find the recipe the recipe)
-    const ingredientsNames = cookbook.ingredients.map(ingredient => ingredient.name) //array of names
-    const ingredientsIds = cookbook.ingredients.map(ingredient => ingredient.id) //array of ids
-    //find the id of the ingredient input by the user
-    // console.log(cookbook.ingredients)
-
-    //if I am able to returnt the id I should be able to target the recipes and do the add and remove hidden
+    })
   }
 
 
