@@ -1,12 +1,12 @@
 import './css/styles.scss';
 
 import ingredientsData from './data/ingredients';
-
 import Pantry from './pantry';
 import Recipe from './recipe';
 import User from './user';
 import Cookbook from './cookbook';
 import DomUpdates from './DomUpdates';
+
 let cookbook, currentUser, userPantry, currentRecipe;
 
 const favButton = document.querySelector('.view-favorites');
@@ -113,7 +113,7 @@ const cardButtonConditionals = (event) => {
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updatePurchase(messages, id))
+    .then(messages => domUpdates.updateMessage(messages, id))
     .catch(err => alert(err))
   }
   if(event.target.classList.contains('cooked')){
@@ -123,7 +123,7 @@ const cardButtonConditionals = (event) => {
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updatePurchase(messages, id))
+    .then(messages => domUpdates.updateMessage(messages, id))
     .catch(err => alert(err))
   }
 }
