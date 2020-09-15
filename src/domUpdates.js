@@ -104,18 +104,17 @@ class DomUpdates {
     })
   }
 
-  updateSearchByRecipeName(inputByUser) {
-    const recipeCards = document.querySelectorAll('.recipe-name')
-    const lowerInput = inputByUser.toLowerCase()
+  updateSearchByRecipeName(results) {
+    const recipeCards = document.querySelectorAll('.card')
     recipeCards.forEach(recipe => {
-      let lowerCaseRecipe = recipe.innerText.toLowerCase()
-        if (!lowerCaseRecipe.includes(lowerInput)) {
-          document.getElementById(recipe.id).classList.add("hidden")
-          } else {
-            document.getElementById(recipe.id).classList.remove("hidden");
-          }
-      })
-  }
+      if (!results.includes(+recipe.id)) {
+        document.getElementById(recipe.id).classList.add("hidden")
+      } else {
+        document.getElementById(recipe.id).classList.remove("hidden");
+      }
+  })
+}
+
 
   updateSearchByIngredientName(inputByUser, cookbook){
     const lowerCaseInput = inputByUser.toLowerCase()
@@ -129,7 +128,7 @@ class DomUpdates {
     // console.log(cookbook.ingredients)
 
     //if I am able to returnt the id I should be able to target the recipes and do the add and remove hidden
-}
+  }
 
 
   greetUser(currentUser) {
@@ -140,6 +139,7 @@ class DomUpdates {
   }
 
   displayIngredientFeedback(feedback, id) {
+    console.log(feedback)
     let card = document.getElementById(id)
     // let name = document.getElementById(`${id} name`)
     card.innerHTML = ``;
@@ -169,7 +169,7 @@ class DomUpdates {
     <button class='cooked ' id='${id}'>Check when cooked</button>
     <i class="fas fa-arrow-circle-left back-button"></i>
     `)
- }
+  }
 }
 
 export default DomUpdates;

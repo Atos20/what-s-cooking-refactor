@@ -21,9 +21,10 @@ const domUpdates = new DomUpdates();
 
 const displaySearch = () => {
   const inputByUser = searchInput.value
-  const searchParent = document.querySelector('.cntr')
-  domUpdates.updateSearchByRecipeName(inputByUser)
-  domUpdates.updateSearchByTagName(inputByUser, cookbook)
+  let results = cookbook.findRecipe(inputByUser).map(recipe => recipe.id)
+  console.log(results)
+  domUpdates.updateSearchByRecipeName(results)
+  // domUpdates.updateSearchByTagName(inputByUser, cookbook)
 }
 
 const addToCookLater = (event) => {
