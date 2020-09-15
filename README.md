@@ -1,105 +1,103 @@
-# Webpack Starter Kit
+[![Contributors][contributors-shield]](https://github.com/Atos20/what-s-cooking-refactor/graphs/contributors)
+[![Forks][forks-shield]](https://github.com/Atos20/what-s-cooking-refactor/network/members)
+[![Issues][issues-shield]](https://github.com/Atos20/what-s-cooking-refactor/issues)
 
-## Clone This Repo
+## Foodamental _*group project*_
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+## Contributors
+  - [Kyle Jones](https://github.com/KJJones13)
+  - [Blake Donn](https://github.com/BlakeDonn)
+  - [Orlando Murcio](https://www.github.com/atos20)
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+## Context
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+### Set up
+* On the top right corner of this page, click the **Fork** button.
+- Clone the repository to your computer `git clone <URL>`
+  - When you run git clone - git clone [remote-address] [what you want to name the repo]
+  replace the [...] with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
+- `cd` into the repository with the following command `cd <repo-name>`
+- Run `npm install`
+- Run `open src/index.html`
 
-## Setup
+### Contribute
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
+- Create a new branch with `git checkout -b <new branch name>`
+- Open your text editor and add or remove functionalities to the site.
+- `git add` and `git commit -m "<your commit meessage>"` to save the changes to your local repository
+- `git push` your changes
+- Create a new pull request!
 
-Then install the library dependencies. Run:
+#### Technologies used:
+  * JavaScript ES6
+  * Terminal
+  * GitHub
+  * HTML
+  * SCSS
+  * Dependencies
 
-```bash
-npm install
-```
+## Challenges
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text and a pink background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+    - API's
+    - manipulation of nested data types
+    - use of chai-spies to spy on DOM related methods
 
-## Where to Add Your Code
+## Wins
 
-### JavaScript
+  * Use of chai-spies to test DOM related methods
+  * Resolving API promises and responses
+  * Project planning and organization
+  * Array prototype methods
+  * Practice OOP while creating the application
+  * Using the project board * issues, labels and tickets* to keep track of my progress
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+## Future Goals
 
-**Create all of your feature code files in the `src` directory.**
+  * Implement a login, or a way to select which user to view.
+  * Run-through video of the project
+  * Implement an animation using CSS and SASS
+  * Fix bugs
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
+## In Action
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
+#### Take 1
 
-### HTML
+- When the user clicks on the `favorite start` the recipes get added to the user's favorites. 
+- Whe user can click on the favorite button the user can see the recipes saved
+- By clicking on the `home button` the user can go back and see all the recipe cards
+  <img src="https://media.giphy.com/media/jqwbXFNrzwcf4eVfjl/giphy.gif" height=auto width=75%/>
 
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
+#### Take 2
 
-### CSS (SCSS/SASS)
+- When the user clicks on the `instructions button` the user is directed to a different view where the cost, ingredients needed and instructions for the recipe are displayed.
 
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
+  <img src="https://media.giphy.com/media/KBDXI5aB0xVXU1Nu6p/giphy.gif" alt="When the user click on the instructions button the user is directed to a different view where the cost, ingredients needed and instructions for the recipe are displayed" height=100% width=80%/>
 
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
+#### Take 3
+- When the user click on the `cookMeal button` the recipe card that was targeted hides and then a list of the status of each ingredinet form the user's pantry displays in the same place of the recipe card.
+- After the `cookMeal` button is clicked, the user is presented with two other buttons that appear at the button of where the recipe card was. 
+- The `No thanks` and `Add ingredients` button let the user decide to add the ingredients needed for the recipe to the user's pantry and the `No thanks` button let's the user go back to the previous vew to keep searching for recipes.
+  <img src="https://media.giphy.com/media/KeVtEUgnfl4zdABJjS/giphy.gif" alt=" After the `cookMeal` button is clicked, the user is presented with two other buttons that appear at the button of where the recipe card was. The `No thanks` and `Add ingredients` button let the user decide to add the ingredients needed for the recipe to the user's pantry and the `No thanks` button let's the user go back to the previous vew to keep searching for recipes." height=auto width=75%/>
 
-### Images
+## Project Directions
+[whats-cooking-refactor specifications](https://frontend.turing.io/projects/module-2/refactor-tractor-wc.html)
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
 
-## How to View Your Code in Action
+### Project Managers
+- [Bob Gu](https://github.com/BobGu)
+- [Travis Rollins](https://github.com/Kalikoze)
 
-In the terminal, run:
-
-```bash
-npm start
-```
-
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
-
-```bash
-Project is running at http://localhost:8080/
-```
-
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
-
----
-
-## Test Files Organization
-
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
-
----
-
-## Linting Your Code
-
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
-
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
-
-## Webpack?
-
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
-
-## Deploying to GitHub Pages
-
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
-
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
-
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[contributors-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[forks-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/network/members
+[stars-shield]: https://img.shields.io/github/stars/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[stars-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/stargazers
+[issues-shield]: https://img.shields.io/github/issues/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[issues-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues
+[license-shield]: https://img.shields.io/github/license/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[license-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: images/screenshot.png
