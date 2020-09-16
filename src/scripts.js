@@ -113,7 +113,7 @@ const cardButtonConditionals = (event) => {
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updateMessage(messages, id))
+    .then(messages => domUpdates.updateMessage(messages, id, recipe))
     .catch(err => alert(err))
   }
   if(event.target.classList.contains('cooked')){
@@ -123,7 +123,7 @@ const cardButtonConditionals = (event) => {
     post.then(values => Promise.all(values))
     .then(data => data.map(response => response.json()))
     .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updateMessage(messages, id))
+    .then(messages => domUpdates.updateMessage(messages, id, recipe))
     .catch(err => alert(err))
   }
 }
