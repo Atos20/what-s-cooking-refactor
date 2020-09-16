@@ -7,12 +7,9 @@ class User {
     this.recipesToCook = [];
   }
 
-//need to change addto favorite to just add and 
-  // elements
   addToFavorites(property, recipe) {
     if (!this[property].includes(recipe) && typeof recipe === 'object') {
       this[property].push(recipe)
-
     }
   }
 
@@ -22,15 +19,14 @@ class User {
 
   giveDefaultValue(dataType) {
     switch (dataType) {
-      case 'string':
-        return 'Invalid value given';
-        break;
-      case 'number':
-        return 0;
-        break;
+    case 'string':
+      return 'Invalid value given';
+      break;
+    case 'number':
+      return 0;
+      break;
     }
   }
-
 
   removeFromFavorites(property, recipe) {
     const i = this[property].indexOf(recipe);
@@ -52,13 +48,11 @@ class User {
     });
   }
 
-
   filterRecipesToCook(tag) {
     return this.recipesToCook.filter(recipe => {
       return recipe.tags.includes(tag);
     })
   }
-
 
   static getUserData(userId) {
     const userUrl = 'https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData'
@@ -75,8 +69,8 @@ class User {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(someDataToSend),// chane this to something with implici return?
-    })                                                                // have an iterable that return value at every iteration?
+      body: JSON.stringify(someDataToSend),
+    })
     return promise; 
   }
 }

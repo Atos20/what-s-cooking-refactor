@@ -1,4 +1,4 @@
-let ingredientsData = [
+const ingredientsData = [
   {
     "id": 20081,
     "name": "wheat flour",
