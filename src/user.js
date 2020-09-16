@@ -6,12 +6,10 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
-//need to change addto favorite to just add and 
-  // elements
+
   addToFavorites(property, recipe) {
     if (!this[property].includes(recipe) && typeof recipe === 'object') {
       this[property].push(recipe)
-
     }
   }
 
@@ -21,12 +19,12 @@ class User {
 
   giveDefaultValue(dataType) {
     switch (dataType) {
-      case 'string':
-        return 'Invalid value given';
-        break;
-      case 'number':
-        return 0;
-        break;
+    case 'string':
+      return 'Invalid value given';
+      break;
+    case 'number':
+      return 0;
+      break;
     }
   }
 

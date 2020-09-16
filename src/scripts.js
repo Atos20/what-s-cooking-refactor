@@ -27,7 +27,6 @@ const addToCookLater = (event) => {
   let targetRecipe = cookbook.recipes.find(recipe => recipe.id === +event.target.id);
   let cookingStatus = domUpdates.toggleNameClass(event, recipesToCookButton, 'cook-active')
   cookingStatus ? currentUser.addToFavorites('recipesToCook', targetRecipe) : currentUser.removeFromFavorites('recipesToCook', targetRecipe);
-  console.log(currentUser.recipesToCook)
 }
 
 const findRecipesToCook = () => {
@@ -59,7 +58,7 @@ const postIngredients = (currentRecipe, condition) => {
   let promisesReturned = ingredientToUpdate.reduce((returnValues, ingredient) => {
     returnValues.push(User.updateUserPantry(ingredient))
     return returnValues
-  },[])
+  }, [])
   return Promise.all(promisesReturned)
 }
 
@@ -93,38 +92,37 @@ const cardButtonConditionals = (event) => {
     declareRecipe(event)
     findDirections(event);
   } 
-  if(event.target.classList.contains('add-button')) {
-    console.log(event)
+  if (event.target.classList.contains('add-button')) {
     addToCookLater(event);
   }
-  if(event.target.classList.contains('icon')) {
+  if (event.target.classList.contains('icon')) {
     let id = event.target.id
     let currentRecipe = cookbook.recipes.find(x => x.id === +id)
     let ingredientFeedback = Object.values(userPantry.giveFeedbackOnIngredients(currentRecipe, cookbook))
     domUpdates.displayIngredientFeedback(ingredientFeedback, id)
   }
-  if(event.target.classList.contains('back-button')){
+  if (event.target.classList.contains('back-button')) {
     domUpdates.populateCards(cookbook.recipes, cardArea, currentFavs())
   }
-  if(event.target.classList.contains('purchase-button')){
+  if (event.target.classList.contains('purchase-button')) {
     let id = event.target.id
     const recipe = declareRecipe(event)
     const post = postIngredients(recipe, 'add') 
     post.then(values => Promise.all(values))
-    .then(data => data.map(response => response.json()))
-    .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updateMessage(messages, id, recipe))
-    .catch(err => alert(err))
+      .then(data => data.map(response => response.json()))
+      .then(promises => Promise.all(promises))
+      .then(messages => domUpdates.updateMessage(messages, id, recipe))
+      .catch(err => alert(err))
   }
-  if(event.target.classList.contains('cooked')){
+  if (event.target.classList.contains('cooked')) {
     let id = event.target.id
     const recipe = declareRecipe(event)
     const post = postIngredients(recipe, 'remove') 
     post.then(values => Promise.all(values))
-    .then(data => data.map(response => response.json()))
-    .then(promises => Promise.all(promises))
-    .then(messages => domUpdates.updateMessage(messages, id, recipe))
-    .catch(err => alert(err))
+      .then(data => data.map(response => response.json()))
+      .then(promises => Promise.all(promises))
+      .then(messages => domUpdates.updateMessage(messages, id, recipe))
+      .catch(err => alert(err))
   }
 }
 
@@ -141,7 +139,7 @@ const onStartup = () => {
       domUpdates.populateCards(cookbook.recipes, cardArea);
       userPantry = new Pantry(currentUser)  
     })
-  }
+}
 
 window.onload = onStartup();
 
