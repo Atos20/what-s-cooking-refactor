@@ -29,7 +29,6 @@ class Pantry {
   }
  
   giveFeedbackOnIngredients(recipe, cookbook) { 
-
     const userIngredients = this.checkPantryForIngredient(recipe);
     const returnFeedback = recipe.ingredients.reduce((list, recipeItem) => {
       let name = cookbook.ingredients.find(ingredient => ingredient.id === recipeItem.id)
@@ -38,7 +37,6 @@ class Pantry {
       }
       userIngredients.forEach(userIngredient => {
         let total = userIngredient[recipeItem.id] - recipeItem.quantity.amount
-
         if(userIngredient[recipeItem.id] >= recipeItem.quantity.amount) {
           list[recipeItem.id] = `You will have ${total} ${recipeItem.quantity.unit} of ${name.name} left`
         } 
