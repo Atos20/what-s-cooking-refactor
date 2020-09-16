@@ -1,4 +1,3 @@
-const spies = require('chai-spies');
 import { expect } from 'chai';
 import User from '../src/user.js';
 import Pantry from '../src/pantry.js';
@@ -8,7 +7,7 @@ import RecipeSample from '../src/data/test-data/dummy-recipe.js';
 import ingredientsSample from '../src/data/test-data/dummy-ingredients.js';
 import sampleUserData from '../src/data/test-data/dummy-user-data.js'
 
-let user1, recipe1, pantry, recipeIngredients1, cookbook;
+let user1, recipe1, pantry, cookbook;
 
 describe('Pantry', () => {
   beforeEach(() => {
@@ -18,11 +17,11 @@ describe('Pantry', () => {
     cookbook = new Cookbook(RecipeSample[0], ingredientsSample)
   });
   it('Should be a function', () => {
-   expect(Pantry).to.be.a('function');
+    expect(Pantry).to.be.a('function');
   });
 
   it('Should be a instance of Pantry', () => {
-   expect(pantry).to.be.an.instanceof(Pantry);
+    expect(pantry).to.be.an.instanceof(Pantry);
   });
 
   it('Should be able to keep track of the user\'s pantry', () => {
@@ -114,24 +113,24 @@ describe('Pantry', () => {
   it('Should be able to update the pantry after a meal has been cooked', () => {
     pantry.cookMeal(recipe1);
     expect(pantry.pantry).to.deep.equal(
-    [
-      { ingredient: 11477, amount: 1 },
-      { ingredient: 93820, amount: 1 },
-      { ingredient: 11297, amount: 3 },
-      { ingredient: 11547, amount: 5 },
-      { ingredient: 1082047, amount: 5 },
-      { ingredient: 1032050, amount: 1 },
-      { ingredient: 11215, amount: 2 },
-      { ingredient: 10514037, amount: 2 },
-      { ingredient: 2047, amount: 1.5 },
-      { ingredient: 12179, amount: 1 },
-      { ingredient: 1123, amount: 3 },
-      { ingredient: 11282, amount: 5 },
-      { ingredient: 1123, amount: 3 },
-      { ingredient: 19335, amount: 1.5 },
-      { ingredient: 1145, amount: 1.5 },
-      { ingredient: 18372, amount: 2.5 },
-      { ingredient: 2047, amount: 0.5 }
-    ]);
+      [
+        { ingredient: 11477, amount: 1 },
+        { ingredient: 93820, amount: 1 },
+        { ingredient: 11297, amount: 3 },
+        { ingredient: 11547, amount: 5 },
+        { ingredient: 1082047, amount: 5 },
+        { ingredient: 1032050, amount: 1 },
+        { ingredient: 11215, amount: 2 },
+        { ingredient: 10514037, amount: 2 },
+        { ingredient: 2047, amount: 1.5 },
+        { ingredient: 12179, amount: 1 },
+        { ingredient: 1123, amount: 3 },
+        { ingredient: 11282, amount: 5 },
+        { ingredient: 1123, amount: 3 },
+        { ingredient: 19335, amount: 1.5 },
+        { ingredient: 1145, amount: 1.5 },
+        { ingredient: 18372, amount: 2.5 },
+        { ingredient: 2047, amount: 0.5 }
+      ]);
   });
 });
